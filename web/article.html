@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Article</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="article.js"></script>
+
+</head>
+<body>
+
+<div class="jumbotron bg-primary text-center text-white">Personal Article:</div>
+<div class="container">
+    <div class="row">
+        <div class="header">
+            <!--<div class="triangulo"></div>-->
+            <div class="profile">
+                <!--to add the profile imgs -->
+                <img src=".icon"/>
+                <span class="name-author"></span>
+            </div>
+            <h2 class="title"></h2>
+        </div>
+
+        <!-- INFO -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h4 style="line-height: 25px;">Article Name:</h4>
+            </div>
+        </div>
+        <div class="row row-eq-height m-auto">
+            <div class="col-xs-9 text m-auto">
+                <p>Some texts.Some texts.Some texts.Some texts.Some texts.Some texts.Some texts.Some texts.Some
+                    texts.Some texts.Some texts.Some texts.Some texts.Some texts.</p>
+                <p>Some texts.Some texts.Some texts.Some texts.Some texts.Some texts.Some texts.Some texts.Some
+                    texts.Some texts.Some texts.Some texts.Some texts.Some texts.</p>
+                <p>Some texts.Some texts.Some texts.Some texts.Some texts.Some texts.Some texts.Some texts.Some
+                    texts.Some texts.Some texts.Some texts.Some texts.Some texts.</p>
+                <p>Some texts.Some texts.Some texts.Some texts.Some texts.Some texts.Some texts.Some texts.Some
+                    texts.Some texts.Some texts.Some texts.Some texts.Some texts.</p>
+                <p>Some texts.Some texts.Some texts.Some texts.Some texts.Some texts.Some texts.Some texts.Some
+                    texts.Some texts.Some texts.Some texts.Some texts.Some texts. </p>
+            </div>
+            <!-- Sidebar // advertising -->
+            <div class="col-xs-3 side">
+
+                <small>
+                    <div class="statistics">
+                        <p><span class="label label-default">Visitas 2550</span></p>
+                        <p><span class="label label-default">Comentarios 15</span></p>
+                        <p><span class="label label-default">Compartido 50 veces</span></p>
+                        <p><span class="label label-default">Me gusta 20</span></p>
+                    </div>
+                    <p style="margin-bottom:0px;margin-top:25px;"><b>Noticias importantes</b></p>
+                    <ul class="list-group">
+                        <li class="list-group-item">Link</li>
+                        <li class="list-group-item">Link</li>
+                        <li class="list-group-item">Link</li>
+                        <li class="list-group-item">Link</li>
+                        <li class="list-group-item">Link</li>
+                    </ul>
+                </small>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row"></div>
+<div class="col-lg-10 m-auto">
+    <button type="submit" class="btn btn-info btn-lg float-right" onclick="addcomment()">Comment</button>
+</div>
+<br/>
+<br/>
+<br/>
+
+<div class="row">
+    <ul id="cmList" class="mx-4 col-lg-8 m-auto">
+
+    </ul>
+</div>
+
+<div class="jumbotron bg-dark jumbotron-fluid">
+    <img class="img-responsive mx-auto d-block" src="" width="600" >
+</div>
+</body>
+</html>
