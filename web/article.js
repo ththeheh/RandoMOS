@@ -13,5 +13,4 @@ function addcomment() {
     var div = document.createElement('div');
     div.innerHTML = a1+a2+a3+a4+a5+a6;
     document.getElementById("cmList").appendChild(div);
-
 }
