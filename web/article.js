@@ -2,12 +2,6 @@
 //make sure there can be multiple comments that can be replied.
 
 
-
-
-
-
-
-
 var i = 0;
 
 function addcomment() {
@@ -52,7 +46,7 @@ function addcomment() {
         "                        </div>\n" +
         "                    </div>\n" +
         "                </div>";
-    var id = "list"+(i++);
+    var id = "list" + (i++);
     var a7 = "<ul id='list'></ul>";
     var div = document.createElement('div');
     div.innerHTML = a1 + a2 + a3 + a4 + a5 + a6 + a7;
