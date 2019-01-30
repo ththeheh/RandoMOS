@@ -1,5 +1,6 @@
 
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -16,6 +17,15 @@
 
 </head>
 <body>
+
+<c:if test="${usernameinfo=='Not exist'}">
+    <script>alert("This account does not exit! Please double check or you have to register a new account!")</script>
+</c:if>
+
+<c:if test="${usernameinfo=='Not match'}">
+    <script>alert("Your username and password do not match, please reenter!")</script>
+</c:if>
+
 <div class="container">
     <div class="col-lg-6 col-md-8 col-sm-8 my-5" style="margin: auto ">
         <div class="card" style="background:#F8F9F9">
@@ -30,13 +40,13 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user "></i></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="username">
+                        <input type="text" class="form-control" placeholder="username" name="username">
                     </div>
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
-                        <input type="password" class="form-control" placeholder="password">
+                        <input type="password" class="form-control" placeholder="password" name="password">
                     </div>
                     <div class="row align-items-center remember">
                         <input type="checkbox">Remember Me

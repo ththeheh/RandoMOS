@@ -17,6 +17,7 @@ public class LoginDataServletNew extends HttpServlet {
 
             LoginDataDAO dao = new LoginDataDAO(connection);
             String userName = req.getParameter("userName");
+            System.out.println(userName);
             String firstName = req.getParameter("firstName");
             String lastName =req.getParameter("lastName");
             String birthday = req.getParameter("birthday");
@@ -24,24 +25,19 @@ public class LoginDataServletNew extends HttpServlet {
             String email = req.getParameter("email");
             String description = req.getParameter("description");
             String password = req.getParameter("password");
-            String hashedSaltedCode = req.getParameter("hashedSaltedCode");
 
-            LoginDataJavabean loginData = new LoginDataJavabean();
-            loginData.setUserName(userName);
-            loginData.setFirstName(firstName);
-            loginData.setLastName(lastName);
-            loginData.setBirthday(birthday);
-            loginData.setCountry(country);
-            loginData.setEmail(email);
-            loginData.setDescription(description);
-            loginData.setPassword(password);
-            loginData.setHashedSaltedCode(hashedSaltedCode);
+//            Do hashedCode here and store; and when comparing password, we need to get the hashedcode out from database and then crack it to password and compare.
+//            String hashedSaltedCode = req.getParameter("hashedSaltedCode");
+//            System.out.println(password);
+
+            LoginDataJavabean loginData = new LoginDataJavabean(userName,firstName,lastName,birthday,country,email,description,password);
+               // need to call encoding class to create hashedcode to store
 
             dao.addLoginData(loginData);
 
             //sendRedirect to LoginDataServlet
             //refer to web.xml file for url-pattern
-            resp.sendRedirect("../loginData");
+            resp.sendRedirect("loginPage.jsp");
 
         } catch (SQLException e) {
             e.printStackTrace();
