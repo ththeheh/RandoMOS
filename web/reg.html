@@ -37,21 +37,22 @@
 
                 <form action="loginDataNew" method="post">
 
-                    <div class="form-group">
-                        <label for="userName"><strong> Username:</strong></label>
+
+                    <div class="input-group form-group">
+                        <label for="userName"><strong>Username:</strong></label>
                         <input type="text" class="form-control" id="userName" name="userName" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="input-group form-group">
                         <label for="firstName"><strong>First Name: </strong></label>
                         <input type="text" class="form-control" id="firstName" name="firstName" required>
                     </div>
-                    <div class="form-group">
+                    <div>
                         <label for="lastName"><strong>Last Name: </strong></label>
                         <input type="text" class="form-control" id="lastName" name="lastName" required>
                     </div>
                     <br/>
-                    <div class="form-group" id="countrylist" onload="countrylist()" >
+                    <div id="countrylist" onload="countrylist()" >
                         <label><strong>Country: </strong></label>
                         <select name="country">
                             <option value="United States">United States</option>

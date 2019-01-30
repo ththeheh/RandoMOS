@@ -16,7 +16,6 @@ public class LoginDataDAO {
     //Use this method to add new data entries- used in LoginDataServletNew
     public void addLoginData(LoginDataJavabean loginData) throws SQLException {
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO loginDataTable(userName, firstName,lastName, birthday, country, email, description, hashedSaltedCode) VALUES (?,?,?,?,?,?,?,?)")) {
-            System.out.println(loginData.getUserName());
             preparedStatement.setString(1, loginData.getUserName());
             preparedStatement.setString(2, loginData.getFirstName());
             preparedStatement.setString(3, loginData.getLastName());
@@ -32,8 +31,8 @@ public class LoginDataDAO {
 
 //            System.out.println("Row added");
             //Just indicating how many rows are added
-//            int numRows = preparedStatement.executeUpdate();
-//            System.out.println(numRows + " rows added");
+            int numRows = preparedStatement.executeUpdate();
+            System.out.println(numRows + " rows added");
 
         }
     }

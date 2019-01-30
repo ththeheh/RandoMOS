@@ -17,7 +17,6 @@ public class LoginDataServletNew extends HttpServlet {
 
             LoginDataDAO dao = new LoginDataDAO(connection);
             String userName = req.getParameter("userName");
-            System.out.println(userName);
             String firstName = req.getParameter("firstName");
             String lastName =req.getParameter("lastName");
             String birthday = req.getParameter("birthday");
