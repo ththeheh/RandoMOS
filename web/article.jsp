@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +29,7 @@
 <!--should be normal nav bars-->
 
 <div class="jumbotron text-center bg-muted" style="margin-bottom:0">
-    <h1 style ="color:dimgray;">My article page UOAMOS </h1>
+    <h1 style="color:dimgray;">My article page UOAMOS </h1>
 </div>
 <header class="c-header" style="margin-top:5px; margin-bottom:10px">
     <nav class="navbar navbar-expand-sm bg-muted">
@@ -76,59 +79,80 @@
                     </form>
                 </div>
                 <div>
-
-                    <a class="nav-link text-muted" href="#"> Login </a>
+                    <c:choose>
+                        <c:when test="${username !=null}">
+                            <a class="nav-link text-muted" href="#"> Logout </a>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="nav-link text-muted" href="#"> Login </a>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div>
-                    <a class="nav-link text-muted" href="reg.html"> Register </a>
+                    <c:choose>
+                        <c:when test="${username ==null}">
+                            <a class="nav-link text-muted" href="reg.html"> Register </a>
+                        </c:when>
+                        <c:otherwise>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
+
                 <div>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                    Create New Articles!
-                </button>
-                </div>
-                <div class="modal" id="myModal">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
+                    <c:choose>
+                        <c:when test="${username !=null}">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                Create New Articles!
+                            </button>
+                            <div class="modal" id="myModal">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
 
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <h4 class="modal-title">You can write your article here!
-                                </h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">You can write your article here!
+                                            </h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
 
-                            <!-- Modal body -->
-                            <div class="modal-body">
-                                <form action="#">
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            <form action="#">
+                                                <%--send to servlet and build the article using this page.--%>
+                                                <div class="form-group">
+                                                    <label for="title"><strong> Your Title:</strong></label>
+                                                    <input type="text" class="form-control" id="title" required>
+                                                </div>
 
-                                    <div class="form-group">
-                                        <label for="title"><strong> Your Title:</strong></label>
-                                        <input type="text" class="form-control" id="title" required>
+                                                <div class="form-group">
+                                                    <label for="article"></label>
+                                                    <textarea class="form-control" rows="20" id="article"
+                                                              placeholder="Put your article content here..."></textarea>
+                                                </div>
+                                            </form>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-lg" onclick="">
+                                                    Publish!
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close
+                                            </button>
+                                        </div>
+
                                     </div>
-
-                                    <div class="form-group">
-                                        <label for="article"></label>
-                                        <textarea class="form-control" rows="20" id="article"
-                                                  placeholder="Put your article content here..."></textarea>
-                                    </div>
-                                </form>
-                                <div class="form-group">
-
-                                    <button type="submit" class="btn btn-primary btn-lg"    data-dismiss="modal" onclick="">
-                                        Publish!
-                                    </button>
                                 </div>
                             </div>
 
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close
-                                </button>
-                            </div>
+                            <%--<a class="nav-link text-muted" href="createarticle.html"><h5> Create New Articles! </h5></a>--%>
 
-                        </div>
-                    </div>
+                        </c:when>
+                        <c:otherwise>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>
@@ -142,7 +166,8 @@
             <!--<div class="triangulo"></div>-->
             <div class="profile">
                 <!--to add the profile imgs -->
-                <img class='card-img-top img-thumbnail rounded-circle boarder-primary' src='./images/icons/666201.png' alt='Card image cap' style='width: 150px;height: 150px;'>
+                <img class='card-img-top img-thumbnail rounded-circle boarder-primary' src='./images/icons/666201.png'
+                     alt='Card image cap' style='width: 150px;height: 150px;'>
                 <span class="name-author"></span>
             </div>
             <h2 class="title"></h2>
@@ -216,13 +241,14 @@
 <br/>
 
 <div class="row">
-<div class="col-lg-8 col-sm-8 col-md-8 m-auto">
+    <div class="col-lg-8 col-sm-8 col-md-8 m-auto">
         <div class="form-group">
             <label for="comment">Your Comment:</label>
             <textarea class="form-control" rows="5" id="comment"></textarea>
         </div>
-    <button type="submit" class="btn btn-info btn-lg float-right" onclick="addcomment()"><strong>Comment</strong></button>
-</div>
+        <button type="submit" class="btn btn-info btn-lg float-right" onclick="addcomment()"><strong>Comment</strong>
+        </button>
+    </div>
 </div>
 <br/>
 <br/>
@@ -230,6 +256,7 @@
 
 <div class="row">
     <ul id="cmList" class="col-lg-8 m-auto">
+
     </ul>
 </div>
 
