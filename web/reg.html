@@ -35,23 +35,24 @@
             <br/>
             <div class="col-sm-12 col-md-8 col-lg-8">
 
-                <form action="#">
+                <form action="loginDataNew" method="post">
 
-                    <div class="form-group">
-                        <label for="username"><strong> Username:</strong></label>
-                        <input type="text" class="form-control" id="username" required>
+
+                    <div class="input-group form-group">
+                        <label for="userName"><strong>Username:</strong></label>
+                        <input type="text" class="form-control" id="userName" name="userName" required>
                     </div>
 
-                    <div class="form-group">
-                        <label for="fname"><strong>First Name: </strong></label>
-                        <input type="text" class="form-control" id="fname" required>
+                    <div class="input-group form-group">
+                        <label for="firstName"><strong>First Name: </strong></label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" required>
                     </div>
-                    <div class="form-group">
-                        <label for="lname"><strong>Last Name: </strong></label>
-                        <input type="text" class="form-control" id="lname" required>
+                    <div>
+                        <label for="lastName"><strong>Last Name: </strong></label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" required>
                     </div>
                     <br/>
-                    <div class="form-group" id="countrylist" onload="countrylist()" >
+                    <div id="countrylist" onload="countrylist()" >
                         <label><strong>Country: </strong></label>
                         <select name="country">
                             <option value="United States">United States</option>
@@ -298,15 +299,15 @@
                         </select>
                     </div>
                     <br/>
-
+<!--add name to match the parameter names. -->
                     <div class="form-group" >
                         <label for="email"><strong>Email Address:</strong></label>
-                        <input type="email" class="form-control" id="email" required>
+                        <input type="email" class="form-control" id="email" name="email" required>
                     </div>
 
                     <div class="form-group">
                         <label for="password"><strong>Password:</strong></label>
-                        <input type="password" class="form-control" id="password" required>
+                        <input type="password" class="form-control" id="password" name="password" required>
                     </div>
 
 
@@ -316,13 +317,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="bdate"><strong>Birthday: </strong></label>
-                        <input type="date" class="form-control" id="bdate" required>
+                        <label for="birthday"><strong>Birthday: </strong></label>
+                        <input type="date" class="form-control" id="birthday" name="birthday" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="desc"><strong>Short Intro: </strong></label>
-                        <input type="text" class="form-control" id="desc">
+                        <label for="description"><strong>Short Intro: </strong></label>
+                        <input type="text" class="form-control" id="description" name="description">
                     </div>
 
 

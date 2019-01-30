@@ -11,10 +11,12 @@ public class LoginDataJavabean implements Serializable {
     private String email;
     private String description;
     private String password;
-    private String hashedSaltedCode;
+//    private String hashedSaltedCode;
     public boolean valid;
 
-    public LoginDataJavabean(String userName, String firstName, String lastName, String birthday, String country, String email, String description, String password, String hashedSaltedCode){
+    public LoginDataJavabean(){}
+
+    public LoginDataJavabean(String userName, String firstName, String lastName, String birthday, String country, String email, String description, String password){
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -23,46 +25,44 @@ public class LoginDataJavabean implements Serializable {
         this.email = email;
         this.description = description;
         this.password = password;
-        this.hashedSaltedCode = hashedSaltedCode;
     }
 
-    public LoginDataJavabean(){}
 
     public String getUserName() {
-        return userName;
+        return this.userName;
     }
 
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     public String getBirthday() {
-        return birthday;
+        return this.birthday;
     }
 
     public String getCountry() {
-        return country;
+        return this.country;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
-    public String getHashedSaltedCode() {
-        return hashedSaltedCode;
-    }
+//    public String getHashedSaltedCode() {
+//        return hashedSaltedCode;
+//    }
 
     public void setUserName(String userName) {
         this.userName = userName;
@@ -96,9 +96,9 @@ public class LoginDataJavabean implements Serializable {
         this.password = password;
     }
 
-    public void setHashedSaltedCode(String hashedSaltedCode) {
-        this.hashedSaltedCode = hashedSaltedCode;
-    }
+//    public void setHashedSaltedCode(String hashedSaltedCode) {
+//        this.hashedSaltedCode = hashedSaltedCode;
+//    }
 
     public boolean isValid() {
         return valid;
