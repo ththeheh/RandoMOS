@@ -46,8 +46,7 @@ function addcomment() {
         "                        </div>\n" +
         "                    </div>\n" +
         "                </div>";
-    var id = "list" + (i++);
-    var a7 = "<ul id='list'></ul>";
+    var a7 = "<ul id='list'" +i++ + "></ul>";    //make this updated as per i.
     var div = document.createElement('div');
     div.innerHTML = a1 + a2 + a3 + a4 + a5 + a6 + a7;
     document.getElementById("cmList").appendChild(div);
@@ -101,6 +100,6 @@ function addReply() {
     var div = document.createElement('div');
     div.innerHTML = a1 + a2 + a3 + a4 + a5 + a6;
     // var id = testlist+i;
-    document.getElementById("list").appendChild(div);
+    document.getElementById("list+").appendChild(div);
 
 }

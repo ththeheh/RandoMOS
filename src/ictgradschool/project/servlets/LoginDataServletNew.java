@@ -18,7 +18,7 @@ public class LoginDataServletNew extends HttpServlet {
             LoginDataDAO dao = new LoginDataDAO(connection);
             String userName = req.getParameter("userName");
             String firstName = req.getParameter("firstName");
-            String lastName =req.getParameter("lastName");
+            String lastName = req.getParameter("lastName");
             String birthday = req.getParameter("birthday");
             String country = req.getParameter("country");
             String email = req.getParameter("email");
@@ -29,10 +29,16 @@ public class LoginDataServletNew extends HttpServlet {
 //            String hashedSaltedCode = req.getParameter("hashedSaltedCode");
 //            System.out.println(password);
 
-            LoginDataJavabean loginData = new LoginDataJavabean(userName,firstName,lastName,birthday,country,email,description,password);
-               // need to call encoding class to create hashedcode to store
+            LoginDataJavabean loginData = new LoginDataJavabean(userName, firstName, lastName, birthday, country, email, description, password);
+            // need to call encoding class to create hashedcode to store
+            String regMsg = dao.usernameConflict(userName, email);
+            if (regMsg.equals("Okay")) {
+                dao.addLoginData(loginData);
+            } else{
+                req.setAttribute("regMsg",regMsg );
+                req.getRequestDispatcher("reg.jsp").forward(req, resp);
+            }
 
-            dao.addLoginData(loginData);
 
             //sendRedirect to LoginDataServlet
             //refer to web.xml file for url-pattern

@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +29,14 @@
 
 </head>
 <body>
+
+<c:if test="${regMsg=='username'}">
+    <script>alert("This account already exists!")</script>
+</c:if>
+
+<c:if test="${regMsg=='email'}">
+    <script>alert("Your email has been registered!")</script>
+</c:if>
 <div class="container" style="margin-top: 5%;">
     <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-8"></div>
@@ -52,7 +63,7 @@
                         <input type="text" class="form-control" id="lastName" name="lastName" required>
                     </div>
                     <br/>
-                    <div id="countrylist" onload="countrylist()" >
+                    <div id="countrylist" onload="countrylist()">
                         <label><strong>Country: </strong></label>
                         <select name="country">
                             <option value="United States">United States</option>
@@ -106,7 +117,9 @@
                             <option value="Colombia">Colombia</option>
                             <option value="Comoros">Comoros</option>
                             <option value="Congo">Congo</option>
-                            <option value="Congo, The Democratic Republic of The">Congo, The Democratic Republic of The</option>
+                            <option value="Congo, The Democratic Republic of The">Congo, The Democratic Republic of
+                                The
+                            </option>
                             <option value="Cook Islands">Cook Islands</option>
                             <option value="Costa Rica">Costa Rica</option>
                             <option value="Cote D'ivoire">Cote D'ivoire</option>
@@ -168,7 +181,9 @@
                             <option value="Kazakhstan">Kazakhstan</option>
                             <option value="Kenya">Kenya</option>
                             <option value="Kiribati">Kiribati</option>
-                            <option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of</option>
+                            <option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic
+                                of
+                            </option>
                             <option value="Korea, Republic of">Korea, Republic of</option>
                             <option value="Kuwait">Kuwait</option>
                             <option value="Kyrgyzstan">Kyrgyzstan</option>
@@ -182,7 +197,9 @@
                             <option value="Lithuania">Lithuania</option>
                             <option value="Luxembourg">Luxembourg</option>
                             <option value="Macao">Macao</option>
-                            <option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former Yugoslav Republic of</option>
+                            <option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former Yugoslav
+                                Republic of
+                            </option>
                             <option value="Madagascar">Madagascar</option>
                             <option value="Malawi">Malawi</option>
                             <option value="Malaysia">Malaysia</option>
@@ -254,7 +271,9 @@
                             <option value="Solomon Islands">Solomon Islands</option>
                             <option value="Somalia">Somalia</option>
                             <option value="South Africa">South Africa</option>
-                            <option value="South Georgia and The South Sandwich Islands">South Georgia and The South Sandwich Islands</option>
+                            <option value="South Georgia and The South Sandwich Islands">South Georgia and The South
+                                Sandwich Islands
+                            </option>
                             <option value="Spain">Spain</option>
                             <option value="Sri Lanka">Sri Lanka</option>
                             <option value="Sudan">Sudan</option>
@@ -283,7 +302,8 @@
                             <option value="United Arab Emirates">United Arab Emirates</option>
                             <option value="United Kingdom">United Kingdom</option>
                             <option value="United States">United States</option>
-                            <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+                            <option value="United States Minor Outlying Islands">United States Minor Outlying Islands
+                            </option>
                             <option value="Uruguay">Uruguay</option>
                             <option value="Uzbekistan">Uzbekistan</option>
                             <option value="Vanuatu">Vanuatu</option>
@@ -299,8 +319,8 @@
                         </select>
                     </div>
                     <br/>
-<!--add name to match the parameter names. -->
-                    <div class="form-group" >
+                    <!--add name to match the parameter names. -->
+                    <div class="form-group">
                         <label for="email"><strong>Email Address:</strong></label>
                         <input type="email" class="form-control" id="email" name="email" required>
                     </div>
