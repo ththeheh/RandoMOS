@@ -5,13 +5,27 @@
          version="3.1">
 
     <servlet>
-        <servlet-name>helloWorldServlet</servlet-name>
-        <servlet-class>ictgradschool.project.servlets.HelloWorldServlet</servlet-class>
+    <servlet-name>LoginDataServlet</servlet-name>
+    <servlet-class>ictgradschool.project.servlets.LoginDataServlet</servlet-class>
+</servlet>
+
+    <servlet-mapping>
+        <servlet-name>LoginDataServlet</servlet-name>
+        <url-pattern>/loginData</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LoginDataServletNew</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.LoginDataServletNew</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>helloWorldServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>LoginDataServletNew</servlet-name>
+        <url-pattern>/loginDataNew</url-pattern>
     </servlet-mapping>
+
+
+
+
 
 </web-app>
