@@ -154,7 +154,7 @@
                                     }
                                 }
                             </script>
-                            <img class="img-circle" id="featuredImage" src="../images/icons/boy1.png"
+                            <img class="img-circle" id="featuredImage" src="images/icons/boy1.png"
                                  alt="placeholder"/>
 
 
@@ -241,34 +241,34 @@
             <div class="modal-body centered">
                 <div onclick="changeImage(0)" id="0" class="thumb-holder m-5 padding-auto"
                      style="width:150px;height: 150px"><img
-                        src="../images/icons/boy1.png" alt="thumb"></div>
+                        src="images/icons/boy1.png" alt="thumb"></div>
                 <div onclick="changeImage(1)" id="1" class="thumb-holder m-5 padding-auto"
                      style="width:150px;height: 150px"><img
-                        src="../images/icons/boy2.png" alt="thumb"/></div>
+                        src="images/icons/boy2.png" alt="thumb"/></div>
                 <div onclick="changeImage(2)" id="2" class="thumb-holder m-5 padding-auto"
                      style="width:150px;height: 150px"><img
-                        src="../images/icons/girl1.png" alt="thumb"/></div>
+                        src="images/icons/girl1.png" alt="thumb"/></div>
                 <div onclick="changeImage(3)" id="3" class="thumb-holder m-5 padding-auto"
                      style="width:150px;height: 150px"><img
-                        src="../images/icons/girl2.png" alt="thumb"/></div>
+                        src="images/icons/girl2.png" alt="thumb"/></div>
                 <div onclick="changeImage(4)" id="4" class="thumb-holder m-5 padding-auto"
                      style="width:150px;height: 150px"><img
-                        src="../images/icons/girl3.png" alt="thumb"/></div>
+                        src="images/icons/girl3.png" alt="thumb"/></div>
                 <div onclick="changeImage(5)" id="5" class="thumb-holder m-5 padding-auto"
                      style="width:150px;height: 150px"><img
-                        src="../images/icons/girl4.png" alt="thumb"/></div>
+                        src="images/icons/girl4.png" alt="thumb"/></div>
                 <div onclick="changeImage(6)" id="6" class="thumb-holder m-5 padding-auto"
                      style="width:150px;height: 150px"><img
-                        src="../images/icons/girl5.png" alt="thumb"/></div>
+                        src="images/icons/girl5.png" alt="thumb"/></div>
                 <div onclick="changeImage(7)" id="7" class="thumb-holder m-5 padding-auto"
                      style="width:150px;height: 150px"><img
-                        src="../images/icons/girl6.png" alt="thumb"/></div>
+                        src="images/icons/girl6.png" alt="thumb"/></div>
                 <div onclick="changeImage(8)" id="8" class="thumb-holder m-5 padding-auto"
                      style="width:150px;height: 150px"><img
-                        src="../images/icons/man1.png" alt="thumb"/></div>
+                        src="images/icons/man1.png" alt="thumb"/></div>
                 <div onclick="changeImage(9)" id="9" class="thumb-holder m-5 padding-auto"
                      style="width:150px;height: 150px"><img
-                        src="../images/icons/man2.png" alt="thumb"/></div>
+                        src="images/icons/man2.png" alt="thumb"/></div>
             </div>
 
 

@@ -15,7 +15,7 @@ public class LoginDataDAO {
 
     //Use this method to add new data entries- used in LoginDataServletNew
     public void addLoginData(LoginDataJavabean loginData) throws SQLException {
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO loginDataTable(userName, firstName,lastName, birthday, country, email, description) VALUES (?,?,?,?,?,?,?)")) {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_userInfo(userName, firstName,lastName, birthday, country, email, description) VALUES (?,?,?,?,?,?,?)")) {
             preparedStatement.setString(1, loginData.getUserName());
             preparedStatement.setString(2, loginData.getFirstName());
             preparedStatement.setString(3, loginData.getLastName());
@@ -31,7 +31,7 @@ public class LoginDataDAO {
             System.out.println(numRows + " rows added");
         }
 
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO passwordTable(userName,hashedCode,salt,iteration) VALUES (?,?,?,?)")) {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_password(userName,hashedCode,salt,iteration) VALUES (?,?,?,?)")) {
             preparedStatement.setString(1, loginData.getUserName());
 
             //5 length salt
@@ -39,7 +39,7 @@ public class LoginDataDAO {
             int saltLength = 5;
             byte[] saltByte = Passwords.getNextSalt(saltLength);
             String hashedCode = Passwords.base64Encode(Passwords.hash(loginData.getPassword().toCharArray(), saltByte, iteration));
-            System.out.println(hashedCode);
+//            System.out.println(hashedCode);
 
 
             String salt = new String(saltByte);
@@ -59,7 +59,7 @@ public class LoginDataDAO {
 
     public String validation(String userName, String password) throws SQLException {
         try (Statement statement = this.connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM passwordTable")) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_password")) {
                 while (resultSet.next()) {
                     if (resultSet.getString(1).equals(userName)) {
                         //convert password to hashedcode and then compare.
@@ -82,7 +82,7 @@ public class LoginDataDAO {
 
     public String usernameConflict(String userName, String email) throws SQLException {
         try (Statement statement = this.connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM loginDataTable")) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_userInfo")) {
                 while (resultSet.next()) {
                     if (resultSet.getString(1).equals(userName)) {
                         return "username";
@@ -102,7 +102,7 @@ public class LoginDataDAO {
     public LoginDataJavabean getUserInfo(String userName) throws SQLException {
         LoginDataJavabean loginBean = new LoginDataJavabean();
         try (Statement statement = this.connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM loginDataTable")) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_userInfo")) {
                 while (resultSet.next()) {
                     if (resultSet.getString(1).equals(userName)) {
                         loginBean.setUserName(resultSet.getString(1));
@@ -120,45 +120,45 @@ public class LoginDataDAO {
         return null;
     }
 
-    public List<Post> getOtherPost(String userName) throws SQLException {
-        try (Statement statement = this.connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM loginDataTable")) { // join table.
-                while (resultSet.next()) {
-                    if (resultSet.getString(1).equals(userName)) {
-                        loginBean.setUserName(resultSet.getString(1));
-                        loginBean.setFirstName(resultSet.getString(2));
-                        loginBean.setLastName(resultSet.getString(3));
-                        loginBean.setBirthday(resultSet.getString(4));
-                        loginBean.setCountry(resultSet.getString(5));
-                        loginBean.setEmail(resultSet.getString(6));
-                        loginBean.setDescription(resultSet.getString(7));
-                        return loginBean;
-                    }
-                }
-            }
-        }
-        return null;
-    }
+//    public List<Post> getOtherPost(String userName) throws SQLException {
+//        try (Statement statement = this.connection.createStatement()) {
+//            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM loginDataTable")) { // join table.
+//                while (resultSet.next()) {
+//                    if (resultSet.getString(1).equals(userName)) {
+//                        loginBean.setUserName(resultSet.getString(1));
+//                        loginBean.setFirstName(resultSet.getString(2));
+//                        loginBean.setLastName(resultSet.getString(3));
+//                        loginBean.setBirthday(resultSet.getString(4));
+//                        loginBean.setCountry(resultSet.getString(5));
+//                        loginBean.setEmail(resultSet.getString(6));
+//                        loginBean.setDescription(resultSet.getString(7));
+//                        return loginBean;
+//                    }
+//                }
+//            }
+//        }
+//        return null;
+//    }
 
-    public List<Post> getMyPost(String userName) throws SQLException {
-        LoginDataJavabean loginBean = new LoginDataJavabean();
-        try (Statement statement = this.connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM loginDataTable")) {
-                while (resultSet.next()) {
-                    if (resultSet.getString(1).equals(userName)) {
-                        loginBean.setUserName(resultSet.getString(1));
-                        loginBean.setFirstName(resultSet.getString(2));
-                        loginBean.setLastName(resultSet.getString(3));
-                        loginBean.setBirthday(resultSet.getString(4));
-                        loginBean.setCountry(resultSet.getString(5));
-                        loginBean.setEmail(resultSet.getString(6));
-                        loginBean.setDescription(resultSet.getString(7));
-                        return loginBean;
-                    }
-                }
-            }
-        }
-        return null;
-    }
+//    public List<Post> getMyPost(String userName) throws SQLException {
+//        LoginDataJavabean loginBean = new LoginDataJavabean();
+//        try (Statement statement = this.connection.createStatement()) {
+//            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM loginDataTable")) {
+//                while (resultSet.next()) {
+//                    if (resultSet.getString(1).equals(userName)) {
+//                        loginBean.setUserName(resultSet.getString(1));
+//                        loginBean.setFirstName(resultSet.getString(2));
+//                        loginBean.setLastName(resultSet.getString(3));
+//                        loginBean.setBirthday(resultSet.getString(4));
+//                        loginBean.setCountry(resultSet.getString(5));
+//                        loginBean.setEmail(resultSet.getString(6));
+//                        loginBean.setDescription(resultSet.getString(7));
+//                        return loginBean;
+//                    }
+//                }
+//            }
+//        }
+//        return null;
+//    }
 
 }

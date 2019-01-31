@@ -67,8 +67,9 @@
                     </li>
                 </ul>
             </div>
-            <div class="c-header_user" col-lg-4 col-md- col-sm-1>
+            <div class="c-header_user col-lg-4 col-md- col-sm-1">
                 <div>
+                    <%--search??--%>
                     <form action="/UserData" method="post">
                         <input type="text"
                                style="-moz-border-radius:5px; -webkit-border-radius: 5px; padding-right:1px; padding-left:3px; aborder-radius: 6px;"
@@ -76,6 +77,7 @@
                     </form>
                 </div>
                 <div>
+                    <p>session.getAttribute("username")</p>
                     <% if (session.getAttribute("username") != null) { %>
                     <a class="nav-link text-muted" href="#"> Logout </a>
                     <% } else { %>

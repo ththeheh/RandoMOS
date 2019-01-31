@@ -20,7 +20,7 @@ public class LoginDataServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         //check if username that user enters matches what we have in our database
-        //
+        //create a new session.
         HttpSession session = req.getSession();
 
         PrintWriter out = resp.getWriter();
@@ -36,27 +36,29 @@ public class LoginDataServlet extends HttpServlet {
             try {
                 String usernameinfo = dao.validation(userName, password);
                 if (!usernameinfo.equals("Not match") && !usernameinfo.equals("Not exist")) {
-                    resp.sendRedirect("mainPage.html");            //if the username is a username, send to mainpage
-
-//                    req.setAttribute("login", userName); //do later
 
                     LoginDataJavabean loginBean = dao.getUserInfo(userName);
                     req.setAttribute("loginInfo",loginBean);
                     req.getRequestDispatcher("profilePage.jsp");
 
+                    session.setAttribute("username",userName);
+
+                    resp.sendRedirect("mainPage.html");            //if the username is a username, send to mainpage
+
+//                    req.setAttribute("login", userName); //do later
 
 
-                    req.setAttribute("otherPosts",otherPostList);
-                    req.setAttribute("myPosts",myPostList);
+
+////to get postlist from DAO.
+//                    req.setAttribute("otherPosts",otherPostList);
+//                    req.setAttribute("myPosts",myPostList);
 
 
                 } else {
                     //ask for register or reenter.
-                    session.setAttribute("username",userName);
                     req.setAttribute("usernameinfo", usernameinfo);
                     //I need to know the filename for jsp file to dispatch the data
                     req.getRequestDispatcher("loginPage.jsp").forward(req, resp);
-                    resp.sendRedirect("mainPage.jsp");    //to be tested when server is ok.
                 }
             } catch (SQLException e) {
                 throw new ServletException(e);
