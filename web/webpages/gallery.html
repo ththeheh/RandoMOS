@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>image gallery</title>
+<meta charset="UTF-8" />
+<style>
+
+div#wrapper {
+	margin: auto;
+	height: 100%;
+	padding-top: 5%;	
+}
+
+div#container {
+	margin: auto; 
+	width: 717px; /* Twice the width to allow for page opening plus padding */
+	height: 409px;	/* padding with 15 px top and bottom */
+	position: relative;
+	padding: 15px;
+	border: 5px double navy;
+}
+
+div#descriptionText {
+  font-size: 1.25em;
+  padding:30px 20px;
+  color: Navy;
+  font-family: Garamond, serif;
+  border: 1px dotted navy;  
+}
+
+.page {
+	position: absolute;	
+	width: 351px;
+	height: 409px;	
+}
+
+div#descriptionText {
+	margin: auto;
+	box-sizing: border-box;		
+	text-align: justify;
+	left: 381px; /* leaving space for twice the padding from the left */
+	top: 15px;
+}
+
+img#featuredImage {
+	left: 15px;
+	top: 15px;		
+}
+
+div#thumbview {
+	margin: auto;
+	width: 1120px;
+	min-width: 1120px;	
+	height: 130px;
+	margin-top: 40px;
+	padding: 0px 5px;
+	box-sizing: border-box;
+}
+
+div.thumb-holder {	
+	padding: 10px 5px;
+	height: 100%;
+	width: 100px;
+	float: left;
+	box-sizing: border-box;
+	background-color: LightGray;
+}
+
+div#thumbview img {	
+	position: relative;
+	left: auto;
+	top: auto;	
+	margin: auto;
+	height: 100px;
+	width: 90px;
+	box-sizing: inherit;
+	
+	cursor: pointer; /* http://www.w3schools.com/cssref/pr_class_cursor.asp */
+}
+
+</style>
+
+<script>
+	"use strict";
+
+	// To understand the following script, make sure to have gone through the examples in p.345 and p.347 of the textbook
+	
+	// The imageCollection is declared in the <head>, so the rest of the page including any scripts further down will know about it
+	// There are 11 strings in imageCollection, which are the filenames (minus file extension) of the 11 images
+	// The contents are at position 0 to 10 not 1 to 11!
+	var imageCollection = [
+        {name: "arctic_fox",description: "This is an arctic_fox"},
+        {name: "grazing_wombat",description: "This is a grazing_wombat "},
+        {name: "Himalayan_Pika",description: "This is a Himalayan_Pika"},
+        {name: "lynx",description: "This is a lynx "},
+        {name: "Pallas_Cat",description: "This is a Pallas_Cat"},
+        {name: "Pallas_Cat2",description: "This is a Pallas_Cat2"},
+        {name: "pika",description: "This is a pika"},
+        {name: "quokka",description: "This is a quokka"},
+        {name: "RedPanda",description: "This is a RedPanda"},
+        {name: "wombat2",description: "This is a wombat2"},
+        {name: "wombats",description: "This is a wombats"}
+
+	];
+
+    // var jsonS = JSON.parse('{"name": "value","description": "descriptionText"}');
+	
+	var selectedImage = 0; // index of image selected, between 0 and length of array non-inclusive
+	
+	
+	function changeImage(numImage) {
+		// uses the variable numImage, which is passed in, to access the associated value from the "imageCollection" declared above,
+		// then sets the featuredImage to this image
+		
+		var featuredImage = document.getElementById("featuredImage");		
+		
+		featuredImage.src = "../images/" + imageCollection[numImage].name + ".jpg"; // mustn't forget the file extension and the "images/" folder prefix
+        // featuredImage.title=imageCollection[numImage];
+        // featuredImage.alt=imageCollection[numImage];
+
+
+        // leave this line at the end of this function
+		selectedImage = numImage; // keep track for next time of what image has been selected
+
+        document.getElementById("descriptionText").innerHTML=imageCollection[numImage].description;
+
+    }
+	
+	function loadRandomImage() {
+		// Generate the random index into the array of images:
+		// Math.random returns a random decimal point number between 0 and 1
+		// We want a *whole* number (int) between 0 inclusive and the number of images in imageCollection exclusive
+		// To get a whole number, use Math.floor() to round down.
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+		var numImage = Math.floor(Math.random() * (imageCollection.length)); // generates a number between 0 and upto but not including 11: [0, 11). 
+		
+		// Now we know number of the random image we want to show, so change the featured image using this:
+		changeImage(numImage);
+
+
+	}	
+	
+</script>
+</head>
+<body onload="loadRandomImage()">
+
+
+<div id="wrapper">
+  <div id="container" >
+	<img class="page" id="featuredImage" src="../images/quokka.jpg" alt="placeholder" /><!-- for valid HTML need to set src to some valid value, even if JavaScript will overwrite it -->
+	<div class="page" id="descriptionText">Placeholder text. Descriptions should go here.</div>
+  </div>
+</div>
+<div id="thumbview" >
+		<!-- the following elements are very repetitive. You will learn how to use loops to automatically create them in Javascript for a subsequent lab -->
+	<div onclick="changeImage(0)" id="0" class="thumb-holder"><img src="../images/thumbs/0.gif" alt="thumb" /></div>
+	<div onclick="changeImage(1)" id="1" class="thumb-holder"><img src="../images/thumbs/1.gif" alt="thumb" /></div>
+	<div onclick="changeImage(2)" id="2" class="thumb-holder"><img src="../images/thumbs/2.gif" alt="thumb" /></div>
+	<div onclick="changeImage(3)" id="3" class="thumb-holder"><img src="../images/thumbs/3.gif" alt="thumb" /></div>
+	<div onclick="changeImage(4)" id="4" class="thumb-holder"><img src="../images/thumbs/4.gif" alt="thumb" /></div>
+	<div onclick="changeImage(5)" id="5" class="thumb-holder"><img src="../images/thumbs/5.gif" alt="thumb" /></div>
+	<div onclick="changeImage(6)" id="6" class="thumb-holder"><img src="../images/thumbs/6.gif" alt="thumb" /></div>
+	<div onclick="changeImage(7)" id="7" class="thumb-holder"><img src="../images/thumbs/7.gif" alt="thumb" /></div>
+	<div onclick="changeImage(8)" id="8" class="thumb-holder"><img src="../images/thumbs/8.gif" alt="thumb" /></div>
+	<div onclick="changeImage(9)" id="9" class="thumb-holder"><img src="../images/thumbs/9.gif" alt="thumb" /></div>
+	<div onclick="changeImage(10)" id="10" class="thumb-holder"><img src="../images/thumbs/10.gif" alt="thumb" /></div>
+</div>
+</body>
+</html>

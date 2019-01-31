@@ -11,7 +11,7 @@ function addcomment() {
     var cm = document.getElementById("comment").value;
 
     var a1 = "<div class='card dark-grey'>";
-    var a2 = "<img class='card-img-top img-thumbnail rounded-circle boarder-primary' src='./images/icons/666201.png' alt='Card image cap' style='width: 50px;height: 50px;'>"; //icon image
+    var a2 = "<img class='card-img-top img-thumbnail rounded-circle boarder-primary' src='../images/icons/666201.png' alt='Card image cap' style='width: 50px;height: 50px;'>"; //icon image
     var a3 = "<div class='card-body'> ";
     var a4 = "<p class='card-title'>  Name of Commentor</p>";
     var a5 = "<p class='card-text'>";
@@ -57,7 +57,7 @@ function addReply(list,replynum) {
         reply = document.getElementById("reply"+replynum).value;
 
     var a1 = "<div class='card dark-grey'>";
-    var a2 = "<img class='card-img-top img-thumbnail rounded-circle boarder-primary' src='./images/icons/666201.png' alt='Card image cap' style='width: 50px;height: 50px;'>"; //icon image
+    var a2 = "<img class='card-img-top img-thumbnail rounded-circle boarder-primary' src='../images/icons/666201.png' alt='Card image cap' style='width: 50px;height: 50px;'>"; //icon image
     var a3 = "<div class='card-body'> ";
     var a4 = "<p class='card-title'>  Name of Commentor</p>";
     var a5 = "<p class='card-text'>";
