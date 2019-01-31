@@ -24,8 +24,15 @@
         <url-pattern>/loginDataNew</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>LogOutServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.LogOutServlet</servlet-class>
+    </servlet>
 
-
+    <servlet-mapping>
+        <servlet-name>LogOutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
 
 
 </web-app>

@@ -129,12 +129,13 @@
                                                     <textarea class="form-control" rows="20" id="post"
                                                               placeholder="Put your post content here..."></textarea>
                                                 </div>
-                                            </form>
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary btn-lg" onclick="">
                                                     Publish!
                                                 </button>
                                             </div>
+                                            </form>
+
                                         </div>
 
                                         <!-- Modal footer -->

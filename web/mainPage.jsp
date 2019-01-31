@@ -15,81 +15,64 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
+
 </head>
+
 
 <body>
 
+<%--<div class="container">--%>
+<%--<div class="spinner-border text-muted"></div>--%>
+<%--<div class="spinner-border text-primary"></div>--%>
+<%--<div class="spinner-border text-success"></div>--%>
+<%--<div class="spinner-border text-info"></div>--%>
+<%--<div class="spinner-border text-warning"></div>--%>
+<%--<div class="spinner-border text-danger"></div>--%>
+<%--<div class="spinner-border text-secondary"></div>--%>
+<%--<div class="spinner-border text-dark"></div>--%>
+<%--<div class="spinner-border text-light"></div>--%>
+<%--</div>--%>
+
 <div class="jumbotron text-center bg-muted" style="margin-bottom:0">
-    <h1 style="color:dimgray;">My Blogging Page UOAMOS </h1>
+    <h1 style="color:dimgray;">Welcome to Randomos! </h1>
 </div>
 <header class="c-header" style="margin-top:5px; margin-bottom:10px">
     <nav class="navbar navbar-expand-sm bg-muted">
         <div class="container">
-
-            <div class="c-header_menu col-lg-4 col-md- col-sm-1">
+            <div class="c-header_menu col-lg-4 col-md-2 col-sm-1">
                 <ul class="navbar-nav">
                     <li class="nav-item ">
                         <a class="nav-link text-muted" href="#"> Home </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-muted" href="#">Forum</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-muted" href="#" id="navbarDropDown" role="button"
-                           data-toggle="dropdown"> Hot </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Hot</a>
-                            <a class="dropdown-item" href="#">New</a>
-                            <a class="dropdown-item" href="#">Controversial</a>
-                            <a class="dropdown-item" href="#">Top</a>
-                            <a class="dropdown-item" href="#">Rising</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-muted" href="#" id="navbarDropDown" role="button"
-                           data-toggle="dropdown"> Theme </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">School</a>
-                            <a class="dropdown-item" href="#">Social</a>
-                            <a class="dropdown-item" href="#">New</a>
-                            <a class="dropdown-item" href="#">Top</a>
-                            <a class="dropdown-item" href="#">Rising</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-muted" href="#"> FAQs </a>
-                    </li>
                 </ul>
             </div>
             <div class="c-header_user col-lg-4 col-md- col-sm-1">
+
                 <div>
-                    <%--search??--%>
-                    <form action="/UserData" method="post">
-                        <input type="text"
-                               style="-moz-border-radius:5px; -webkit-border-radius: 5px; padding-right:1px; padding-left:3px; aborder-radius: 6px;"
-                               name="Code" placeholder="Search">
-                    </form>
+                    <c:choose>
+                        <c:when test="${sessionScope.username!= null}">
+                            <form action="logout" method="get">
+                                <button type="submit" class="btn btn-info btn-lg">Log out</button>
+                            </form>
+                        </c:when>
+                        <%--<a class="nav-link text-muted" href="mainPage.jsp" onclick="destroySess()"> Logout </a>--%>
+                        <c:otherwise>
+                            <a class="nav-link text-muted" href="reg.html"> Login </a>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
+
                 <div>
-                    <p>session.getAttribute("username")</p>
-                    <% if (session.getAttribute("username") != null) { %>
-                    <a class="nav-link text-muted" href="#"> Logout </a>
-                    <% } else { %>
-                    <a class="nav-link text-muted" href="#"> Login </a>
-                </div>
-                <% } %>
-                <div>
-                    <% if (session.getAttribute("username") == null) { %>
+                    <c:choose>
+                    <c:when test="${sessionScope.username==null}">
+
                     <a class="nav-link text-muted" href="reg.html"> Register </a></div>
-                <% } %>
-                <div>
-                    <% if (session.getAttribute("username") != null) { %>
+
+                </c:when>
+                <c:otherwise>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                         Create New Posts!
                     </button>
@@ -106,7 +89,7 @@
                                 <!-- Modal body -->
                                 <div class="modal-body">
                                     <form action="#">
-                                        <%--send to servlet and build the post using this page.--%>
+                                            <%--send to servlet and build the post using this page.--%>
                                         <div class="form-group">
                                             <label for="title"><strong> Your Title:</strong></label>
                                             <input type="text" class="form-control" id="title" required>
@@ -117,12 +100,13 @@
                                             <textarea class="form-control" rows="20" id="post"
                                                       placeholder="Put your post content here..."></textarea>
                                         </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-lg" onclick="">
+                                                Publish!
+                                            </button>
+                                        </div>
                                     </form>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-lg" onclick="">
-                                            Publish!
-                                        </button>
-                                    </div>
+
                                 </div>
 
                                 <!-- Modal footer -->
@@ -134,20 +118,22 @@
                             </div>
                         </div>
                     </div>
-                    <% } %>
 
-                    <%--<a class="nav-link text-muted" href="createpost.html"><h5> Create New Posts! </h5></a>--%>
+                    <form action="#" method="get">
+                        <button type="submit" class="btn btn-info btn-lg">Browse Your Posts</button>
+                    </form>
 
+                </c:otherwise>
+                </c:choose>
 
-                </div>
             </div>
         </div>
+
     </nav>
 </header>
 
 
 <div class="container">
-
     <div class="row mb-5">
         <div class="col-lg-4 col-md-6">
             <h2 style="color:dimgray;">Forum </h2>

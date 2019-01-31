@@ -6,59 +6,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Profile Display</title>
-
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
-          id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
-
     <style>
 
-        .modal-body {
-            width: 500px;
-            height: 800px;
-
-        }
-
-        #fromLibrary {
-            height: 30px;
-            width: 120px;
-            font-size: 11px;
-            margin-top: 50px;
-            margin-bottom: 10px;
-
-        }
-
-        .upload-btn-wrapper input[type=file] {
-
-            left: 0;
-            top: 0;
-            opacity: 0;
-            padding-bottom: 30px;
-
-        }
-
-        .card {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            transition: 0.3s;
-            width: 80%;
-        }
-
-        #userinfo {
-            color: darkslategray;
-        }
     </style>
     <script>
         "use strict";
@@ -86,40 +44,9 @@
             selectedImage = numImage;
             document.getElementById("descriptionText").innerText = imageCollection[numImage].description;
             // image.src = URL.createObjectURL(event.target.files[0]);
-
         }
 
-        /*        function libraryicon() {
-                    var modal = document.getElementById('myModal');
-
-        // Get the image and insert it inside the modal - use its "alt" text as a caption
-                    var img = document.getElementById('myImg');
-                    var modalImg = document.getElementById("img01");
-                    var captionText = document.getElementById("caption");
-                    img.onclick = function () {
-                        modal.style.display = "block";
-                        modalImg.src = this.src;
-                        captionText.innerHTML = this.alt;
-                    }
-
-        // Get the <span> element that closes the modal
-                    var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks on <span> (x), close the modal
-                    span.onclick = function () {
-                        modal.style.display = "none";
-                    }
-                }
-
-           // Get the <span> element that closes the modal
-                    var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks on <span> (x), close the modal
-                    span.onclick = function () {
-                        modal.style.display = "none";
-                    }
-                }*/
-    </script>
+       </script>
 </head>
 <body>
 
@@ -211,7 +138,8 @@
                                     <span class="icon-cog icon-white"></span><span class="caret"></span>
                                 </button>
                                 <div class="dropdown-menu " aria-labelledby="dropdown-menu2">
-                                    <a class="dropdown-item" href="profileUpdate.html"><span class="icon-wrench "></span>Modify</a>
+                                    <a class="dropdown-item" href="profileUpdate.html"><span
+                                            class="icon-wrench "></span>Modify</a>
                                     <a class="dropdown-item" href="#"><span class="icon-trash "></span>Delete</a>
                                 </div>
                             </div>
@@ -240,7 +168,7 @@
             <!-- Modal body -->
             <div class="modal-body centered">
                 <div onclick="changeImage(0)" id="0" class="thumb-holder m-5 padding-auto"
-                     style="width:150px;height: 150px"><img
+                     style="width:50px;height: 50px"><img
                         src="images/icons/boy1.png" alt="thumb"></div>
                 <div onclick="changeImage(1)" id="1" class="thumb-holder m-5 padding-auto"
                      style="width:150px;height: 150px"><img

@@ -39,11 +39,13 @@ public class LoginDataServlet extends HttpServlet {
 
                     LoginDataJavabean loginBean = dao.getUserInfo(userName);
                     req.setAttribute("loginInfo",loginBean);
-                    req.getRequestDispatcher("profilePage.jsp");
+                    req.getRequestDispatcher("profilePage-New.jsp");
 
                     session.setAttribute("username",userName);
 
-                    resp.sendRedirect("mainPage.html");            //if the username is a username, send to mainpage
+//                    System.out.println(session.getAttribute("username"));
+
+                    resp.sendRedirect("mainPage.jsp");            //if the username is a username, send to mainpage
 
 //                    req.setAttribute("login", userName); //do later
 

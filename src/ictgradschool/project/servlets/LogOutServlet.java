@@ -14,6 +14,6 @@ public class LogOutServlet extends HttpServlet {
             req.getSession().invalidate();
         }
 
-        resp.sendRedirect("../loginData");
+        resp.sendRedirect("mainPage.jsp");
     }
 }
