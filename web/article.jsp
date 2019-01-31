@@ -195,26 +195,6 @@
                     quis lectus. Lobortis scelerisque fermentum dui faucibus. Integer malesuada nunc vel risus commodo
                     viverra maecenas. Rutrum quisque non tellus orci ac auctor augue mauris augue.
 
-                    Rhoncus dolor purus non enim. Sed egestas egestas fringilla phasellus faucibus. Egestas tellus
-                    rutrum tellus pellentesque eu tincidunt tortor aliquam. Amet mauris commodo quis imperdiet massa
-                    tincidunt nunc. Quis blandit turpis cursus in hac habitasse platea. Turpis tincidunt id aliquet
-                    risus feugiat in ante metus. Nisl vel pretium lectus quam id. Curabitur gravida arcu ac tortor
-                    dignissim convallis aenean et. Porttitor leo a diam sollicitudin tempor id eu. A cras semper auctor
-                    neque vitae tempus quam pellentesque. Tristique risus nec feugiat in fermentum posuere urna. Ac
-                    tincidunt vitae semper quis lectus nulla. Id eu nisl nunc mi ipsum. Amet consectetur adipiscing elit
-                    duis tristique. Ullamcorper eget nulla facilisi etiam.
-
-                    Posuere morbi leo urna molestie at elementum eu facilisis. Cras tincidunt lobortis feugiat vivamus
-                    at augue eget arcu. Morbi tristique senectus et netus et malesuada fames ac turpis. Cursus metus
-                    aliquam eleifend mi in. Nunc scelerisque viverra mauris in aliquam sem. Eget mi proin sed libero
-                    enim sed faucibus turpis. Lorem dolor sed viverra ipsum nunc. Vel pharetra vel turpis nunc eget
-                    lorem dolor. Ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan. Amet
-                    risus nullam eget felis eget nunc lobortis mattis. Hac habitasse platea dictumst quisque sagittis.
-                    Justo nec ultrices dui sapien eget mi proin sed libero. Rhoncus est pellentesque elit ullamcorper
-                    dignissim cras tincidunt. Sed risus pretium quam vulputate dignissim suspendisse in. Elementum
-                    sagittis vitae et leo duis ut. Viverra ipsum nunc aliquet bibendum enim facilisis. Massa enim nec
-                    dui nunc.
-
                     Diam vel quam elementum pulvinar etiam non. Euismod quis viverra nibh cras pulvinar mattis nunc sed
                     blandit. Quis enim lobortis scelerisque fermentum dui faucibus. Arcu dictum varius duis at
                     consectetur lorem. Nulla pellentesque dignissim enim sit amet venenatis urna cursus. Nunc id cursus

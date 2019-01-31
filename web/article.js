@@ -101,3 +101,7 @@ function addReply(list,replynum) {
     document.getElementById("list" + list).appendChild(div);
 
 }
+
+function deleteComment(){
+
+}
