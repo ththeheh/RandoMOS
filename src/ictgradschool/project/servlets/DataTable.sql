@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS userComment;
+DROP TABLE IF EXISTS writeArt;
+DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS passwordTable;
 DROP TABLE IF EXISTS loginDataTable;
 
@@ -32,24 +35,41 @@ INSERT INTO passwordTable (userName, hashedCode, salt, iteration) VALUES
 
 
 
-# There would be many comments for one article and there would also be many comments that one user makes
-CREATE TABLE IF NOT EXISTS articleComment (
-  articleTitle VARCHAR(50) NOT NULL,
-  comment      VARCHAR(500),
-  PRIMARY KEY (comment)
+# There would be many comments for one post and there would also be many comments that one user makes
+CREATE TABLE IF NOT EXISTS post (
+  postId INT AUTO_INCREMENT,
+  postTitle VARCHAR(50) NOT NULL,
+  post      VARCHAR(1000) NOT NULL,
+  comment      VARCHAR(100),
+  PRIMARY KEY (postId,postTitle)
 );
 
-INSERT INTO articleComment(articleTitle, comment) VALUES
-  ("How to cook the best homemade hotpot", "This helped me to throw a perfect housewarming party!");
+INSERT INTO post(post, postTitle, comment) VALUES
+  ('Lorem Ipsum','How to cook the best homemade hotpot', 'This helped me to throw a perfect housewarming party!');
 
+CREATE TABLE IF NOT EXISTS writeArt(
+  userName VARCHAR(50) NOT NULL,
+  postId INT AUTO_INCREMENT,
+  postTitle VARCHAR(50) NOT NULL,
+  PRIMARY KEY (userName, postTitle),
+  FOREIGN KEY (userName) REFERENCES loginDataTable (userName),
+  FOREIGN KEY (postId,postTitle) REFERENCES post (postId,postTitle)
+);
+
+INSERT INTO writeArt(userName, postTitle) VALUES
+  ('ykim706', 'How to cook the best homemade hotpot');
 
 
 CREATE TABLE IF NOT EXISTS userComment (
   userName VARCHAR(50) NOT NULL,
-  comment  VARCHAR(500),
-  PRIMARY KEY (comment),
+  postId INT AUTO_INCREMENT,
+  postTitle VARCHAR(50) NOT NULL,
+  comment  VARCHAR(100),
+  PRIMARY KEY (userName),
+  FOREIGN KEY (userName) REFERENCES loginDataTable (userName),
+  FOREIGN KEY ( postId,postTitle) REFERENCES post (postId,postTitle)
 
 );
 
-INSERT INTO userComment(userName, comment) VALUES
-  ("ykim706", );
+INSERT INTO userComment(userName, postId,postTitle,comment) VALUES
+  ('ykim706', '1','How to cook the best homemade hotpot','This helped me to throw a perfect housewarming party!');
