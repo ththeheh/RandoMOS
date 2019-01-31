@@ -99,5 +99,66 @@ public class LoginDataDAO {
 
     }
 
+    public LoginDataJavabean getUserInfo(String userName) throws SQLException {
+        LoginDataJavabean loginBean = new LoginDataJavabean();
+        try (Statement statement = this.connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM loginDataTable")) {
+                while (resultSet.next()) {
+                    if (resultSet.getString(1).equals(userName)) {
+                        loginBean.setUserName(resultSet.getString(1));
+                        loginBean.setFirstName(resultSet.getString(2));
+                        loginBean.setLastName(resultSet.getString(3));
+                        loginBean.setBirthday(resultSet.getString(4));
+                        loginBean.setCountry(resultSet.getString(5));
+                        loginBean.setEmail(resultSet.getString(6));
+                        loginBean.setDescription(resultSet.getString(7));
+                        return loginBean;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<Post> getOtherPost(String userName) throws SQLException {
+        try (Statement statement = this.connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM loginDataTable")) { // join table.
+                while (resultSet.next()) {
+                    if (resultSet.getString(1).equals(userName)) {
+                        loginBean.setUserName(resultSet.getString(1));
+                        loginBean.setFirstName(resultSet.getString(2));
+                        loginBean.setLastName(resultSet.getString(3));
+                        loginBean.setBirthday(resultSet.getString(4));
+                        loginBean.setCountry(resultSet.getString(5));
+                        loginBean.setEmail(resultSet.getString(6));
+                        loginBean.setDescription(resultSet.getString(7));
+                        return loginBean;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<Post> getMyPost(String userName) throws SQLException {
+        LoginDataJavabean loginBean = new LoginDataJavabean();
+        try (Statement statement = this.connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM loginDataTable")) {
+                while (resultSet.next()) {
+                    if (resultSet.getString(1).equals(userName)) {
+                        loginBean.setUserName(resultSet.getString(1));
+                        loginBean.setFirstName(resultSet.getString(2));
+                        loginBean.setLastName(resultSet.getString(3));
+                        loginBean.setBirthday(resultSet.getString(4));
+                        loginBean.setCountry(resultSet.getString(5));
+                        loginBean.setEmail(resultSet.getString(6));
+                        loginBean.setDescription(resultSet.getString(7));
+                        return loginBean;
+                    }
+                }
+            }
+        }
+        return null;
+    }
 
 }

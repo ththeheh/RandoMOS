@@ -70,7 +70,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="c-header_user" col-lg-4 col-md- col-sm-1>
+            <div class="c-header_user col-lg-4 col-md- col-sm-1">
                 <div>
                     <form action="/UserData" method="post">
                         <input type="text"
@@ -102,7 +102,7 @@
                     <c:choose>
                         <c:when test="${username !=null}">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                Create New Articles!
+                                Create New Posts!
                             </button>
                             <div class="modal" id="myModal">
                                 <div class="modal-dialog modal-lg">
@@ -110,7 +110,7 @@
 
                                         <!-- Modal Header -->
                                         <div class="modal-header">
-                                            <h4 class="modal-title">You can write your article here!
+                                            <h4 class="modal-title">You can write your post here!
                                             </h4>
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
@@ -118,16 +118,16 @@
                                         <!-- Modal body -->
                                         <div class="modal-body">
                                             <form action="#">
-                                                <%--send to servlet and build the article using this page.--%>
+                                                    <%--send to servlet and build the post using this page.--%>
                                                 <div class="form-group">
                                                     <label for="title"><strong> Your Title:</strong></label>
                                                     <input type="text" class="form-control" id="title" required>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="article"></label>
-                                                    <textarea class="form-control" rows="20" id="article"
-                                                              placeholder="Put your article content here..."></textarea>
+                                                    <label for="post"></label>
+                                                    <textarea class="form-control" rows="20" id="post"
+                                                              placeholder="Put your post content here..."></textarea>
                                                 </div>
                                             </form>
                                             <div class="form-group">
@@ -146,8 +146,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <%--<a class="nav-link text-muted" href="createarticle.html"><h5> Create New Articles! </h5></a>--%>
 
                         </c:when>
                         <c:otherwise>

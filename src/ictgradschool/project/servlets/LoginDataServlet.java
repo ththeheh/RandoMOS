@@ -37,12 +37,26 @@ public class LoginDataServlet extends HttpServlet {
                 String usernameinfo = dao.validation(userName, password);
                 if (!usernameinfo.equals("Not match") && !usernameinfo.equals("Not exist")) {
                     resp.sendRedirect("mainPage.html");            //if the username is a username, send to mainpage
-                    req.setAttribute("login", userName);       //do later
-                } else {
-                    req.setAttribute("usernameinfo", usernameinfo);
 
+//                    req.setAttribute("login", userName); //do later
+
+                    LoginDataJavabean loginBean = dao.getUserInfo(userName);
+                    req.setAttribute("loginInfo",loginBean);
+                    req.getRequestDispatcher("profilePage.jsp");
+
+
+
+                    req.setAttribute("otherPosts",otherPostList);
+                    req.setAttribute("myPosts",myPostList);
+
+
+                } else {
+                    //ask for register or reenter.
+                    session.setAttribute("username",userName);
+                    req.setAttribute("usernameinfo", usernameinfo);
                     //I need to know the filename for jsp file to dispatch the data
                     req.getRequestDispatcher("loginPage.jsp").forward(req, resp);
+                    resp.sendRedirect("mainPage.jsp");    //to be tested when server is ok.
                 }
             } catch (SQLException e) {
                 throw new ServletException(e);

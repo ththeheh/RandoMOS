@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -186,27 +189,32 @@
                                 <br><br>
                                 <h6>User Name: + ${userName} </h6>
                                 <br>
+                                <h6>First Name: + ${firstName} </h6>
+                                <br>
+                                <h6>Last Name: + ${lastName} </h6>
+                                <br>
                                 <h6>Email: + ${email}</h6>
                                 <br>
                                 <h6>Birthday: + ${birthday}</h6>
                                 <br>
                                 <h6>Description + ${description}</h6>
                                 <br>
+                                <h6>Country + ${country}</h6>
                                 <h6></h6>
                             </div>
                         </div>
                         <div class="span2">
                             <div class="col-lg-12 col-sm-6">
-                            <button class="btn btn-info " type="button" id="dropdown-menu2"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Action
-                                <span class="icon-cog icon-white"></span><span class="caret"></span>
-                            </button>
-                            <div class="dropdown-menu " aria-labelledby="dropdown-menu2">
-                                <a class="dropdown-item" href="profileUpdate.html"><span class="icon-wrench "></span>Modify</a>
-                                <a class="dropdown-item" href="#"><span class="icon-trash "></span>Delete</a>
+                                <button class="btn btn-info " type="button" id="dropdown-menu2"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Action
+                                    <span class="icon-cog icon-white"></span><span class="caret"></span>
+                                </button>
+                                <div class="dropdown-menu " aria-labelledby="dropdown-menu2">
+                                    <a class="dropdown-item" href="profileUpdate.html"><span class="icon-wrench "></span>Modify</a>
+                                    <a class="dropdown-item" href="#"><span class="icon-trash "></span>Delete</a>
+                                </div>
                             </div>
-                        </div>
                         </div>
                     </div>
                 </div>

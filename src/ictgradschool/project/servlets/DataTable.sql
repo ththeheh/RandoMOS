@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS writeArt;
 DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS passwordTable;
 DROP TABLE IF EXISTS loginDataTable;
+# change loginDataTable to userInforTable
 
 CREATE TABLE IF NOT EXISTS loginDataTable (
   userName         VARCHAR(50)  NOT NULL,
