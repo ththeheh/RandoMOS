@@ -56,13 +56,23 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>UpdateIconServlet</servlet-name>
+        <servlet-name>ChangeIconServlet</servlet-name>
         <servlet-class>ictgradschool.project.servlets.UpdateIconServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>UpdateIconServlet</servlet-name>
-        <url-pattern>/updateicon</url-pattern>
+        <servlet-name>ChangeIconServlet</servlet-name>
+        <url-pattern>/changeicon</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.UpdateIconServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <url-pattern>/deleteAccount</url-pattern>
     </servlet-mapping>
 
 </web-app>

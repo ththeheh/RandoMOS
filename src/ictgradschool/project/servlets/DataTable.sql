@@ -3,7 +3,6 @@ DROP TABLE IF EXISTS blog_writeArt;
 DROP TABLE IF EXISTS blog_post;
 DROP TABLE IF EXISTS blog_password;
 DROP TABLE IF EXISTS blog_userInfo;
-# change blog_userInfoTable to userInforTable
 
 CREATE TABLE IF NOT EXISTS blog_userInfo (
   userName         VARCHAR(50)  NOT NULL,
@@ -13,7 +12,7 @@ CREATE TABLE IF NOT EXISTS blog_userInfo (
   country          VARCHAR(50),
   email            VARCHAR(50),
   description      VARCHAR(500),
-  icon             LONGBLOB NOT NULL,
+  iconPath         VARCHAR(100) NOT NULL,
     PRIMARY KEY (userName)
 );
 
@@ -21,7 +20,7 @@ CREATE TABLE IF NOT EXISTS blog_userInfo (
 
 INSERT INTO blog_userInfo (userName, firstName, lastName, birthday, country, email, description, icon) VALUES
   ('ykim706', 'Mary', 'Kim', '04/29/1995', 'South Korea', 'ykim706@aucklanduni.ac.nz',
-   'I embrace all kinds of people.','');
+   'I embrace all kinds of people.','./images/icons/boy1.png');
 
 CREATE TABLE IF NOT EXISTS blog_password (
   userName          VARCHAR(50)  NOT NULL,
@@ -39,27 +38,28 @@ INSERT INTO blog_password (userName, hashedCode, salt, iteration) VALUES
 
 # There would be many comments for one post and there would also be many comments that one user makes
 CREATE TABLE IF NOT EXISTS blog_post (
+    userName VARCHAR(50) NOT NULL,
   postId INT AUTO_INCREMENT,
   postTitle VARCHAR(50) NOT NULL,
   post      VARCHAR(1000) NOT NULL,
   comment      VARCHAR(100),
-  PRIMARY KEY (postId,postTitle)
+  PRIMARY KEY (username,postId)
+    FOREIGN KEY (userName) REFERENCES blog_userInfo (userName),
 );
 
-INSERT INTO blog_post(post, postTitle, comment) VALUES
-  ('Lorem Ipsum','How to cook the best homemade hotpot', 'This helped me to throw a perfect housewarming party!');
+INSERT INTO blog_post(username,postTitle,post,comment) VALUES
+  ('ykim706','Lorem Ipsum','How to cook the best homemade hotpot', 'This helped me to throw a perfect housewarming party!');
 
 CREATE TABLE IF NOT EXISTS blog_writeArt(
   userName VARCHAR(50) NOT NULL,
   postId INT AUTO_INCREMENT,
-  postTitle VARCHAR(50) NOT NULL,
-  PRIMARY KEY (userName, postTitle),
+  PRIMARY KEY (userName, postId),
   FOREIGN KEY (userName) REFERENCES blog_userInfo (userName),
-  FOREIGN KEY (postId,postTitle) REFERENCES blog_post (postId,postTitle)
+  FOREIGN KEY (postId) REFERENCES blog_post (postId)
 );
 
-INSERT INTO blog_writeArt(userName, postTitle) VALUES
-  ('ykim706', 'How to cook the best homemade hotpot');
+INSERT INTO blog_writeArt(userName, postId) VALUES
+  ('ykim706', 1);
 
 
 CREATE TABLE IF NOT EXISTS blog_userComment (

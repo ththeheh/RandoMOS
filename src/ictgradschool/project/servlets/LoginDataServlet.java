@@ -67,12 +67,5 @@ public class LoginDataServlet extends HttpServlet {
 
     }
 
-    //Retrieving data using DAO from database
-//    private List<UserInfoJavabean> displayAccessLogList(PrintWriter out) throws SQLException {
-//        try (Connection connection = DBConnection.createConnection()) {
-//            LoginDataDAO dao = new LoginDataDAO(connection);
-//            List<UserInfoJavabean> loginDataList = dao.allLoginData();
-//            return loginDataList;
-//        }
-//    }
+
 }

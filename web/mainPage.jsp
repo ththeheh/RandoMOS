@@ -21,6 +21,12 @@
 
 </head>
 
+//to be tested.
+<script>
+<c:if test="${delete=='deleted'}" >
+alert("Your account is deleted! You are always welcomed to be back to RandoMOS!"
+</c:if>
+</scipt>
 
 <body>
 

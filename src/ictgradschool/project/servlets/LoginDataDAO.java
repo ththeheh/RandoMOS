@@ -47,7 +47,7 @@ public class LoginDataDAO {
             //            System.out.println("Row added");
             //Just indicating how many rows are added
             int numRows = preparedStatement.executeUpdate();
-            System.out.println(numRows + " rows added");
+            System.out.println(numRows + " user account added");
         }
 
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_password(userName,hashedCode,salt,iteration) VALUES (?,?,?,?)")) {
@@ -132,11 +132,7 @@ public class LoginDataDAO {
                         loginBean.setEmail(resultSet.getString(6));
                         loginBean.setDescription(resultSet.getString(7));
 
-
-                       OutputStream os = new FileOutputStream();
-
-                        loginBean.setIcon((resultSet.getString(8).getBytes()));
-
+                        loginBean.setIconPath((resultSet.getString(8)));
 
                         return loginBean;
                     }
@@ -158,36 +154,42 @@ public class LoginDataDAO {
             preparedStatement.setString(6, description);
             preparedStatement.setString(7, userName);
             int numRows = preparedStatement.executeUpdate();
-            System.out.println(numRows + " rows updated");
+            System.out.println(numRows + " user profile updated");
 
         }
     }
 
+    public void changeIcon(String userName, String iconPath) throws SQLException {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE blog_userInfo SET iconPath=? WHERE userName=? ")) {
 
-    //            System.out.println("Row added");
-    //Just indicating how many rows are added
+            preparedStatement.setString(1, iconPath);
+            preparedStatement.setString(2, userName);
+
+            int numRows = preparedStatement.executeUpdate();
+            System.out.println(numRows + "user icon  updated");
+
+        }
+    }
+
+    public void deleteAccount(String userName) throws SQLException {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE a.*,b.*,c.*,d.*, e.* FROM blog_userInfo as a" +
+                " left join blog_password as b on b.userName=a.userName" +
+                ", left join blog_post as c on c.userName=b.userName, left join blog_writeArt as d on d.userName=c.userName, left join blog_userComment as e on e.userName=d.userName" +
+                " WHERE userName=? "))
+        //may need to think about if can delete comments under one username and check how the tables are joined.
+        {
+
+            preparedStatement.setString(1, userName);
+
+            int numRows = preparedStatement.executeUpdate();
+            System.out.println(numRows + "user account deleted");
+
+        }
+    }
+
 }
 
 
-//    public List<Post> getOtherPost(String userName) throws SQLException {
-//        try (Statement statement = this.connection.createStatement()) {
-//            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM loginDataTable")) { // join table.
-//                while (resultSet.next()) {
-//                    if (resultSet.getString(1).equals(userName)) {
-//                        loginBean.setUserName(resultSet.getString(1));
-//                        loginBean.setFirstName(resultSet.getString(2));
-//                        loginBean.setLastName(resultSet.getString(3));
-//                        loginBean.setBirthday(resultSet.getString(4));
-//                        loginBean.setCountry(resultSet.getString(5));
-//                        loginBean.setEmail(resultSet.getString(6));
-//                        loginBean.setDescription(resultSet.getString(7));
-//                        return loginBean;
-//                    }
-//                }
-//            }
-//        }
-//        return null;
-//    }
 
 //    public List<Post> getMyPost(String userName) throws SQLException {
 //        UserInfoJavabean loginBean = new UserInfoJavabean();
