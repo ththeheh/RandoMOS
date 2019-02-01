@@ -1,6 +1,5 @@
 package ictgradschool.project.servlets;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +28,7 @@ public class LoginDataServletNew extends HttpServlet {
 //            String hashedSaltedCode = req.getParameter("hashedSaltedCode");
 //            System.out.println(password);
 
-            LoginDataJavabean loginData = new LoginDataJavabean(userName, firstName, lastName, birthday, country, email, description, password);
+            UserInfoJavabean loginData = new UserInfoJavabean(userName, firstName, lastName, birthday, country, email, description, password);
             // need to call encoding class to create hashedcode to store
             String regMsg = dao.usernameConflict(userName, email);
             if (regMsg.equals("Okay")) {

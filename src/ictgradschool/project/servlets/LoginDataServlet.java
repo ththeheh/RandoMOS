@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 public class LoginDataServlet extends HttpServlet {
 
@@ -36,10 +35,6 @@ public class LoginDataServlet extends HttpServlet {
             try {
                 String usernameinfo = dao.validation(userName, password);
                 if (!usernameinfo.equals("Not match") && !usernameinfo.equals("Not exist")) {
-
-                    LoginDataJavabean loginBean = dao.getUserInfo(userName);
-                    req.setAttribute("loginInfo",loginBean);
-                    req.getRequestDispatcher("profilePage-New.jsp");
 
                     session.setAttribute("username",userName);
 
@@ -73,10 +68,10 @@ public class LoginDataServlet extends HttpServlet {
     }
 
     //Retrieving data using DAO from database
-//    private List<LoginDataJavabean> displayAccessLogList(PrintWriter out) throws SQLException {
+//    private List<UserInfoJavabean> displayAccessLogList(PrintWriter out) throws SQLException {
 //        try (Connection connection = DBConnection.createConnection()) {
 //            LoginDataDAO dao = new LoginDataDAO(connection);
-//            List<LoginDataJavabean> loginDataList = dao.allLoginData();
+//            List<UserInfoJavabean> loginDataList = dao.allLoginData();
 //            return loginDataList;
 //        }
 //    }

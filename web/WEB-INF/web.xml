@@ -34,5 +34,26 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ProfInfoServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.ProfInfoServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ProfInfoServlet</servlet-name>
+        <url-pattern>/userinfo</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>EditProfServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.EditProfServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EditProfServlet</servlet-name>
+        <url-pattern>/editProf</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

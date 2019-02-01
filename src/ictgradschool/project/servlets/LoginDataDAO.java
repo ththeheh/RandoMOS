@@ -1,8 +1,6 @@
 package ictgradschool.project.servlets;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class LoginDataDAO {
     private Connection connection;
@@ -14,7 +12,7 @@ public class LoginDataDAO {
 
 
     //Use this method to add new data entries- used in LoginDataServletNew
-    public void addLoginData(LoginDataJavabean loginData) throws SQLException {
+    public void addLoginData(UserInfoJavabean loginData) throws SQLException {
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_userInfo(userName, firstName,lastName, birthday, country, email, description) VALUES (?,?,?,?,?,?,?)")) {
             preparedStatement.setString(1, loginData.getUserName());
             preparedStatement.setString(2, loginData.getFirstName());
@@ -99,8 +97,8 @@ public class LoginDataDAO {
 
     }
 
-    public LoginDataJavabean getUserInfo(String userName) throws SQLException {
-        LoginDataJavabean loginBean = new LoginDataJavabean();
+    public UserInfoJavabean getUserInfo(String userName) throws SQLException {
+        UserInfoJavabean loginBean = new UserInfoJavabean();
         try (Statement statement = this.connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_userInfo")) {
                 while (resultSet.next()) {
@@ -119,6 +117,35 @@ public class LoginDataDAO {
         }
         return null;
     }
+
+
+    public void editInfo(String userName,String firstName, String lastName, String birthday, String country, String email, String description) throws SQLException {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM blog_userInfo")) {
+
+
+            try (ResultSet resultSet = preparedStatement.executeQuery("SELECT * FROM blog_userInfo")) {
+                while (resultSet.next()) {
+                    if (resultSet.getString(1).equals(userName)) {
+                        resultSet.set(2, firstName);
+                        preparedStatement.setString(3, lastName);
+                        preparedStatement.setString(4, birthday);
+                        preparedStatement.setString(5, country);
+                        preparedStatement.setString(6, email);
+                        preparedStatement.setString(7, description);
+                        return loginBean;
+                    }
+                }
+        }
+
+
+
+            //            System.out.println("Row added");
+            //Just indicating how many rows are added
+            int numRows = preparedStatement.executeUpdate();
+            System.out.println(numRows + " rows added");
+        }
+
+
 
 //    public List<Post> getOtherPost(String userName) throws SQLException {
 //        try (Statement statement = this.connection.createStatement()) {
@@ -141,7 +168,7 @@ public class LoginDataDAO {
 //    }
 
 //    public List<Post> getMyPost(String userName) throws SQLException {
-//        LoginDataJavabean loginBean = new LoginDataJavabean();
+//        UserInfoJavabean loginBean = new UserInfoJavabean();
 //        try (Statement statement = this.connection.createStatement()) {
 //            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM loginDataTable")) {
 //                while (resultSet.next()) {

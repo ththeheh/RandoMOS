@@ -57,6 +57,9 @@
                             <form action="logout" method="get">
                                 <button type="submit" class="btn btn-info btn-lg">Log out</button>
                             </form>
+                            <form action="userinfo" method="get">
+                                <button type="submit" class="btn btn-info btn-lg">My Profile</button>
+                            </form>
                         </c:when>
                         <%--<a class="nav-link text-muted" href="mainPage.jsp" onclick="destroySess()"> Logout </a>--%>
                         <c:otherwise>

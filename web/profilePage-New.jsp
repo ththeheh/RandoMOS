@@ -5,6 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Profile Display</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -15,7 +16,35 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+
     <style>
+
+
+        #iconModal img{
+            height:100px;
+            width:100px;
+        }
+
+        #fromLibrary {
+            height: 30px;
+            width: 120px;
+            font-size: 11px;
+            margin-top: 50px;
+            margin-bottom: 10px;
+
+        }
+
+        .upload-btn-wrapper input[type=file] {
+
+            left: 0;
+            top: 0;
+            opacity: 0;
+            padding-bottom: 30px;
+
+        }
 
     </style>
     <script>
@@ -37,176 +66,136 @@
         var selectedImage = 0;
 
         function changeImage(numImage) {
-
             var image = document.getElementById('featuredImage');
             console.log(numImage);
             image.src = "../images/icons/" + imageCollection[numImage].name + ".png";
             selectedImage = numImage;
             document.getElementById("descriptionText").innerText = imageCollection[numImage].description;
-            // image.src = URL.createObjectURL(event.target.files[0]);
         }
 
-       </script>
+    </script>
 </head>
 <body>
 
-<br><br>
-<div class="container">
 
-
-    <div class="col-lg-10 col-md-10 col-sm-10 my-5" style="margin: auto ">
-        <div class="card" style="background:#F8F9F9">
-            <div class="card-header">
+<div class="row">
+    <div class="col-lg-6 col-md-8 col-sm-12 my-5" style="margin: auto">
+        <div class="card bg-light" style="background:#F8F9F9;">
+            <div class="card-header p-0">
                 <h3>My Profile</h3>
             </div>
+            <div class="card-body col-lg-12 col-md-12 col-sm-12">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <img class="img-circle mx-5" style="width:100px;height:100px" id="featuredImage"
+                             src="images/icons/boy1.png" alt="placeholder"/>
 
-            <div class="card-body">
-                <div class="row-fluid">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="span4 ">
+                        <button id="fromLibrary" type="button" class="btn btn-info" data-toggle="modal"
+                                data-target="#iconModal">Choose from library
+                        </button>
 
-                            <script>
-                                function readURL(input) {
-                                    if (input.files && input.files[0]) {
-                                        var reader = new FileReader();
+                        <div class="modal m-auto modal-sm " id="iconModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content m-auto">
 
-                                        reader.onload = function (e) {
-                                            $('#blah')
-                                                .attr('src', e.target.result)
-                                                .width(150)
-                                                .height(200);
-                                        };
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Scroll and pick your icon!!</h5>
+                                    </div>
 
-                                        reader.readAsDataURL(input.files[0]);
-                                    }
-                                }
-                            </script>
-                            <img class="img-circle" id="featuredImage" src="images/icons/boy1.png"
-                                 alt="placeholder"/>
-
-
-                            <button id=fromLibrary type="button" class="btn btn-info" data-toggle="modal"
-                                    data-target="#iconModal">Choose from library
-                            </button>
-
-
-                            <!--
-
-                                                        <div class="upload-btn-wrapper">
-                                                            <button class="btn btn-info">Upload a file</button>
-                                                            <input type="file" name="myfile" accept="image/gif,image/jpeg,image/png"  />
-                                                        </div>
-                            -->
-                            <div class="upload-btn-wrapper">
-                                <div class="btn btn-info" style="height: 30px;width: 120px">
-                                    <label for="avatar" style="font-size: 10px">Choose a profile picture</label>
-
-                                    <input type="file"
-                                           id="avatar" name="avatar"
-                                           accept="image/png, image/jpeg">
-                                </div>
-                            </div>
-
-
-                        </div>
+                                    <!-- Modal body -->
+                                    <div class="modal-body centered">
+                                        <div onclick="changeImage(0)" id="0" class="thumb-holder m-5 padding-auto"
+                                             ><img
+                                                src="images/icons/boy1.png" alt="thumb"></div>
+                                        <div onclick="changeImage(1)" id="1" class="thumb-holder m-5 padding-auto"
+                                             ><img
+                                                src="images/icons/boy2.png" alt="thumb"></div>
+                                        <div onclick="changeImage(2)" id="2" class="thumb-holder m-5 padding-auto"
+                                             ><img
+                                                src="images/icons/girl1.png" alt="thumb" ></div>
+                                        <div onclick="changeImage(3)" id="3" class="thumb-holder m-5 padding-auto"
+                                             ><img
+                                                src="images/icons/girl2.png" alt="thumb" ></div>
+                                        <div onclick="changeImage(4)" id="4" class="thumb-holder m-5 padding-auto"
+                                             ><img
+                                                src="images/icons/girl3.png" alt="thumb" ></div>
+                                        <div onclick="changeImage(5)" id="5" class="thumb-holder m-5 padding-auto"
+                                             ><img
+                                                src="images/icons/girl4.png" alt="thumb" ></div>
+                                        <div onclick="changeImage(6)" id="6" class="thumb-holder m-5 padding-auto"
+                                             ><img
+                                                src="images/icons/girl5.png" alt="thumb" ></div>
+                                        <div onclick="changeImage(7)" id="7" class="thumb-holder m-5 padding-auto"
+                                             ><img
+                                                src="images/icons/girl6.png" alt="thumb" ></div>
+                                        <div onclick="changeImage(8)" id="8" class="thumb-holder m-5 padding-auto"
+                                             ><img
+                                                src="images/icons/man1.png" alt="thumb" ></div>
+                                        <div onclick="changeImage(9)" id="9" class="thumb-holder m-5 padding-auto"
+                                             ><img
+                                                src="images/icons/man2.png" alt="thumb" ></div>
+                                    </div>
 
 
-                        <div class="span6">
-                            <div id="userinfo">
-                                <br><br>
-                                <h6>User Name: + ${userName} </h6>
-                                <br>
-                                <h6>First Name: + ${firstName} </h6>
-                                <br>
-                                <h6>Last Name: + ${lastName} </h6>
-                                <br>
-                                <h6>Email: + ${email}</h6>
-                                <br>
-                                <h6>Birthday: + ${birthday}</h6>
-                                <br>
-                                <h6>Description + ${description}</h6>
-                                <br>
-                                <h6>Country + ${country}</h6>
-                                <h6></h6>
-                            </div>
-                        </div>
-                        <div class="span2">
-                            <div class="col-lg-12 col-sm-6">
-                                <button class="btn btn-info " type="button" id="dropdown-menu2"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    Action
-                                    <span class="icon-cog icon-white"></span><span class="caret"></span>
-                                </button>
-                                <div class="dropdown-menu " aria-labelledby="dropdown-menu2">
-                                    <a class="dropdown-item" href="profileUpdate.html"><span
-                                            class="icon-wrench "></span>Modify</a>
-                                    <a class="dropdown-item" href="#"><span class="icon-trash "></span>Delete</a>
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+<%--styling the button to be consistent: https://getbootstrap.com/docs/4.0/components/input-group/--%>
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile01">
+                                <label class="custom-file-label" for="inputGroupFile01">Upload</label>
+                            </div>
+                        </div>
+
+                        <%--<div class="upload-btn-wrapper">--%>
+                            <%--<div class="btn btn-info btn-" style="height: 50px;width: 80px">--%>
+                                <%--<label for="avatar" style="font-size: 12px" class="p-0 m-0" >Upload</label>--%>
+                                <%--<input type="file"--%>
+                                       <%--id="avatar" name="avatar"--%>
+                                       <%--accept="image/png, image/jpeg">--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+
+
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 m-auto">
+                        <div id="userinfo">
+                            <br>
+                            <h6><strong>User Name:</strong> ${loginInfo.userName} </h6>
+                            <h6><strong>First Name:</strong>  ${loginInfo.firstName}</h6>
+                            <h6><strong>Last Name:</strong>  ${loginInfo.lastName}</h6>
+                            <h6><strong>Birthday:</strong>  ${loginInfo.birthday}</h6>
+                            <h6><strong>Country:</strong>  ${loginInfo.country}</h6>
+                            <h6><strong>Email:</strong>  ${loginInfo.email}</h6>
+                            <h6><strong>Description:</strong>  ${loginInfo.description}</h6>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 my-5">
+
+                        <form action="editServlet" method="get">
+                            <button type="submit" class="btn btn-primary btn-lg">Edit</button>
+                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
-
-    </div>
-</div>
-
-<!--Modal for library icons-->
-
-<!--&lt;!&ndash;-->
-<div class="modal m-auto modal-sm " id="iconModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content m-auto">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h5 class="modal-title">Scroll and pick your icon!!</h5>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body centered">
-                <div onclick="changeImage(0)" id="0" class="thumb-holder m-5 padding-auto"
-                     style="width:50px;height: 50px"><img
-                        src="images/icons/boy1.png" alt="thumb"></div>
-                <div onclick="changeImage(1)" id="1" class="thumb-holder m-5 padding-auto"
-                     style="width:150px;height: 150px"><img
-                        src="images/icons/boy2.png" alt="thumb"/></div>
-                <div onclick="changeImage(2)" id="2" class="thumb-holder m-5 padding-auto"
-                     style="width:150px;height: 150px"><img
-                        src="images/icons/girl1.png" alt="thumb"/></div>
-                <div onclick="changeImage(3)" id="3" class="thumb-holder m-5 padding-auto"
-                     style="width:150px;height: 150px"><img
-                        src="images/icons/girl2.png" alt="thumb"/></div>
-                <div onclick="changeImage(4)" id="4" class="thumb-holder m-5 padding-auto"
-                     style="width:150px;height: 150px"><img
-                        src="images/icons/girl3.png" alt="thumb"/></div>
-                <div onclick="changeImage(5)" id="5" class="thumb-holder m-5 padding-auto"
-                     style="width:150px;height: 150px"><img
-                        src="images/icons/girl4.png" alt="thumb"/></div>
-                <div onclick="changeImage(6)" id="6" class="thumb-holder m-5 padding-auto"
-                     style="width:150px;height: 150px"><img
-                        src="images/icons/girl5.png" alt="thumb"/></div>
-                <div onclick="changeImage(7)" id="7" class="thumb-holder m-5 padding-auto"
-                     style="width:150px;height: 150px"><img
-                        src="images/icons/girl6.png" alt="thumb"/></div>
-                <div onclick="changeImage(8)" id="8" class="thumb-holder m-5 padding-auto"
-                     style="width:150px;height: 150px"><img
-                        src="images/icons/man1.png" alt="thumb"/></div>
-                <div onclick="changeImage(9)" id="9" class="thumb-holder m-5 padding-auto"
-                     style="width:150px;height: 150px"><img
-                        src="images/icons/man2.png" alt="thumb"/></div>
-            </div>
-
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close
-                </button>
-            </div>
+        <div class="card-footer">
+            <form action="deleteServlet" method="get">
+                <button type="submit" class="btn btn-warning btn-lg">Delete Account</button>
+            </form>
         </div>
     </div>
+</div>
+</div>
 </div>
 
 </body>

@@ -2,7 +2,7 @@ package ictgradschool.project.servlets;
 
 import java.io.Serializable;
 
-public class LoginDataJavabean implements Serializable {
+public class UserInfoJavabean implements Serializable {
     private String userName;
     private String firstName;
     private String lastName;
@@ -14,9 +14,9 @@ public class LoginDataJavabean implements Serializable {
 //    private String hashedSaltedCode;
     public boolean valid;
 
-    public LoginDataJavabean(){}
+    public UserInfoJavabean(){}
 
-    public LoginDataJavabean(String userName, String firstName, String lastName, String birthday, String country, String email, String description, String password){
+    public UserInfoJavabean(String userName, String firstName, String lastName, String birthday, String country, String email, String description, String password){
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
