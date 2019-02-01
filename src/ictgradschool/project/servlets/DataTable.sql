@@ -13,14 +13,15 @@ CREATE TABLE IF NOT EXISTS blog_userInfo (
   country          VARCHAR(50),
   email            VARCHAR(50),
   description      VARCHAR(500),
-  PRIMARY KEY (userName)
+  icon             LONGBLOB NOT NULL,
+    PRIMARY KEY (userName)
 );
 
 
 
-INSERT INTO blog_userInfo (userName, firstName, lastName, birthday, country, email, description) VALUES
+INSERT INTO blog_userInfo (userName, firstName, lastName, birthday, country, email, description, icon) VALUES
   ('ykim706', 'Mary', 'Kim', '04/29/1995', 'South Korea', 'ykim706@aucklanduni.ac.nz',
-   'I embrace all kinds of people.');
+   'I embrace all kinds of people.','');
 
 CREATE TABLE IF NOT EXISTS blog_password (
   userName          VARCHAR(50)  NOT NULL,

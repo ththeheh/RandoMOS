@@ -70,6 +70,7 @@
             image.src = "../images/icons/" + imageCollection[numImage].name + ".png";
             selectedImage = numImage;
             document.getElementById("descriptionText").innerText = imageCollection[numImage].description;
+
         }
 
 
@@ -93,7 +94,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-4">
                         <img class="img-circle mx-5" style="width:100px;height:100px" id="featuredImage"
-                             src="images/icons/boy1.png" alt="placeholder"/>
+                             src='${userInfo.icon.path}' alt="placeholder"/>
 
                         <button id="fromLibrary" type="button" class="btn btn-info" data-toggle="modal"
                                 data-target="#iconModal">Choose from library
@@ -146,7 +147,7 @@
 
                                     <!-- Modal footer -->
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Done
                                         </button>
                                     </div>
                                 </div>
@@ -159,6 +160,9 @@
                                 <label class="custom-file-label" for="uploadfile">Upload</label>
                             </div>
                         </div>
+                        <form action="updateicon" method="get">
+                            <button type="submit" class="btn btn-primary btn-lg" >Done Updating Icon!</button>
+                        </form>
 
                         <%--<div class="upload-btn-wrapper">--%>
                             <%--<div class="btn btn-info btn-" style="height: 50px;width: 80px">--%>

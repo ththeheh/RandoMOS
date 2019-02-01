@@ -1,5 +1,6 @@
 package ictgradschool.project.servlets;
 
+import java.io.File;
 import java.io.Serializable;
 
 public class UserInfoJavabean implements Serializable {
@@ -11,12 +12,13 @@ public class UserInfoJavabean implements Serializable {
     private String email;
     private String description;
     private String password;
+    private File icon;
 //    private String hashedSaltedCode;
     public boolean valid;
 
     public UserInfoJavabean(){}
 
-    public UserInfoJavabean(String userName, String firstName, String lastName, String birthday, String country, String email, String description, String password){
+    public UserInfoJavabean(String userName, String firstName, String lastName, String birthday, String country, String email, String description, String password, File icon){
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,6 +27,7 @@ public class UserInfoJavabean implements Serializable {
         this.email = email;
         this.description = description;
         this.password = password;
+        this.icon = new File("./images/icons/boy1.png");
     }
 
 
@@ -59,6 +62,8 @@ public class UserInfoJavabean implements Serializable {
     public String getPassword() {
         return this.password;
     }
+
+    public File getIcon(){return this.icon;}
 
 //    public String getHashedSaltedCode() {
 //        return hashedSaltedCode;
@@ -106,6 +111,10 @@ public class UserInfoJavabean implements Serializable {
 
     public void setValid(boolean valid) {
         this.valid = valid;
+    }
+
+    public void setIcon(File icon){
+        this.icon = icon;
     }
 }
 

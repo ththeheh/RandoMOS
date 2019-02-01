@@ -1,5 +1,13 @@
 package ictgradschool.project.servlets;
 
+import javafx.scene.effect.ImageInput;
+
+import javax.imageio.stream.ImageInputStream;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.*;
 
 public class LoginDataDAO {
@@ -13,7 +21,7 @@ public class LoginDataDAO {
 
     //Use this method to add new data entries- used in LoginDataServletNew
     public void addLoginData(UserInfoJavabean loginData) throws SQLException {
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_userInfo(userName, firstName,lastName, birthday, country, email, description) VALUES (?,?,?,?,?,?,?)")) {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_userInfo(userName, firstName,lastName, birthday, country, email, description,icon) VALUES (?,?,?,?,?,?,?,?)")) {
             preparedStatement.setString(1, loginData.getUserName());
             preparedStatement.setString(2, loginData.getFirstName());
             preparedStatement.setString(3, loginData.getLastName());
@@ -21,6 +29,14 @@ public class LoginDataDAO {
             preparedStatement.setString(5, loginData.getCountry());
             preparedStatement.setString(6, loginData.getEmail());
             preparedStatement.setString(7, loginData.getDescription());
+
+            //set default icon
+            try {
+                FileInputStream input =  new FileInputStream(new File("./images/icons/boy1.png"));
+                preparedStatement.setBinaryStream(8,input );
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
 
             //            System.out.println("Row added");
@@ -49,8 +65,8 @@ public class LoginDataDAO {
 
 //            System.out.println("Row added");
             //Just indicating how many rows are added
-            int numRows = preparedStatement.executeUpdate();
-            System.out.println(numRows + " rows added");
+//            int numRows = preparedStatement.executeUpdate();
+//            System.out.println(numRows + " rows added");
 
         }
     }
