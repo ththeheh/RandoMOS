@@ -2,12 +2,11 @@ package ictgradschool.project.servlets;
 
 import javafx.scene.effect.ImageInput;
 
+import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 import java.sql.*;
 
 public class LoginDataDAO {
@@ -34,7 +33,13 @@ public class LoginDataDAO {
             try {
                 FileInputStream input =  new FileInputStream(new File("./images/icons/boy1.png"));
                 preparedStatement.setBinaryStream(8,input );
+
+//                InputStream is = new BufferedInputStream(input);
+//                Image image = ImageIO.read(is);
+
             } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
@@ -126,6 +131,13 @@ public class LoginDataDAO {
                         loginBean.setCountry(resultSet.getString(5));
                         loginBean.setEmail(resultSet.getString(6));
                         loginBean.setDescription(resultSet.getString(7));
+
+
+                       OutputStream os = new FileOutputStream();
+
+                        loginBean.setIcon((resultSet.getString(8).getBytes()));
+
+
                         return loginBean;
                     }
                 }
