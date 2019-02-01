@@ -24,8 +24,45 @@
         <url-pattern>/loginDataNew</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>LogOutServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.LogOutServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LogOutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProfInfoServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.ProfInfoServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ProfInfoServlet</servlet-name>
+        <url-pattern>/userinfo</url-pattern>
+    </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>EditProfServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.EditProfServlet</servlet-class>
+    </servlet>
 
+    <servlet-mapping>
+        <servlet-name>EditProfServlet</servlet-name>
+        <url-pattern>/editProf</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateIconServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.UpdateIconServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UpdateIconServlet</servlet-name>
+        <url-pattern>/updateicon</url-pattern>
+    </servlet-mapping>
 
 </web-app>

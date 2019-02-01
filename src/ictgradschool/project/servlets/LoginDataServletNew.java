@@ -1,10 +1,10 @@
 package ictgradschool.project.servlets;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -24,12 +24,16 @@ public class LoginDataServletNew extends HttpServlet {
             String email = req.getParameter("email");
             String description = req.getParameter("description");
             String password = req.getParameter("password");
+            String iconStr = req.getParameter("icon");
+
+
+
 
 //            Do hashedCode here and store; and when comparing password, we need to get the hashedcode out from database and then crack it to password and compare.
 //            String hashedSaltedCode = req.getParameter("hashedSaltedCode");
 //            System.out.println(password);
 
-            LoginDataJavabean loginData = new LoginDataJavabean(userName, firstName, lastName, birthday, country, email, description, password);
+            UserInfoJavabean loginData = new UserInfoJavabean(userName, firstName, lastName, birthday, country, email, description, password,);
             // need to call encoding class to create hashedcode to store
             String regMsg = dao.usernameConflict(userName, email);
             if (regMsg.equals("Okay")) {

@@ -41,7 +41,6 @@ public class DBConnection {
         try (InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("jdbc.properties")) {
 
             Properties props = new Properties();
-            System.out.println(in);
             props.load(in);
             return props;
 
