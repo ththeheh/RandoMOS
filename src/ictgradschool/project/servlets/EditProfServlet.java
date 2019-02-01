@@ -17,16 +17,29 @@ public class EditProfServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
         try (Connection connection = DBConnection.createConnection()) {
             LoginDataDAO dao = new LoginDataDAO(connection);
             String userName = (String) req.getSession().getAttribute("username");
 
-            UserInfoJavabean loginBean = dao.getUserInfo(userName);
-            req.setAttribute("loginInfo", loginBean);
+            String firstName = req.getParameter("firstName");
+            String lastName = req.getParameter("lastName");
+            String birthday = req.getParameter("birthday");
+            String country = req.getParameter("country");
+            String email = req.getParameter("email");
+            String description = req.getParameter("description");
+
+            //update the user info
+            dao.editInfo(userName,firstName,lastName,birthday,country,email,description);
+
+            //get the user info and redirect to the profile page.
+            UserInfoJavabean updatedBean = dao.getUserInfo(userName);
+            req.setAttribute("userInfo", updatedBean);
             req.getRequestDispatcher("profilePage-New.jsp").forward(req,resp);
+
+            System.out.println("the line before redirect"+email);
             resp.sendRedirect("profilePage-New.jsp");
-//                    req.setAttribute("login", userName); //do later
+
+         //                    req.setAttribute("login", userName); //do later
 
 
         } catch (SQLException e) {

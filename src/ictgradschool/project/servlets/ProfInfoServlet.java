@@ -22,8 +22,8 @@ public class ProfInfoServlet extends HttpServlet {
             LoginDataDAO dao = new LoginDataDAO(connection);
             String userName = (String) req.getSession().getAttribute("username");
 
-            UserInfoJavabean loginBean = dao.getUserInfo(userName);
-            req.setAttribute("loginInfo", loginBean);
+            UserInfoJavabean userBean = dao.getUserInfo(userName);
+            req.setAttribute("userInfo", userBean);
             req.getRequestDispatcher("profilePage-New.jsp").forward(req,resp);
             resp.sendRedirect("profilePage-New.jsp");
 //                    req.setAttribute("login", userName); //do later

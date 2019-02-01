@@ -67,11 +67,16 @@
 
         function changeImage(numImage) {
             var image = document.getElementById('featuredImage');
-            console.log(numImage);
             image.src = "../images/icons/" + imageCollection[numImage].name + ".png";
             selectedImage = numImage;
             document.getElementById("descriptionText").innerText = imageCollection[numImage].description;
         }
+
+
+            var uploadImage = function(event) {
+                var image = document.getElementById('featuredImage');
+                image.src = URL.createObjectURL(event.target.files[0]);
+            }
 
     </script>
 </head>
@@ -150,8 +155,8 @@
 <%--styling the button to be consistent: https://getbootstrap.com/docs/4.0/components/input-group/--%>
                         <div class="input-group mb-3">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile01">
-                                <label class="custom-file-label" for="inputGroupFile01">Upload</label>
+                                <input type="file" class="custom-file-input"  accept="image/*" name="image" id="uploadfile" onchange="uploadImage(event)">
+                                <label class="custom-file-label" for="uploadfile">Upload</label>
                             </div>
                         </div>
 
@@ -167,20 +172,20 @@
 
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 m-auto">
-                        <div id="userinfo">
+                        <div id="userInfo">
                             <br>
-                            <h6><strong>User Name:</strong> ${loginInfo.userName} </h6>
-                            <h6><strong>First Name:</strong>  ${loginInfo.firstName}</h6>
-                            <h6><strong>Last Name:</strong>  ${loginInfo.lastName}</h6>
-                            <h6><strong>Birthday:</strong>  ${loginInfo.birthday}</h6>
-                            <h6><strong>Country:</strong>  ${loginInfo.country}</h6>
-                            <h6><strong>Email:</strong>  ${loginInfo.email}</h6>
-                            <h6><strong>Description:</strong>  ${loginInfo.description}</h6>
+                            <h6><strong>User Name:</strong> ${userInfo.userName} </h6>
+                            <h6><strong>First Name:</strong>  ${userInfo.firstName}</h6>
+                            <h6><strong>Last Name:</strong>  ${userInfo.lastName}</h6>
+                            <h6><strong>Birthday:</strong>  ${userInfo.birthday}</h6>
+                            <h6><strong>Country:</strong>  ${userInfo.country}</h6>
+                            <h6><strong>Email:</strong>  ${userInfo.email}</h6>
+                            <h6><strong>Description:</strong>  ${userInfo.description}</h6>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 my-5">
 
-                        <form action="editServlet" method="get">
+                        <form action="profileUpdate.jsp">
                             <button type="submit" class="btn btn-primary btn-lg">Edit</button>
                         </form>
 

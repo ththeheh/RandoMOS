@@ -119,32 +119,26 @@ public class LoginDataDAO {
     }
 
 
-    public void editInfo(String userName,String firstName, String lastName, String birthday, String country, String email, String description) throws SQLException {
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM blog_userInfo")) {
+    public void editInfo(String userName, String firstName, String lastName, String birthday, String country, String email, String description) throws SQLException {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE blog_userInfo SET firstName=?, lastName=?,birthday=?,country=?,email=?,description=? WHERE userName=? ")) {
 
-
-            try (ResultSet resultSet = preparedStatement.executeQuery("SELECT * FROM blog_userInfo")) {
-                while (resultSet.next()) {
-                    if (resultSet.getString(1).equals(userName)) {
-                        resultSet.set(2, firstName);
-                        preparedStatement.setString(3, lastName);
-                        preparedStatement.setString(4, birthday);
-                        preparedStatement.setString(5, country);
-                        preparedStatement.setString(6, email);
-                        preparedStatement.setString(7, description);
-                        return loginBean;
-                    }
-                }
-        }
-
-
-
-            //            System.out.println("Row added");
-            //Just indicating how many rows are added
+            preparedStatement.setString(1, firstName);
+            preparedStatement.setString(2, lastName);
+            preparedStatement.setString(3, birthday);
+            preparedStatement.setString(4, country);
+            preparedStatement.setString(5, email);
+            preparedStatement.setString(6, description);
+            preparedStatement.setString(7, userName);
             int numRows = preparedStatement.executeUpdate();
-            System.out.println(numRows + " rows added");
-        }
+            System.out.println(numRows + " rows updated");
 
+        }
+    }
+
+
+    //            System.out.println("Row added");
+    //Just indicating how many rows are added
+}
 
 
 //    public List<Post> getOtherPost(String userName) throws SQLException {
@@ -188,4 +182,5 @@ public class LoginDataDAO {
 //        return null;
 //    }
 
-}
+
+

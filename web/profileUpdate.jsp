@@ -30,7 +30,7 @@
             </div>
             <div class="card-body">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#home" data-toggle="tab">Profile</a></li>
+                    <li class="active"><a href="#home" data-toggle="tab">Profile Update</a></li>
                 </ul>
                 <br><br>
                 <form action="editProf" method="post">
@@ -52,7 +52,7 @@
                                                    required>
                                         </div>
                                         <br/>
-                                        <div id="countrylist" onload="countrylist()">
+                                        <div id="countrylist" onload="countrylist()" style="width:250px">
                                             <label><strong>Country: </strong></label>
                                             <select name="country">
                                                 <option value="United States">United States</option>
