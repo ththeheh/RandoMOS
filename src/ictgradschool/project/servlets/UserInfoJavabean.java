@@ -12,13 +12,13 @@ public class UserInfoJavabean implements Serializable {
     private String email;
     private String description;
     private String password;
-    private File icon;
+    private String iconPath;
 //    private String hashedSaltedCode;
     public boolean valid;
 
     public UserInfoJavabean(){}
 
-    public UserInfoJavabean(String userName, String firstName, String lastName, String birthday, String country, String email, String description, String password, File icon){
+    public UserInfoJavabean(String userName, String firstName, String lastName, String birthday, String country, String email, String description, String password, String iconPath){
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -27,7 +27,7 @@ public class UserInfoJavabean implements Serializable {
         this.email = email;
         this.description = description;
         this.password = password;
-        this.icon = new File("./images/icons/boy1.png");
+        this.iconPath = iconPath;
     }
 
 
@@ -63,7 +63,7 @@ public class UserInfoJavabean implements Serializable {
         return this.password;
     }
 
-    public File getIcon(){return this.icon;}
+    public String getIcon(){return this.iconPath;}
 
 //    public String getHashedSaltedCode() {
 //        return hashedSaltedCode;
@@ -113,8 +113,8 @@ public class UserInfoJavabean implements Serializable {
         this.valid = valid;
     }
 
-    public void setIcon(File icon){
-        this.icon = icon;
+    public void setIconPath(String iconPath){
+        this.iconPath = iconPath;
     }
 }
 

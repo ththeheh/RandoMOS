@@ -70,6 +70,8 @@
             image.src = "../images/icons/" + imageCollection[numImage].name + ".png";
             selectedImage = numImage;
             document.getElementById("descriptionText").innerText = imageCollection[numImage].description;
+}
+
 
         }
 
@@ -78,6 +80,43 @@
                 var image = document.getElementById('featuredImage');
                 image.src = URL.createObjectURL(event.target.files[0]);
             }
+
+// anothe way to use <a href="MyServlet?data=MyData">Go to server</a>
+
+
+            {#featuredImage}.onchange.ajax({
+
+                            type:'POST',
+
+                             url: 'changIconServlet',
+
+                             data: {'iconPath': document.getElementById('featuredImage').src;},
+
+                             async: false,
+
+                             dataType: 'json',
+
+                             success: function(data){
+
+                            if(data.success){
+
+                            alert('Update Sucess!');
+
+                            }else{
+
+                            alert('Update Fail!');
+
+                            }
+
+                            },
+
+                             error: function(err){
+
+                            alert('Internet Error!');
+
+                            }
+
+                            });
 
     </script>
 </head>
@@ -94,7 +133,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-4">
                         <img class="img-circle mx-5" style="width:100px;height:100px" id="featuredImage"
-                             src='${userInfo.icon.path}' alt="placeholder"/>
+                             src='${userInfo.iconPath}' alt="placeholder"/>
 
                         <button id="fromLibrary" type="button" class="btn btn-info" data-toggle="modal"
                                 data-target="#iconModal">Choose from library
@@ -198,8 +237,8 @@
             </div>
         </div>
         <div class="card-footer">
-            <form action="deleteServlet" method="get">
-                <button type="submit" class="btn btn-warning btn-lg">Delete Account</button>
+            <form action="deleteAccount" method="get">
+                <button type="submit" class="btn btn-danger btn-lg" onclick="alert('Your account will be deleted! Going to the main page...')">Delete Account</button>
             </form>
         </div>
     </div>

@@ -24,7 +24,7 @@ public class LoginDataServletNew extends HttpServlet {
             String email = req.getParameter("email");
             String description = req.getParameter("description");
             String password = req.getParameter("password");
-            String iconStr = req.getParameter("icon");
+            String iconPath = req.getParameter("icon");
 
 
 
@@ -33,7 +33,7 @@ public class LoginDataServletNew extends HttpServlet {
 //            String hashedSaltedCode = req.getParameter("hashedSaltedCode");
 //            System.out.println(password);
 
-            UserInfoJavabean loginData = new UserInfoJavabean(userName, firstName, lastName, birthday, country, email, description, password,);
+            UserInfoJavabean loginData = new UserInfoJavabean(userName, firstName, lastName, birthday, country, email, description, password,iconPath);
             // need to call encoding class to create hashedcode to store
             String regMsg = dao.usernameConflict(userName, email);
             if (regMsg.equals("Okay")) {
