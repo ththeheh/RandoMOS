@@ -1,13 +1,12 @@
 package ictgradschool.project.servlets;
 
-import javafx.scene.effect.ImageInput;
-
-import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageInputStream;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginDataDAO {
     private Connection connection;
@@ -31,8 +30,8 @@ public class LoginDataDAO {
 
             //set default icon
             try {
-                FileInputStream input =  new FileInputStream(new File("./images/icons/boy1.png"));
-                preparedStatement.setBinaryStream(8,input );
+                FileInputStream input = new FileInputStream(new File("./images/icons/boy1.png"));
+                preparedStatement.setBinaryStream(8, input);
 
 //                InputStream is = new BufferedInputStream(input);
 //                Image image = ImageIO.read(is);
@@ -142,42 +141,18 @@ public class LoginDataDAO {
         return null;
     }
 
-    public PostJavaBean getPost(String userName) throws SQLException {
+    public PostJavaBean getPost(int postId) throws SQLException {
         PostJavaBean post = new PostJavaBean();
         try (Statement statement = this.connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_post")) {
                 while (resultSet.next()) {
-                    if (resultSet.getString(1).equals(userName)) {
+                    if (resultSet.getInt(2) == (postId)) {
                         post.setUserName(resultSet.getString(1));
-                        post.setFirstName(resultSet.getString(2));
-
-
-                        try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_userComment")) {
-                            while (resultSet.next()) {
-                                if (resultSet.getString(1).equals(userName)) {
-                                    loginBean.setUserName(resultSet.getString(1));
-                                    loginBean.setFirstName(resultSet.getString(2));
-                                    loginBean.setLastName(resultSet.getString(3));
-                                    loginBean.setBirthday(resultSet.getString(4));
-                                    loginBean.setCountry(resultSet.getString(5));
-                                    loginBean.setEmail(resultSet.getString(6));
-                                    loginBean.setDescription(resultSet.getString(7));
-
-                                    loginBean.setIconPath((resultSet.getString(8)));
-
-                                    return loginBean;
-                                }
-                            }
-                        }
-                        loginBean.setLastName(resultSet.getString(3));
-                        loginBean.setBirthday(resultSet.getString(4));
-                        loginBean.setCountry(resultSet.getString(5));
-                        loginBean.setEmail(resultSet.getString(6));
-                        loginBean.setDescription(resultSet.getString(7));
-
-                        loginBean.setIconPath((resultSet.getString(8)));
-
-                        return loginBean;
+                        post.setPostId(resultSet.getInt(2));
+                        post.setTitle(resultSet.getString(3));
+                        post.setPost(resultSet.getString(4));
+                        post.setComments(getComments(postId));
+                        return post;
                     }
                 }
             }
@@ -187,9 +162,45 @@ public class LoginDataDAO {
         return null;
     }
 
+    public List<Comment> getComments(int postId) throws SQLException {
+        List<Comment> comments = new ArrayList<>();
+        try (Statement statement = this.connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_userComment")) {
+                while (resultSet.next()) {
+                    if (resultSet.getInt(2) == (postId)) {
+                        String userName = resultSet.getString(1);
+                        int commentId = resultSet.getInt(3);
+                        String comment = resultSet.getString(4);
+                        List<Reply> replies = getReply(commentId);
+                        comments.add(new Comment(userName, postId, commentId, comment,replies));
+                    }
+                }
+            }
+        }
+        return comments;
+    }
+
+    public List<Reply> getReply(int commentId) throws SQLException {
+        List<Reply> replies = new ArrayList<>();
+        try (Statement statement = this.connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_reply")) {
+                while (resultSet.next()) {
+                    if (resultSet.getInt(2) == (commentId)) {
+                        String userName = resultSet.getString(1);
+                        int postId = resultSet.getInt(2);
+                        int replyId = resultSet.getInt(4);
+                        String reply = resultSet.getString(5);
+                        replies.add(new Reply(userName, postId, commentId, replyId,reply));
+                    }
+                }
+            }
+        }
+        return replies;
+    }
 
 
-    public void editInfo(String userName, String firstName, String lastName, String birthday, String country, String email, String description) throws SQLException {
+    public void editInfo(String userName, String firstName, String lastName, String birthday, String
+            country, String email, String description) throws SQLException {
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE blog_userInfo SET firstName=?, lastName=?,birthday=?,country=?,email=?,description=? WHERE userName=? ")) {
 
             preparedStatement.setString(1, firstName);
@@ -234,7 +245,6 @@ public class LoginDataDAO {
     }
 
 }
-
 
 
 //    public List<Post> getMyPost(String userName) throws SQLException {

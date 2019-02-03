@@ -20,14 +20,16 @@ public class ShowPostServlet extends HttpServlet {
 
         try (Connection connection = DBConnection.createConnection()) {
             LoginDataDAO dao = new LoginDataDAO(connection);
+
+            int postId = req.getParameter("postId"); // <a href="MyServlet?data=MyData">Go to server</a> format to be added in .jsp file for the postId on clicked.
+
             String userName = (String) req.getSession().getAttribute("username");
 
-            PostJavaBean post = dao.getPost(userName);
+            PostJavaBean post = new PostJavaBean(postId);
 
-
-            req.setAttribute("userInfo", userBean);
-            req.getRequestDispatcher("profilePage-New.jsp").forward(req,resp);
-            resp.sendRedirect("profilePage-New.jsp");
+            req.setAttribute("postId", postId);
+            req.getRequestDispatcher("article.jsp").forward(req,resp);
+            resp.sendRedirect("article.jsp");
 //                    req.setAttribute("login", userName); //do later
 
 

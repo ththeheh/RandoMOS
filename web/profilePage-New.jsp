@@ -81,6 +81,9 @@
                 image.src = URL.createObjectURL(event.target.files[0]);
             }
 
+// anothe way to use <a href="MyServlet?data=MyData">Go to server</a>
+
+
             {#featuredImage}.onchange.ajax({
 
                             type:'POST',

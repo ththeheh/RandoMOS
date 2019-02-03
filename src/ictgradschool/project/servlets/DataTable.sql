@@ -4,6 +4,8 @@ DROP TABLE IF EXISTS blog_post;
 DROP TABLE IF EXISTS blog_password;
 DROP TABLE IF EXISTS blog_userInfo;
 
+
+--some databases are refactored to be simpler, e.g. blog_comment, dropped title as id can represent id.
 CREATE TABLE IF NOT EXISTS blog_userInfo (
   userName         VARCHAR(50)  NOT NULL,
   firstName        VARCHAR(50)  NOT NULL,
@@ -65,13 +67,29 @@ INSERT INTO blog_writeArt(userName, postId) VALUES
 CREATE TABLE IF NOT EXISTS blog_userComment (
   userName VARCHAR(50) NOT NULL,
   postId INT AUTO_INCREMENT,
-  postTitle VARCHAR(50) NOT NULL,
+--  postTitle VARCHAR(50) NOT NULL,
+  commentId  INT NOT NULL,
   comment  VARCHAR(100),
-  PRIMARY KEY (userName),
+  PRIMARY KEY (userName, postId, commentId),
   FOREIGN KEY (userName) REFERENCES blog_userInfo (userName),
-  FOREIGN KEY ( postId,postTitle) REFERENCES post (postId,postTitle)
+  FOREIGN KEY ( postId) REFERENCES blog_post (postId)
 
 );
 
-INSERT INTO blog_userComment(userName, postId,postTitle,comment) VALUES
-  ('ykim706', '1','How to cook the best homemade hotpot','This helped me to throw a perfect housewarming party!');
+
+INSERT INTO blog_userComment(userName, commentId, comment) VALUES
+  ('ykim706',1,'This helped me to throw a perfect housewarming party!');
+
+
+CREATE TABLE IF NOT EXISTS blog_userReply(
+ userName VARCHAR(50) NOT NULL,
+ postId INT AUTO_INCREMENT,
+ commentId INT NOT NULL,
+ replyId INT NOT NULL,
+ reply VARCHAR(100),
+ PRIMARY KEY (userName, postId, commentId,replyId),
+ FOREIGN KEY (userName) REFERENCES blog_userInfo (userName),
+ FOREIGN KEY (postId) REFERENCES blog_post (postId),
+ FOREIGN KEY (commentId) REFERENCES blog_userComment (commentId),
+)
+

@@ -1,6 +1,7 @@
 package ictgradschool.project.servlets;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class PostJavaBean implements Serializable {
     private String userName;
@@ -8,11 +9,11 @@ public class PostJavaBean implements Serializable {
     private String title;
     private String post;
     private int postId;
-    private Comment[] comments;
+    private List<Comment> comments;
 
     public PostJavaBean(){}
 
-    public PostJavaBean(String userName, String iconPath, String title, String post, int postId, Comment[] comments) {
+    public PostJavaBean(String userName, String iconPath, String title, String post, int postId, List<Comment> comments) {
         this.userName = userName;
         this.iconPath = iconPath;
         this.title = title;
@@ -41,7 +42,7 @@ public class PostJavaBean implements Serializable {
         return this.postId;
     }
 
-    public Comment[] comments() {
+    public List<Comment> comments() {
         return this.comments;
     }
 
@@ -65,7 +66,7 @@ public class PostJavaBean implements Serializable {
         this.postId = postId;
     }
 
-    public void setComments(Comment[] comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
