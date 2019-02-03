@@ -57,7 +57,7 @@
 
     <servlet>
         <servlet-name>ChangeIconServlet</servlet-name>
-        <servlet-class>ictgradschool.project.servlets.UpdateIconServlet</servlet-class>
+        <servlet-class>ictgradschool.project.servlets.ChangeIconServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -67,7 +67,7 @@
 
     <servlet>
         <servlet-name>DeleteAccountServlet</servlet-name>
-        <servlet-class>ictgradschool.project.servlets.UpdateIconServlet</servlet-class>
+        <servlet-class>ictgradschool.project.servlets.DeleteAccountServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>

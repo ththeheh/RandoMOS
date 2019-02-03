@@ -2,13 +2,14 @@ package ictgradschool.project.servlets;
 
 import sun.misc.BASE64Decoder;
 
+import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -34,15 +35,37 @@ public class ChangeIconServlet extends HttpServlet {
 
                 try {
 
+                    System.out.println(iconPath);
                     //decode the image and then write it to the specific location.
-                    byte[] decodedBytes = decoder.decodeBuffer(iconPath);
+                    BufferedImage image = ImageIO.read(new File(iconPath));
 
-                    String imgFilePath = "./images/icons" + userName;
 
-                    //just overwrite, not append.
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+
+                    ImageIO.write(image, "png", outputStream);
+
+
+//                    File icon = new File(iconPath);
+//
+//                    FileInputStream iconFile1 = new FileInputStream(icon);
+//
+//                    //to be tested.
+//
+                    ServletContext servletContext = getServletContext();
+                    String fullImagePath = servletContext.getRealPath("images");
+
+                    System.out.println(fullImagePath);
+
+                    String imgFilePath = fullImagePath+"/"+userName+".png";
+//                    File iconFile = new File(imgFilePath);
+//
+//                    //just overwrite, not append.
                     FileOutputStream out = new FileOutputStream(imgFilePath, false);
 
-                    out.write(decodedBytes);
+                    byte[] iconBytes=outputStream.toByteArray();
+
+                    out.write(iconBytes);
 
                     dao.changeIcon(userName, iconPath);
 
@@ -62,6 +85,8 @@ public class ChangeIconServlet extends HttpServlet {
 
                 resp.getWriter().print(wrapJSON(success));
 
+            }
+            else { dao.changeIcon(userName,iconPath);
             }
         } catch (SQLException e) {
             e.printStackTrace();

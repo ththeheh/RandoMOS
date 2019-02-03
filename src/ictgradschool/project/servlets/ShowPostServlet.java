@@ -21,13 +21,13 @@ public class ShowPostServlet extends HttpServlet {
         try (Connection connection = DBConnection.createConnection()) {
             LoginDataDAO dao = new LoginDataDAO(connection);
 
-            int postId = req.getParameter("postId"); // <a href="MyServlet?data=MyData">Go to server</a> format to be added in .jsp file for the postId on clicked.
+//            int postId = req.getParameter("postId"); // <a href="MyServlet?data=MyData">Go to server</a> format to be added in .jsp file for the postId on clicked.
 
             String userName = (String) req.getSession().getAttribute("username");
 
-            PostJavaBean post = new PostJavaBean(postId);
+//            PostJavaBean post = new PostJavaBean(postId);
 
-            req.setAttribute("postId", postId);
+//            req.setAttribute("postId", postId);
             req.getRequestDispatcher("article.jsp").forward(req,resp);
             resp.sendRedirect("article.jsp");
 //                    req.setAttribute("login", userName); //do later

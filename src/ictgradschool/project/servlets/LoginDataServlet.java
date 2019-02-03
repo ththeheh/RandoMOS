@@ -15,6 +15,7 @@ public class LoginDataServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -36,15 +37,11 @@ public class LoginDataServlet extends HttpServlet {
                 String usernameinfo = dao.validation(userName, password);
                 if (!usernameinfo.equals("Not match") && !usernameinfo.equals("Not exist")) {
 
-                    session.setAttribute("username",userName);
-
-//                    System.out.println(session.getAttribute("username"));
+                    session.setAttribute("username", userName);
+//                   System.out.println(session.getAttribute("username"));
 
                     resp.sendRedirect("mainPage.jsp");            //if the username is a username, send to mainpage
-
 //                    req.setAttribute("login", userName); //do later
-
-
 
 ////to get postlist from DAO.
 //                    req.setAttribute("otherPosts",otherPostList);
