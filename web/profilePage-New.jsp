@@ -23,9 +23,9 @@
     <style>
 
 
-        #iconModal img{
-            height:100px;
-            width:100px;
+        #iconModal img {
+            height: 100px;
+            width: 100px;
         }
 
         #fromLibrary {
@@ -48,7 +48,7 @@
 
     </style>
     <script>
-        "use strict";
+        // "use strict";
 
         var imageCollection = [
             {name: "boy1", description: "This is Sam"},
@@ -68,55 +68,35 @@
         function changeImage(numImage) {
             var image = document.getElementById('featuredImage');
             image.src = "../images/icons/" + imageCollection[numImage].name + ".png";
-            selectedImage = numImage;
-            document.getElementById("descriptionText").innerText = imageCollection[numImage].description;
-}
-
-
+            saveIcon();
         }
 
+        var uploadImage = function (event) {
+            var image = document.getElementById('featuredImage');
+            image.src = URL.createObjectURL(event.target.files[0]);
+            saveIcon();
+        }
+        // anothe way to use <a href="MyServlet?data=MyData">Go to server</a>
 
-            var uploadImage = function(event) {
-                var image = document.getElementById('featuredImage');
-                image.src = URL.createObjectURL(event.target.files[0]);
-            }
-
-// anothe way to use <a href="MyServlet?data=MyData">Go to server</a>
-
-
-            {#featuredImage}.onchange.ajax({
-
-                            type:'POST',
-
-                             url: 'changIconServlet',
-
-                             data: {'iconPath': document.getElementById('featuredImage').src;},
-
-                             async: false,
-
-                             dataType: 'json',
-
-                             success: function(data){
-
-                            if(data.success){
-
+        function saveIcon(){
+            $.ajax({
+                type: 'POST',
+                url: 'changeicon',
+                data: {'iconPath': document.getElementById('featuredImage').src},
+                async: true,
+                dataType: 'json',
+                success: function (data) {
+                        if (data.success) {
                             alert('Update Sucess!');
-
-                            }else{
-
+                        } else {
                             alert('Update Fail!');
-
-                            }
-
-                            },
-
-                             error: function(err){
-
-                            alert('Internet Error!');
-
-                            }
-
-                            });
+                        }
+                    },
+                error: function (err) {
+                    alert('Internet Error!');
+                }
+            });
+        }
 
     </script>
 </head>
@@ -139,7 +119,8 @@
                                 data-target="#iconModal">Choose from library
                         </button>
 
-                        <div class="modal m-auto modal-sm " id="iconModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                        <div class="modal m-auto modal-sm " id="iconModal" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel"
                              aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content m-auto">
@@ -152,35 +133,35 @@
                                     <!-- Modal body -->
                                     <div class="modal-body centered">
                                         <div onclick="changeImage(0)" id="0" class="thumb-holder m-5 padding-auto"
-                                             ><img
+                                        ><img
                                                 src="images/icons/boy1.png" alt="thumb"></div>
                                         <div onclick="changeImage(1)" id="1" class="thumb-holder m-5 padding-auto"
-                                             ><img
+                                        ><img
                                                 src="images/icons/boy2.png" alt="thumb"></div>
                                         <div onclick="changeImage(2)" id="2" class="thumb-holder m-5 padding-auto"
-                                             ><img
-                                                src="images/icons/girl1.png" alt="thumb" ></div>
+                                        ><img
+                                                src="images/icons/girl1.png" alt="thumb"></div>
                                         <div onclick="changeImage(3)" id="3" class="thumb-holder m-5 padding-auto"
-                                             ><img
-                                                src="images/icons/girl2.png" alt="thumb" ></div>
+                                        ><img
+                                                src="images/icons/girl2.png" alt="thumb"></div>
                                         <div onclick="changeImage(4)" id="4" class="thumb-holder m-5 padding-auto"
-                                             ><img
-                                                src="images/icons/girl3.png" alt="thumb" ></div>
+                                        ><img
+                                                src="images/icons/girl3.png" alt="thumb"></div>
                                         <div onclick="changeImage(5)" id="5" class="thumb-holder m-5 padding-auto"
-                                             ><img
-                                                src="images/icons/girl4.png" alt="thumb" ></div>
+                                        ><img
+                                                src="images/icons/girl4.png" alt="thumb"></div>
                                         <div onclick="changeImage(6)" id="6" class="thumb-holder m-5 padding-auto"
-                                             ><img
-                                                src="images/icons/girl5.png" alt="thumb" ></div>
+                                        ><img
+                                                src="images/icons/girl5.png" alt="thumb"></div>
                                         <div onclick="changeImage(7)" id="7" class="thumb-holder m-5 padding-auto"
-                                             ><img
-                                                src="images/icons/girl6.png" alt="thumb" ></div>
+                                        ><img
+                                                src="images/icons/girl6.png" alt="thumb"></div>
                                         <div onclick="changeImage(8)" id="8" class="thumb-holder m-5 padding-auto"
-                                             ><img
-                                                src="images/icons/man1.png" alt="thumb" ></div>
+                                        ><img
+                                                src="images/icons/man1.png" alt="thumb"></div>
                                         <div onclick="changeImage(9)" id="9" class="thumb-holder m-5 padding-auto"
-                                             ><img
-                                                src="images/icons/man2.png" alt="thumb" ></div>
+                                        ><img
+                                                src="images/icons/man2.png" alt="thumb"></div>
                                     </div>
 
 
@@ -192,24 +173,25 @@
                                 </div>
                             </div>
                         </div>
-<%--styling the button to be consistent: https://getbootstrap.com/docs/4.0/components/input-group/--%>
+                        <%--styling the button to be consistent: https://getbootstrap.com/docs/4.0/components/input-group/--%>
                         <div class="input-group mb-3">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input"  accept="image/*" name="image" id="uploadfile" onchange="uploadImage(event)">
+                                <input type="file" class="custom-file-input" accept="image/*" name="image"
+                                       id="uploadfile" onchange="uploadImage(event)">
                                 <label class="custom-file-label" for="uploadfile">Upload</label>
                             </div>
                         </div>
                         <form action="updateicon" method="get">
-                            <button type="submit" class="btn btn-primary btn-lg" >Done Updating Icon!</button>
+                            <button type="submit" class="btn btn-primary btn-lg">Done Updating Icon!</button>
                         </form>
 
                         <%--<div class="upload-btn-wrapper">--%>
-                            <%--<div class="btn btn-info btn-" style="height: 50px;width: 80px">--%>
-                                <%--<label for="avatar" style="font-size: 12px" class="p-0 m-0" >Upload</label>--%>
-                                <%--<input type="file"--%>
-                                       <%--id="avatar" name="avatar"--%>
-                                       <%--accept="image/png, image/jpeg">--%>
-                            <%--</div>--%>
+                        <%--<div class="btn btn-info btn-" style="height: 50px;width: 80px">--%>
+                        <%--<label for="avatar" style="font-size: 12px" class="p-0 m-0" >Upload</label>--%>
+                        <%--<input type="file"--%>
+                        <%--id="avatar" name="avatar"--%>
+                        <%--accept="image/png, image/jpeg">--%>
+                        <%--</div>--%>
                         <%--</div>--%>
 
 
@@ -218,12 +200,12 @@
                         <div id="userInfo">
                             <br>
                             <h6><strong>User Name:</strong> ${userInfo.userName} </h6>
-                            <h6><strong>First Name:</strong>  ${userInfo.firstName}</h6>
-                            <h6><strong>Last Name:</strong>  ${userInfo.lastName}</h6>
-                            <h6><strong>Birthday:</strong>  ${userInfo.birthday}</h6>
-                            <h6><strong>Country:</strong>  ${userInfo.country}</h6>
-                            <h6><strong>Email:</strong>  ${userInfo.email}</h6>
-                            <h6><strong>Description:</strong>  ${userInfo.description}</h6>
+                            <h6><strong>First Name:</strong> ${userInfo.firstName}</h6>
+                            <h6><strong>Last Name:</strong> ${userInfo.lastName}</h6>
+                            <h6><strong>Birthday:</strong> ${userInfo.birthday}</h6>
+                            <h6><strong>Country:</strong> ${userInfo.country}</h6>
+                            <h6><strong>Email:</strong> ${userInfo.email}</h6>
+                            <h6><strong>Description:</strong> ${userInfo.description}</h6>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 my-5">
@@ -238,7 +220,9 @@
         </div>
         <div class="card-footer">
             <form action="deleteAccount" method="get">
-                <button type="submit" class="btn btn-danger btn-lg" onclick="alert('Your account will be deleted! Going to the main page...')">Delete Account</button>
+                <button type="submit" class="btn btn-danger btn-lg"
+                        onclick="alert('Your account will be deleted! Going to the main page...')">Delete Account
+                </button>
             </form>
         </div>
     </div>

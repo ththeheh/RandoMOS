@@ -19,7 +19,7 @@ public class LoginDataDAO {
 
     //Use this method to add new data entries- used in LoginDataServletNew
     public void addLoginData(UserInfoJavabean loginData) throws SQLException {
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_userInfo(userName, firstName,lastName, birthday, country, email, description,icon) VALUES (?,?,?,?,?,?,?,?)")) {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_userInfo(userName, firstName,lastName, birthday, country, email, description,iconPath) VALUES (?,?,?,?,?,?,?,?)")) {
             preparedStatement.setString(1, loginData.getUserName());
             preparedStatement.setString(2, loginData.getFirstName());
             preparedStatement.setString(3, loginData.getLastName());
@@ -27,33 +27,22 @@ public class LoginDataDAO {
             preparedStatement.setString(5, loginData.getCountry());
             preparedStatement.setString(6, loginData.getEmail());
             preparedStatement.setString(7, loginData.getDescription());
-
+            preparedStatement.setString(8,loginData.getIconPath());
             //set default icon
-            try {
-                FileInputStream input = new FileInputStream(new File("./images/icons/boy1.png"));
-                preparedStatement.setBinaryStream(8, input);
-
-//                InputStream is = new BufferedInputStream(input);
-//                Image image = ImageIO.read(is);
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-            //            System.out.println("Row added");
+                    //            System.out.println("Row added");
             //Just indicating how many rows are added
             int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " user account added");
         }
+    }
+
+    public void setPassword(UserInfoJavabean loginData) throws SQLException {
 
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_password(userName,hashedCode,salt,iteration) VALUES (?,?,?,?)")) {
             preparedStatement.setString(1, loginData.getUserName());
 
             //5 length salt
-            int iteration = 5;
+            int iteration = 10;
             int saltLength = 5;
             byte[] saltByte = Passwords.getNextSalt(saltLength);
             String hashedCode = Passwords.base64Encode(Passwords.hash(loginData.getPassword().toCharArray(), saltByte, iteration));
@@ -66,11 +55,8 @@ public class LoginDataDAO {
             preparedStatement.setString(3, salt);
             preparedStatement.setInt(4, iteration);
 
-
-//            System.out.println("Row added");
-            //Just indicating how many rows are added
-//            int numRows = preparedStatement.executeUpdate();
-//            System.out.println(numRows + " rows added");
+            int numRows = preparedStatement.executeUpdate();
+            System.out.println(numRows + " hashed password table added");
 
         }
     }
@@ -172,7 +158,7 @@ public class LoginDataDAO {
                         int commentId = resultSet.getInt(3);
                         String comment = resultSet.getString(4);
                         List<Reply> replies = getReply(commentId);
-                        comments.add(new Comment(userName, postId, commentId, comment,replies));
+                        comments.add(new Comment(userName, postId, commentId, comment, replies));
                     }
                 }
             }
@@ -190,7 +176,7 @@ public class LoginDataDAO {
                         int postId = resultSet.getInt(2);
                         int replyId = resultSet.getInt(4);
                         String reply = resultSet.getString(5);
-                        replies.add(new Reply(userName, postId, commentId, replyId,reply));
+                        replies.add(new Reply(userName, postId, commentId, replyId, reply));
                     }
                 }
             }
@@ -229,9 +215,9 @@ public class LoginDataDAO {
     }
 
     public void deleteAccount(String userName) throws SQLException {
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE a.*,b.*,c.*,d.*, e.* FROM blog_userInfo as a" +
-                " left join blog_password as b on b.userName=a.userName" +
-                ", left join blog_post as c on c.userName=b.userName, left join blog_writeArt as d on d.userName=c.userName, left join blog_userComment as e on e.userName=d.userName" +
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE a.*,b.*,c.*,d.*, e.*, f.* FROM blog_userInfo AS a" +
+                " LEFT JOIN blog_password AS b ON b.userName=a.userName" +
+                ", LEFT JOIN blog_post AS c ON c.userName=b.userName, LEFT JOIN blog_writeArt AS d ON d.userName=c.userName, LEFT JOIN blog_userComment AS e ON e.userName=d.userName" +
                 " WHERE userName=? "))
         //may need to think about if can delete comments under one username and check how the tables are joined.
         {
