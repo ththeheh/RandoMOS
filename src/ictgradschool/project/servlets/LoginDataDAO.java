@@ -142,6 +142,52 @@ public class LoginDataDAO {
         return null;
     }
 
+    public PostJavaBean getPost(String userName) throws SQLException {
+        PostJavaBean post = new PostJavaBean();
+        try (Statement statement = this.connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_post")) {
+                while (resultSet.next()) {
+                    if (resultSet.getString(1).equals(userName)) {
+                        post.setUserName(resultSet.getString(1));
+                        post.setFirstName(resultSet.getString(2));
+
+
+                        try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_userComment")) {
+                            while (resultSet.next()) {
+                                if (resultSet.getString(1).equals(userName)) {
+                                    loginBean.setUserName(resultSet.getString(1));
+                                    loginBean.setFirstName(resultSet.getString(2));
+                                    loginBean.setLastName(resultSet.getString(3));
+                                    loginBean.setBirthday(resultSet.getString(4));
+                                    loginBean.setCountry(resultSet.getString(5));
+                                    loginBean.setEmail(resultSet.getString(6));
+                                    loginBean.setDescription(resultSet.getString(7));
+
+                                    loginBean.setIconPath((resultSet.getString(8)));
+
+                                    return loginBean;
+                                }
+                            }
+                        }
+                        loginBean.setLastName(resultSet.getString(3));
+                        loginBean.setBirthday(resultSet.getString(4));
+                        loginBean.setCountry(resultSet.getString(5));
+                        loginBean.setEmail(resultSet.getString(6));
+                        loginBean.setDescription(resultSet.getString(7));
+
+                        loginBean.setIconPath((resultSet.getString(8)));
+
+                        return loginBean;
+                    }
+                }
+            }
+
+
+        }
+        return null;
+    }
+
+
 
     public void editInfo(String userName, String firstName, String lastName, String birthday, String country, String email, String description) throws SQLException {
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE blog_userInfo SET firstName=?, lastName=?,birthday=?,country=?,email=?,description=? WHERE userName=? ")) {

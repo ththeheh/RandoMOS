@@ -40,34 +40,7 @@
                     <li class="nav-item ">
                         <a class="nav-link text-muted" href="#"> Home </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-muted" href="#">Forum</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-muted" href="#" id="navbarDropDown" role="button"
-                           data-toggle="dropdown"> Hot </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Hot</a>
-                            <a class="dropdown-item" href="#">New</a>
-                            <a class="dropdown-item" href="#">Controversial</a>
-                            <a class="dropdown-item" href="#">Top</a>
-                            <a class="dropdown-item" href="#">Rising</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-muted" href="#" id="navbarDropDown" role="button"
-                           data-toggle="dropdown"> Theme </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">School</a>
-                            <a class="dropdown-item" href="#">Social</a>
-                            <a class="dropdown-item" href="#">New</a>
-                            <a class="dropdown-item" href="#">Top</a>
-                            <a class="dropdown-item" href="#">Rising</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-muted" href="#"> FAQs </a>
-                    </li>
+
                 </ul>
             </div>
             <div class="c-header_user col-lg-4 col-md- col-sm-1">
@@ -182,34 +155,7 @@
         </div>
         <div class="row row-eq-height m-auto">
             <div class="col-lg-8 text m-auto">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Lectus magna fringilla urna porttitor. Maecenas sed enim ut sem viverra
-                    aliquet eget. Eget nulla facilisi etiam dignissim diam quis enim lobortis scelerisque. Id
-                    consectetur purus ut faucibus pulvinar elementum integer enim neque. Nunc eget lorem dolor sed
-                    viverra ipsum nunc aliquet. Tempor orci eu lobortis elementum. Egestas dui id ornare arcu odio.
-                    Pretium fusce id velit ut tortor pretium viverra suspendisse. Sed vulputate odio ut enim. Semper
-                    eget duis at tellus. Vestibulum lorem sed risus ultricies. Adipiscing enim eu turpis egestas
-                    pretium. Orci porta non pulvinar neque laoreet. Eu sem integer vitae justo eget magna fermentum
-                    iaculis eu. Tellus molestie nunc non blandit massa enim nec dui. Volutpat ac tincidunt vitae semper
-                    quis lectus. Lobortis scelerisque fermentum dui faucibus. Integer malesuada nunc vel risus commodo
-                    viverra maecenas. Rutrum quisque non tellus orci ac auctor augue mauris augue.
-
-                    Diam vel quam elementum pulvinar etiam non. Euismod quis viverra nibh cras pulvinar mattis nunc sed
-                    blandit. Quis enim lobortis scelerisque fermentum dui faucibus. Arcu dictum varius duis at
-                    consectetur lorem. Nulla pellentesque dignissim enim sit amet venenatis urna cursus. Nunc id cursus
-                    metus aliquam eleifend mi. Lacus suspendisse faucibus interdum posuere lorem. Felis donec et odio
-                    pellentesque diam volutpat commodo sed egestas. Adipiscing tristique risus nec feugiat. Egestas sed
-                    tempus urna et pharetra pharetra massa massa. Donec ac odio tempor orci dapibus ultrices.
-
-                    Aenean sed adipiscing diam donec adipiscing tristique risus nec. Amet mauris commodo quis imperdiet
-                    massa tincidunt nunc pulvinar sapien. Neque gravida in fermentum et sollicitudin. Dapibus ultrices
-                    in iaculis nunc sed augue lacus viverra vitae. Massa enim nec dui nunc mattis enim ut tellus
-                    elementum. Elementum facilisis leo vel fringilla est ullamcorper. Auctor eu augue ut lectus arcu.
-                    Pellentesque elit eget gravida cum sociis natoque penatibus et magnis. Est placerat in egestas erat
-                    imperdiet sed euismod nisi porta. In hac habitasse platea dictumst quisque. Sed sed risus pretium
-                    quam vulputate. Ut lectus arcu bibendum at varius. Condimentum vitae sapien pellentesque habitant
-                    morbi tristique senectus et. Vitae sapien pellentesque habitant morbi. Aliquam eleifend mi in nulla
-                    posuere. At elementum eu facilisis sed odio. </p>
+                <p>${} </p>
             </div>
 
         </div>

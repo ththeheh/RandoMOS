@@ -26,6 +26,41 @@
 <c:if test="${delete=='deleted'}" >
 alert("Your account is deleted! You are always welcomed to be back to RandoMOS!"
 </c:if>
+
+${.post}.onclick.ajax({
+
+                            type:'POST',
+
+                             url: 'changIconServlet',
+
+                             data: {'iconPath': document.getElementById('featuredImage').src;},
+
+                             async: false,
+
+                             dataType: 'json',
+
+                             success: function(data){
+
+                            if(data.success){
+
+                            alert('Update Sucess!');
+
+                            }else{
+
+                            alert('Update Fail!');
+
+                            }
+
+                            },
+
+                             error: function(err){
+
+                            alert('Internet Error!');
+
+                            }
+
+                            });
+}
 </scipt>
 
 <body>
@@ -143,8 +178,8 @@ alert("Your account is deleted! You are always welcomed to be back to RandoMOS!"
 
 
 <div class="container">
-    <div class="row mb-5">
-        <div class="col-lg-4 col-md-6">
+    <div class=" row mb-5">
+        <div class="post col-lg-4 col-md-6">
             <h2 style="color:dimgray;">Forum </h2>
 
             <img class="card-img-top" src="http://via.placeholder.com/150x150">
@@ -153,7 +188,7 @@ alert("Your account is deleted! You are always welcomed to be back to RandoMOS!"
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
 
         </div>
-        <div class="col-lg-4 col-md-6">
+        <div class="post col-lg-4 col-md-6" >
             <h2 style="color:dimgray;">Forum </h2>
             <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
                 paragraph.
@@ -162,7 +197,7 @@ alert("Your account is deleted! You are always welcomed to be back to RandoMOS!"
                 paragraph.
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
         </div>
-        <div class="col-lg-4 col-md-6">
+        <div class="post col-lg-4 col-md-6">
             <h2 style="color:dimgray;">Forum </h2>
             <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
                 paragraph.
@@ -176,7 +211,7 @@ alert("Your account is deleted! You are always welcomed to be back to RandoMOS!"
 
     <div class="row mb-5">
 
-        <div class="col-lg-3">
+        <div class="post col-lg-3">
             <h2 style="color:dimgray;">Forum </h2>
 
             <img class="card-img-top" src="http://via.placeholder.com/150x150"> alt="Card image cap">
@@ -186,7 +221,7 @@ alert("Your account is deleted! You are always welcomed to be back to RandoMOS!"
 
         </div>
 
-        <div class="col-lg-3">
+        <div class="post col-lg-3">
             <h2 style="color:dimgray;">Forum </h2>
             <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
                 paragraph.
@@ -196,7 +231,7 @@ alert("Your account is deleted! You are always welcomed to be back to RandoMOS!"
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
         </div>
 
-        <div class="col-lg-3">
+        <div class=" post col-lg-3">
             <h2 style="color:dimgray;">Forum </h2>
             <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
                 paragraph.
@@ -206,7 +241,7 @@ alert("Your account is deleted! You are always welcomed to be back to RandoMOS!"
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
         </div>
 
-        <div class="col-lg-3">
+        <div class="post col-lg-3">
             <h2 style="color:dimgray;">Forum </h2>
             <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
                 paragraph.
