@@ -90,7 +90,8 @@
 
                                         <!-- Modal body -->
                                         <div class="modal-body">
-                                            <form action="#">
+                                            <%--send to addPost servlet--%>
+                                            <form action="addPost">
                                                     <%--send to servlet and build the post using this page.--%>
                                                 <div class="form-group">
                                                     <label for="title"><strong> Your Title:</strong></label>
@@ -155,7 +156,7 @@
         </div>
         <div class="row row-eq-height m-auto">
             <div class="col-lg-8 text m-auto">
-                <p>${} </p>
+                <%--<p>${} </p>--%>
             </div>
 
         </div>
@@ -164,8 +165,6 @@
 
 <br/>
 <br/>
-
-
 
 
 
