@@ -1,23 +1,25 @@
 package ictgradschool.project.servlets;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Comment implements Serializable {
-    protected String userName;
-    protected String comment;
+
     protected int postId;
     protected int commentId;
-    protected List<Reply> replies;
+    protected String comment;
+    protected String userName;
+    protected List<Reply> replies = new ArrayList<>();
     public Comment() {
     }
 
-    public Comment(String userName, int postId, int commentId, String comment, List<Reply> replies) {
+    public Comment( int postId, int commentId,String userName, String comment) {
         this.userName = userName;
         this.comment = comment;
         this.postId = postId;
         this.commentId = commentId;
-        this.replies = replies;
+//        this.replies = replies;
     }
 
     public String getUserName() {
@@ -39,6 +41,7 @@ public class Comment implements Serializable {
     public List<Reply> getReply(){
         return this.replies;
     }
+
     public void setUserName(String userName) {
         this.userName = userName;
     }

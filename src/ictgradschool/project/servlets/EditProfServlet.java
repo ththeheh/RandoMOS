@@ -37,7 +37,6 @@ public class EditProfServlet extends HttpServlet {
             req.getRequestDispatcher("profilePage-New.jsp").forward(req,resp);
 
             System.out.println("the line before redirect"+email);
-            resp.sendRedirect("profilePage-New.jsp");
 
          //                    req.setAttribute("login", userName); //do later
 

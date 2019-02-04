@@ -1,6 +1,7 @@
 package ictgradschool.project.servlets;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostJavaBean implements Serializable {
@@ -9,17 +10,14 @@ public class PostJavaBean implements Serializable {
     private String title;
     private String post;
     private int postId;
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
 
     public PostJavaBean(){}
 
-    public PostJavaBean(String userName, String iconPath, String title, String post, int postId, List<Comment> comments) {
+    public PostJavaBean(String userName, String title, String post) {
         this.userName = userName;
-        this.iconPath = iconPath;
         this.title = title;
         this.post = post;
-        this.postId = postId;
-        this.comments = comments;
     }
 
     public String getUserName() {
@@ -42,9 +40,10 @@ public class PostJavaBean implements Serializable {
         return this.postId;
     }
 
-    public List<Comment> comments() {
+    public List<Comment> getComments() {
         return this.comments;
     }
+
 
     public void setUserName(String userName) {
         this.userName = userName;

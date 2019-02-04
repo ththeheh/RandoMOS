@@ -137,7 +137,6 @@ public class LoginDataDAO {
                         post.setPostId(resultSet.getInt(2));
                         post.setTitle(resultSet.getString(3));
                         post.setPost(resultSet.getString(4));
-                        post.setComments(getComments(postId));
                         return post;
                     }
                 }
@@ -158,7 +157,7 @@ public class LoginDataDAO {
                         int commentId = resultSet.getInt(3);
                         String comment = resultSet.getString(4);
                         List<Reply> replies = getReply(commentId);
-                        comments.add(new Comment(userName, postId, commentId, comment, replies));
+                        comments.add(new Comment(postId, commentId,userName, comment));
                     }
                 }
             }
@@ -176,7 +175,7 @@ public class LoginDataDAO {
                         int postId = resultSet.getInt(2);
                         int replyId = resultSet.getInt(4);
                         String reply = resultSet.getString(5);
-                        replies.add(new Reply(userName, postId, commentId, replyId, reply));
+                        replies.add(new Reply(postId, commentId, replyId, userName, reply));
                     }
                 }
             }
@@ -259,11 +258,10 @@ public class LoginDataDAO {
 
      public void savePosts(PostJavaBean post) throws SQLException {
 
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_post(postId, userName, postTitle, post) VALUES (?,?,?,?)")) {
-            preparedStatement.setInt(1, post.getPostId());
-            preparedStatement.setString(2, post.getUserName());
-            preparedStatement.setString(3, post.getTitle());
-            preparedStatement.setString(4, post.getPost());
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_post(userName, postTitle, post) VALUES (?,?,?)",Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setString(1, post.getUserName());
+            preparedStatement.setString(2, post.getTitle());
+            preparedStatement.setString(3, post.getPost());
 
             //Just indicating how many rows are added
             int numRows = preparedStatement.executeUpdate();
