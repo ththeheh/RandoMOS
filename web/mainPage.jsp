@@ -18,6 +18,41 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
+    <style>
+        .btn {
+            background-color: #e6ffe6; /* Green */
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 2px 2px;
+            -webkit-transition-duration: 0.4s; /* Safari */
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        .btn {
+            background-color: white;
+            color: #047c40;
+            border: 1.5px solid #047c40;
+        }
+
+        .btn:hover {
+            background-color: #eff5f5;
+            color: #024a26;
+        }
+
+        .navbar-nav li {
+            display: inline-block;
+            font-size: 20px;
+            padding: 20px;
+        }
+
+
+    </style>
 
 </head>
 
@@ -42,200 +77,229 @@
         },
         error: function (err) {
             alert('Internet Error!');
-        }});
+        }
+    });
 
 </script>
-    <body>
+<body>
 
-    <%--<div class="container">--%>
-    <%--<div class="spinner-border text-muted"></div>--%>
-    <%--<div class="spinner-border text-primary"></div>--%>
-    <%--<div class="spinner-border text-success"></div>--%>
-    <%--<div class="spinner-border text-info"></div>--%>
-    <%--<div class="spinner-border text-warning"></div>--%>
-    <%--<div class="spinner-border text-danger"></div>--%>
-    <%--<div class="spinner-border text-secondary"></div>--%>
-    <%--<div class="spinner-border text-dark"></div>--%>
-    <%--<div class="spinner-border text-light"></div>--%>
-    <%--</div>--%>
+<%--<div class="container">--%>
+<%--<div class="spinner-border text-muted"></div>--%>
+<%--<div class="spinner-border text-primary"></div>--%>
+<%--<div class="spinner-border text-success"></div>--%>
+<%--<div class="spinner-border text-info"></div>--%>
+<%--<div class="spinner-border text-warning"></div>--%>
+<%--<div class="spinner-border text-danger"></div>--%>
+<%--<div class="spinner-border text-secondary"></div>--%>
+<%--<div class="spinner-border text-dark"></div>--%>
+<%--<div class="spinner-border text-light"></div>--%>
+<%--</div>--%>
 
-    <div class="jumbotron text-center bg-muted" style="margin-bottom:0">
-        <h1 style="color:dimgray;">Welcome to Randomos! </h1>
-    </div>
-    <header class="c-header" style="margin-top:5px; margin-bottom:10px">
-        <nav class="navbar navbar-expand-sm bg-muted">
-        <div class="container">
-        <div class="c-header_menu col-lg-4 col-md-2 col-sm-1">
-        <ul class="navbar-nav">
-        <li class="nav-item ">
-        <a class="nav-link text-muted" href="#"> Home </a>
-        </li>
-        </ul>
+<div class="jumbotron text-center" style="margin-bottom:0; background-color: #eff5f5; ">
+    <h1 style="color:dimgray;">Welcome to Randomos! </h1>
+</div>
+<header class="c-header" style="margin-top:5px; margin-bottom:10px">
+
+    <nav class="navbar navbar-expand-sm bg-muted">
+        <%--<div class="container">--%>
+        <div class="c-header_menu col-lg-12 col-md-12 col-sm-12">
+            <ul class="navbar-nav">
+                <li>
+                    <button type="button" class="btn btn-gray btn-lg" onclick="location.href='mainPage.jsp'"> Home
+                    </button>
+                </li>
+
+                <div>
+                    <c:choose>
+                        <c:when test="${sessionScope.username!= null}">
+
+                            <li>
+                                <form action="logout" method="get">
+                                    <button type="submit" class="btn btn-info btn-lg">Log out</button>
+                                </form>
+                            </li>
+
+                            <li>
+                                <form action="userinfo" method="get">
+                                    <button type="submit" class="btn btn-info btn-lg">My Profile</button>
+                                </form>
+                            </li>
+
+
+                        </c:when>
+                        <%--<a class="nav-link text-muted" href="mainPage.jsp" onclick="destroySess()"> Logout </a>--%>
+                        <c:otherwise>
+                            <li>
+                                <button type="button" class="btn btn-gray btn-lg"
+                                        onclick="location.href='loginPage.jsp'">
+                                    Login
+                                </button>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+
+                <div>
+                    <c:choose>
+                    <c:when test="${sessionScope.username==null}">
+                    <li>
+                        <button type="button" class="btn btn-gray btn-lg" onclick="location.href='reg.html'">
+                            Register
+                        </button>
+                    </li>
+
+                </div>
+
+                </c:when>
+                <c:otherwise>
+                <li>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        Create New Posts!
+                    </button>
+                </li>
+
+                <li>
+                    <form action="#" method="get">
+                        <button type="submit" class="btn btn-info btn-lg">Browse Your Posts</button>
+                    </form>
+                </li>
+            </ul>
         </div>
-        <div class="c-header_user col-lg-4 col-md- col-sm-1">
+            <%--</div>--%>
+    </nav>
 
-        <div>
-        <c:choose>
-        <c:when test="${sessionScope.username!= null}">
-        <form action="logout" method="get">
-        <button type="submit" class="btn btn-info btn-lg">Log out</button>
-    </form>
-    <form action="userinfo" method="get">
-        <button type="submit" class="btn btn-info btn-lg">My Profile</button>
-    </form>
-    </c:when>
-    <%--<a class="nav-link text-muted" href="mainPage.jsp" onclick="destroySess()"> Logout </a>--%>
-    <c:otherwise>
-    <a class="nav-link text-muted" href="loginPage.jsp"> Login </a>
-        </c:otherwise>
-        </c:choose>
-        </div>
 
-        <div>
-        <c:choose>
-        <c:when test="${sessionScope.username==null}">
-
-        <a class="nav-link text-muted" href="reg.html"> Register </a></div>
-
-    </c:when>
-    <c:otherwise>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-        Create New Posts!
-    </button>
+        <%--modal starts here--%>
     <div class="modal" id="myModal">
         <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-        <h4 class="modal-title">You can write your post here!
-    </h4>
-    <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-content">
+
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">You can write your post here!
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="#">
+                            <%--send to servlet and build the post using this page.--%>
+                        <div class="form-group">
+                            <label for="title"><strong> Your Title:</strong></label>
+                            <input type="text" class="form-control" id="title" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="post"></label>
+                            <textarea class="form-control" rows="20" id="post"
+                                      placeholder="Put your post content here..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg" onclick="">
+                                Publish!
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close
+                    </button>
+                </div>
+
+            </div>
+        </div>
     </div>
 
-    <!-- Modal body -->
-    <div class="modal-body">
-        <form action="#">
-        <%--send to servlet and build the post using this page.--%>
-        <div class="form-group">
-        <label for="title"><strong> Your Title:</strong></label>
-    <input type="text" class="form-control" id="title" required>
-    </div>
-
-    <div class="form-group">
-        <label for="post"></label>
-        <textarea class="form-control" rows="20" id="post"
-    placeholder="Put your post content here..."></textarea>
-        </div>
-        <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-lg" onclick="">
-        Publish!
-    </button>
-    </div>
-    </form>
-
-    </div>
-
-    <!-- Modal footer -->
-    <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close
-        </button>
-        </div>
-
-        </div>
-        </div>
-        </div>
-
-        <form action="#" method="get">
-        <button type="submit" class="btn btn-info btn-lg">Browse Your Posts</button>
-    </form>
 
     </c:otherwise>
     </c:choose>
 
-    </div>
-    </div>
 
-    </nav>
-    </header>
+</header>
 
 
-    <div class="container">
-        <div class="row mb-5">
+<div class="container">
+    <div class="row mb-5">
         <div class="col-lg-4 col-md-6">
-        <h2 style="color:dimgray;">Forum </h2>
-
-        <img class="card-img-top" src="http://via.placeholder.com/150x150">
-        <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
-    paragraph.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
-
-    </div>
-    <div class="col-lg-4 col-md-6">
-        <h2 style="color:dimgray;">Forum </h2>
-        <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
-    paragraph.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
-    <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
-    paragraph.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
-    </div>
-    <div class="col-lg-4 col-md-6">
-        <h2 style="color:dimgray;">Forum </h2>
-        <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
-    paragraph.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
-        Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
-    paragraph.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
-    </div>
+            <h2 style="color:dimgray;">Forum </h2>
+            <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
+                paragraph.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
+            <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
+                paragraph.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <h2 style="color:dimgray;">Forum </h2>
+            <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
+                paragraph.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
+            <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
+                paragraph.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <h2 style="color:dimgray;">Forum </h2>
+            <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
+                paragraph.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
+                Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
+                paragraph.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
+        </div>
     </div>
 
 
     <div class="row mb-5">
 
         <div class="col-lg-3">
-        <h2 style="color:dimgray;">Forum </h2>
+            <h2 style="color:dimgray;">Forum </h2>
+            <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
+                paragraph.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
+            <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
+                paragraph.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
+        </div>
 
-        <img class="card-img-top" src="http://via.placeholder.com/150x150"> alt="Card image cap">
-        <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
-    paragraph.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
+        <div class="col-lg-3">
+            <h2 style="color:dimgray;">Forum </h2>
+            <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
+                paragraph.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
+            <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
+                paragraph.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
+        </div>
 
-    </div>
+        <div class="col-lg-3">
+            <h2 style="color:dimgray;">Forum </h2>
+            <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
+                paragraph.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
+                Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
+                paragraph.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
+        </div>
 
-    <div class="col-lg-3">
-        <h2 style="color:dimgray;">Forum </h2>
-        <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
-    paragraph.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
-    <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
-    paragraph.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
-    </div>
-
-    <div class="col-lg-3">
-        <h2 style="color:dimgray;">Forum </h2>
-        <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
-    paragraph.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
-        Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
-    paragraph.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
-    </div>
-
-    <div class="col-lg-3">
-        <h2 style="color:dimgray;">Forum </h2>
-        <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
-    paragraph.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
-        Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
-    paragraph.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
-    </div>
-
-    </div>
+        <div class="col-lg-3">
+            <h2 style="color:dimgray;">Forum </h2>
+            <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
+                paragraph.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
+                Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the third
+                paragraph.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
+        </div>
 
     </div>
 
-    </body>
-    </html>
+</div>
+
+</body>
+</html>
