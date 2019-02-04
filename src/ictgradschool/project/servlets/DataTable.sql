@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS blog_userInfo (
 
 INSERT INTO blog_userInfo (userName, firstName, lastName, birthday, country, email, description, iconPath) VALUES
   ('ykim706', 'Mary', 'Kim', '04/29/1995', 'South Korea', 'ykim706@aucklanduni.ac.nz',
-   'I embrace all kinds of people.', './images/icons/boy1.png');
+   'I embrace all kinds of people.', 'boy1.png');
 
 CREATE TABLE IF NOT EXISTS blog_password (
   userName   VARCHAR(50)  NOT NULL,

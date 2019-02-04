@@ -169,7 +169,7 @@ public class LoginDataDAO {
     public List<Reply> getReply(int commentId) throws SQLException {
         List<Reply> replies = new ArrayList<>();
         try (Statement statement = this.connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_reply")) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_userReply")) {
                 while (resultSet.next()) {
                     if (resultSet.getInt(2) == (commentId)) {
                         String userName = resultSet.getString(1);
