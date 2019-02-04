@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Hotpot Register</title>
+    <title>Register to RadoMOS</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -19,14 +19,115 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
+
     <style type="text/css">
-        body {
-            background-image: url("images/reg.jpg");
+        * {
+            box-sizing: border-box;
         }
+
+        .card-header {
+            background-color: #eff5f5;
+            color: dimgray;
+            text-align: center;
+        }
+
+        form {
+            color: dimgray;
+        }
+
+        input, select {
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        .countrylist {
+            position: relative;
+            /*Don't really need this just for demo styling*/
+
+            float: left;
+            min-width: 200px;
+            margin-bottom: 20px;
+        }
+
+        /* IE11 hide native button (thanks Matt!) */
+        select::-ms-expand {
+            display: none;
+        }
+
+        .countrylist:after {
+            content: '<>';
+            font: 17px "Consolas", monospace;
+            color: #333;
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+            right: 11px;
+            /*Adjust for position however you want*/
+
+            top: 45px;
+            padding: 0 0 2px;
+            border-bottom: 1px solid #ada5aa;
+            /*left line */
+
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .countrylist select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            /* Add some styling */
+
+            display: block;
+            width: 480px;
+            /*max-width: 320px;*/
+            height: 40px;
+            float: right;
+            margin: 5px 0px;
+            padding: 0px 24px;
+            font-size: 16px;
+            line-height: 1.75;
+            color: #333;
+            background-color: #ffffff;
+            background-image: none;
+            border: 1px solid #cccccc;
+            -ms-word-break: normal;
+            word-break: normal;
+        }
+
+        .btn {
+            background-color: #e6ffe6; /* Green */
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 2px 2px;
+            float: right;
+            -webkit-transition-duration: 0.4s; /* Safari */
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        .btn {
+            background-color: white;
+            color: #047c40;
+            border: 1.5px solid #047c40;
+        }
+
+        .btn:hover {
+            background-color: #eff5f5;
+            color: #024a26;
+        }
+
+
     </style>
     <script type="text/javascript" src="regjs.js"></script>
-
-
 </head>
 <body>
 
@@ -37,34 +138,34 @@
 <c:if test="${regMsg=='email'}">
     <script>alert("Your email has been registered!")</script>
 </c:if>
+
+
 <div class="container" style="margin-top: 5%;">
-    <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-8"></div>
-        <div class="col-lg-8 col-md-8 col-sm-8">
-            <h1 class="text center">Register to be a member</h1>
-            <br/>
-            <br/>
-            <div class="col-sm-12 col-md-8 col-lg-8">
+    <div class="col-lg-6 col-md-8 col-sm-8 my-5" style="margin: auto ">
+        <div class="card" style="background:#eff5f5">
+            <div class="card-header">
+                <h2 class="text center">Register to be a member</h2></div>
+            <div class="card-body">
+
 
                 <form action="loginDataNew" method="post">
-
-
-                    <div class="input-group form-group">
-                        <label for="userName"><strong>Username: &nbsp</strong></label>
+                    <%--input-group removed for username, firstname, lastname--%>
+                    <div class="form-group">
+                        <label for="userName">Username: &nbsp</label>
                         <input type="text" class="form-control" id="userName" name="userName" required>
                     </div>
 
-                    <div class="input-group form-group">
-                        <label for="firstName"><strong>First Name: &nbsp</strong></label>
+                    <div class="form-group">
+                        <label for="firstName">First Name: &nbsp</label>
                         <input type="text" class="form-control" id="firstName" name="firstName" required>
                     </div>
-                    <div class="input-group form-group">
-                        <label for="lastName"><strong>Last Name: &nbsp</strong></label>
+                    <div class="form-group">
+                        <label for="lastName">Last Name: &nbsp</label>
                         <input type="text" class="form-control" id="lastName" name="lastName" required>
                     </div>
-                    <br/>
-                    <div id="countrylist" onload="countrylist()">
-                        <label><strong>Country: </strong></label>
+
+                    <div class="countrylist" onload="countrylist()">
+                        <label>Country: </label>
                         <select name="country">
                             <option value="United States">United States</option>
                             <option value="United Kingdom">United Kingdom</option>
@@ -98,7 +199,8 @@
                             <option value="Botswana">Botswana</option>
                             <option value="Bouvet Island">Bouvet Island</option>
                             <option value="Brazil">Brazil</option>
-                            <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+                            <option value="British Indian Ocean Territory">British Indian Ocean Territory
+                            </option>
                             <option value="Brunei Darussalam">Brunei Darussalam</option>
                             <option value="Bulgaria">Bulgaria</option>
                             <option value="Burkina Faso">Burkina Faso</option>
@@ -117,7 +219,8 @@
                             <option value="Colombia">Colombia</option>
                             <option value="Comoros">Comoros</option>
                             <option value="Congo">Congo</option>
-                            <option value="Congo, The Democratic Republic of The">Congo, The Democratic Republic of
+                            <option value="Congo, The Democratic Republic of The">Congo, The Democratic Republic
+                                of
                                 The
                             </option>
                             <option value="Cook Islands">Cook Islands</option>
@@ -162,7 +265,9 @@
                             <option value="Guinea-bissau">Guinea-bissau</option>
                             <option value="Guyana">Guyana</option>
                             <option value="Haiti">Haiti</option>
-                            <option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald Islands</option>
+                            <option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald
+                                Islands
+                            </option>
                             <option value="Holy See (Vatican City State)">Holy See (Vatican City State)</option>
                             <option value="Honduras">Honduras</option>
                             <option value="Hong Kong">Hong Kong</option>
@@ -181,13 +286,15 @@
                             <option value="Kazakhstan">Kazakhstan</option>
                             <option value="Kenya">Kenya</option>
                             <option value="Kiribati">Kiribati</option>
-                            <option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic
+                            <option value="Korea, Democratic People's Republic of">Korea, Democratic People's
+                                Republic
                                 of
                             </option>
                             <option value="Korea, Republic of">Korea, Republic of</option>
                             <option value="Kuwait">Kuwait</option>
                             <option value="Kyrgyzstan">Kyrgyzstan</option>
-                            <option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+                            <option value="Lao People's Democratic Republic">Lao People's Democratic Republic
+                            </option>
                             <option value="Latvia">Latvia</option>
                             <option value="Lebanon">Lebanon</option>
                             <option value="Lesotho">Lesotho</option>
@@ -197,7 +304,8 @@
                             <option value="Lithuania">Lithuania</option>
                             <option value="Luxembourg">Luxembourg</option>
                             <option value="Macao">Macao</option>
-                            <option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former Yugoslav
+                            <option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former
+                                Yugoslav
                                 Republic of
                             </option>
                             <option value="Madagascar">Madagascar</option>
@@ -212,7 +320,8 @@
                             <option value="Mauritius">Mauritius</option>
                             <option value="Mayotte">Mayotte</option>
                             <option value="Mexico">Mexico</option>
-                            <option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+                            <option value="Micronesia, Federated States of">Micronesia, Federated States of
+                            </option>
                             <option value="Moldova, Republic of">Moldova, Republic of</option>
                             <option value="Monaco">Monaco</option>
                             <option value="Mongolia">Mongolia</option>
@@ -237,7 +346,8 @@
                             <option value="Oman">Oman</option>
                             <option value="Pakistan">Pakistan</option>
                             <option value="Palau">Palau</option>
-                            <option value="Palestinian Territory, Occupied">Palestinian Territory, Occupied</option>
+                            <option value="Palestinian Territory, Occupied">Palestinian Territory, Occupied
+                            </option>
                             <option value="Panama">Panama</option>
                             <option value="Papua New Guinea">Papua New Guinea</option>
                             <option value="Paraguay">Paraguay</option>
@@ -256,7 +366,8 @@
                             <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
                             <option value="Saint Lucia">Saint Lucia</option>
                             <option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option>
-                            <option value="Saint Vincent and The Grenadines">Saint Vincent and The Grenadines</option>
+                            <option value="Saint Vincent and The Grenadines">Saint Vincent and The Grenadines
+                            </option>
                             <option value="Samoa">Samoa</option>
                             <option value="San Marino">San Marino</option>
                             <option value="Sao Tome and Principe">Sao Tome and Principe</option>
@@ -271,7 +382,8 @@
                             <option value="Solomon Islands">Solomon Islands</option>
                             <option value="Somalia">Somalia</option>
                             <option value="South Africa">South Africa</option>
-                            <option value="South Georgia and The South Sandwich Islands">South Georgia and The South
+                            <option value="South Georgia and The South Sandwich Islands">South Georgia and The
+                                South
                                 Sandwich Islands
                             </option>
                             <option value="Spain">Spain</option>
@@ -302,7 +414,8 @@
                             <option value="United Arab Emirates">United Arab Emirates</option>
                             <option value="United Kingdom">United Kingdom</option>
                             <option value="United States">United States</option>
-                            <option value="United States Minor Outlying Islands">United States Minor Outlying Islands
+                            <option value="United States Minor Outlying Islands">United States Minor Outlying
+                                Islands
                             </option>
                             <option value="Uruguay">Uruguay</option>
                             <option value="Uzbekistan">Uzbekistan</option>
@@ -318,43 +431,45 @@
                             <option value="Zimbabwe">Zimbabwe</option>
                         </select>
                     </div>
-                    <br/>
+
+
                     <!--add name to match the parameter names. -->
                     <div class="form-group">
-                        <label for="email"><strong>Email Address:</strong></label>
+                        <label for="email">Email Address:</label>
                         <input type="email" class="form-control" id="email" name="email" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="password"><strong>Password:</strong></label>
+                        <label for="password">Password:</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="cpass"><strong>Confirm Password:</strong></label>
+                        <label for="cpass">Confirm Password:</label>
                         <input type="password" class="form-control" id="cpass" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="birthday"><strong>Birthday: </strong></label>
+                        <label for="birthday">Birthday: </label>
                         <input type="date" class="form-control" id="birthday" name="birthday" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="description"><strong>Short Intro: </strong></label>
+                        <label for="description">Short Intro: </label>
                         <input type="text" class="form-control" id="description" name="description">
                     </div>
 
 
-                    <button type="submit" class="btn btn-primary btn-lg" onclick="cpassword()">Register</button>
+                    <button type="submit" class="btn btn-gray btn-lg" onclick="cpassword()">Register</button>
                     <!--<button type="submit" class=" pull-right btn-link"><a href="www.google.com">Forget password</a></button>-->
 
                 </form>
-
             </div>
         </div>
     </div>
 </div>
+
+
 </body>
 </html>
