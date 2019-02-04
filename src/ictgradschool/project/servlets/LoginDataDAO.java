@@ -27,9 +27,9 @@ public class LoginDataDAO {
             preparedStatement.setString(5, loginData.getCountry());
             preparedStatement.setString(6, loginData.getEmail());
             preparedStatement.setString(7, loginData.getDescription());
-            preparedStatement.setString(8,loginData.getIconPath());
+            preparedStatement.setString(8, loginData.getIconPath());
             //set default icon
-                    //            System.out.println("Row added");
+            //            System.out.println("Row added");
             //Just indicating how many rows are added
             int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " user account added");
@@ -117,7 +117,7 @@ public class LoginDataDAO {
                         loginBean.setEmail(resultSet.getString(6));
                         loginBean.setDescription(resultSet.getString(7));
 
-                        loginBean.setIconPath((resultSet.getString(8)));
+                        loginBean.setIconPath("../images/icons/" + (resultSet.getString(8)));
 
                         return loginBean;
                     }
@@ -169,7 +169,7 @@ public class LoginDataDAO {
     public List<Reply> getReply(int commentId) throws SQLException {
         List<Reply> replies = new ArrayList<>();
         try (Statement statement = this.connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_reply")) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_userReply")) {
                 while (resultSet.next()) {
                     if (resultSet.getInt(2) == (commentId)) {
                         String userName = resultSet.getString(1);
@@ -209,27 +209,53 @@ public class LoginDataDAO {
             preparedStatement.setString(2, userName);
 
             int numRows = preparedStatement.executeUpdate();
-            System.out.println(numRows + "user icon  updated");
+            System.out.println(numRows + " user icon  updated");
 
         }
     }
 
     public void deleteAccount(String userName) throws SQLException {
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE a.*,b.*,c.*,d.*, e.*, f.* FROM blog_userInfo AS a" +
-                " LEFT JOIN blog_password AS b ON b.userName=a.userName" +
-                ", LEFT JOIN blog_post AS c ON c.userName=b.userName, LEFT JOIN blog_writeArt AS d ON d.userName=c.userName, LEFT JOIN blog_userComment AS e ON e.userName=d.userName" +
-                " WHERE userName=? "))
-        //may need to think about if can delete comments under one username and check how the tables are joined.
-        {
 
+         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userReply WHERE userName = ?;")) {
             preparedStatement.setString(1, userName);
+            //may need to think about if can delete comments under one username and check how the tables are joined.
+            preparedStatement.executeUpdate();
 
-            int numRows = preparedStatement.executeUpdate();
-            System.out.println(numRows + "user account deleted");
+         }
+
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userComment WHERE userName = ?;")) {
+            preparedStatement.setString(1, userName);
+            preparedStatement.executeUpdate();
 
         }
-    }
 
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_writeArt WHERE userName = ?;")) {
+            preparedStatement.setString(1, userName);
+            preparedStatement.executeUpdate();
+
+        }
+
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_post WHERE userName = ?;")) {
+            preparedStatement.setString(1, userName);
+           preparedStatement.executeUpdate();
+
+        }
+
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_password WHERE userName = ?;")) {
+            preparedStatement.setString(1, userName);
+            preparedStatement.executeUpdate();
+        }
+
+
+
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userInfo WHERE userName = ?;")) {
+            preparedStatement.setString(1, userName);
+           preparedStatement.executeUpdate();
+
+
+        }
+
+    }
 }
 
 

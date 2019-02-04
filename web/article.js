@@ -1,7 +1,7 @@
 //TO DO clear the text content in the modal
 //make sure there can be multiple comments that can be replied.
 
-
+//i and j should continue from the latest values from initilization.
 var i = 0;
 var j = 100000;      //very unsmart method to distinguish comment and reply
 

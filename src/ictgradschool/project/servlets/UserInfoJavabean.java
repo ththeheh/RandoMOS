@@ -12,7 +12,7 @@ public class UserInfoJavabean implements Serializable {
     private String email;
     private String description;
     private String password;
-    private String iconPath="../web/images/icons/boy1.png";
+    private String iconPath="boy1.png";
 //    private String hashedSaltedCode;
     public boolean valid;
 

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
@@ -63,37 +63,56 @@
             {name: "man2", description: "This is a Mr.Simon"}
         ];
 
-        var selectedImage = 0;
 
         function changeImage(numImage) {
+            var formData = new FormData();
             var image = document.getElementById('featuredImage');
             image.src = "../images/icons/" + imageCollection[numImage].name + ".png";
-            saveIcon();
+            var iconName = imageCollection[numImage].name + ".png";
+            console.log(iconName);
+            saveIconLib(iconName);
         }
 
         var uploadImage = function (event) {
+            var formData = new FormData();
             var image = document.getElementById('featuredImage');
             image.src = URL.createObjectURL(event.target.files[0]);
-            saveIcon();
-        }
-        // anothe way to use <a href="MyServlet?data=MyData">Go to server</a>
+            formData.append("icon",$('input[type=file]')[0].files[0]);
+            saveIconUpload(formData);
+        };
 
-        function saveIcon(){
+        // anothe way to use <a href="MyServlet?data=MyData">Go to server</a>
+        function saveIconLib(iconName){
             $.ajax({
                 type: 'POST',
-                url: 'changeicon',
-                data: {'iconPath': document.getElementById('featuredImage').src},
+                url: 'changeiconlib',
+                data: {'iconName':iconName},
                 async: true,
                 dataType: 'json',
-                success: function (data) {
-                        if (data.success) {
-                            alert('Update Sucess!');
-                        } else {
-                            alert('Update Fail!');
-                        }
-                    },
-                error: function (err) {
-                    alert('Internet Error!');
+                success: function () {
+                    alert('Updated Sucessfully!');
+                },
+                error: function(request, status, error) {
+                    alert(request.responseText);
+                }
+            });
+        }
+
+
+            function saveIconUpload(formData){
+            $.ajax({
+                type: 'POST',
+                url: 'changeiconup',
+                data: formData,
+                processData: false,
+                contentType: false,
+                async: true,
+                success: function () {
+                        alert('Updated Sucessfully!');
+
+                },
+                error: function(request, status, error) {
+                    alert(request.responseText);
                 }
             });
         }
@@ -176,14 +195,13 @@
                         <%--styling the button to be consistent: https://getbootstrap.com/docs/4.0/components/input-group/--%>
                         <div class="input-group mb-3">
                             <div class="custom-file">
+
                                 <input type="file" class="custom-file-input" accept="image/*" name="image"
                                        id="uploadfile" onchange="uploadImage(event)">
                                 <label class="custom-file-label" for="uploadfile">Upload</label>
                             </div>
                         </div>
-                        <form action="updateicon" method="get">
-                            <button type="submit" class="btn btn-primary btn-lg">Done Updating Icon!</button>
-                        </form>
+
 
                         <%--<div class="upload-btn-wrapper">--%>
                         <%--<div class="btn btn-info btn-" style="height: 50px;width: 80px">--%>
