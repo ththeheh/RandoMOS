@@ -256,7 +256,54 @@ public class LoginDataDAO {
         }
 
     }
+
+     public void savePosts(PostJavaBean post) throws SQLException {
+
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_post(postId, userName, postTitle, post) VALUES (?,?,?,?)")) {
+            preparedStatement.setInt(1, post.getPostId());
+            preparedStatement.setString(2, post.getUserName());
+            preparedStatement.setString(3, post.getTitle());
+            preparedStatement.setString(4, post.getPost());
+
+            //Just indicating how many rows are added
+            int numRows = preparedStatement.executeUpdate();
+            System.out.println(numRows + " post added");
+        }
+    }
+
+
+
+    public void saveComments(Comment comment) throws SQLException {
+
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_userComment(postId, commentId, userName, comment) VALUES (?,?,?,?)")) {
+            preparedStatement.setInt(1, comment.getPostId());
+            preparedStatement.setInt(2, comment.getCommentId());
+            preparedStatement.setString(3, comment.getUserName());
+            preparedStatement.setString(4, comment.getComment());
+
+            //Just indicating how many rows are added
+            int numRows = preparedStatement.executeUpdate();
+            System.out.println(numRows + " comment added");
+        }
+    }
+
+    public void saveReplies(Reply reply) throws SQLException {
+
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_userReply(postId, commentId, replyId, userName, reply) VALUES (?,?,?,?,?)")) {
+            preparedStatement.setInt(1, reply.getPostId());
+            preparedStatement.setInt(2, reply.getCommentId());
+            preparedStatement.setInt(3, reply.getReplyId());
+            preparedStatement.setString(4, reply.getUserName());
+            preparedStatement.setString(5, reply.getComment());
+
+
+            //Just indicating how many rows are added
+            int numRows = preparedStatement.executeUpdate();
+            System.out.println(numRows + " reply added");
+        }
+    }
 }
+
 
 
 //    public List<Post> getMyPost(String userName) throws SQLException {

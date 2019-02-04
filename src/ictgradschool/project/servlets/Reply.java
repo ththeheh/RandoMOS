@@ -17,7 +17,7 @@ public class Reply extends Comment {
             }
 
     public int getReplyId(){
-        return this.getReplyId();
+        return this.replyId;
     }
 
     public void setReplyId(){
