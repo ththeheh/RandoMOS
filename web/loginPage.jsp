@@ -69,7 +69,7 @@
             </div>
             <div class="card-footer" style="background-color: #eff5f5;">
                 <div class="justify-content-center links" style="color:dimgray;">
-                    Don't have an account?<a href="reg.html"> &nbsp Create account</a>
+                    Don't have an account?<a href="htmlfiles/reg.html"> &nbsp Create account</a>
                 </div>
             </div>
         </div>
