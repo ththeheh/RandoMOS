@@ -87,5 +87,9 @@ CREATE TABLE IF NOT EXISTS blog_userReply (
   FOREIGN KEY (userName) REFERENCES blog_userInfo (userName),
   FOREIGN KEY (postId,commentId) REFERENCES blog_userComment (postId,commentId)
 #   FOREIGN KEY (commentId) REFERENCES blog_userComment (commentId)
-)
+);
+
+INSERT INTO blog_userReply (postId, commentId, replyId, userName,reply) VALUES
+  (1, 1,4, 'ykim706', 'This is awesome!!!');
+
 

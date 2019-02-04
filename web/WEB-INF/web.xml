@@ -56,13 +56,23 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>ChangeIconServlet</servlet-name>
-        <servlet-class>ictgradschool.project.servlets.ChangeIconServlet</servlet-class>
+        <servlet-name>ChangeIconUploadServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.ChangeIconUploadServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>ChangeIconServlet</servlet-name>
-        <url-pattern>/changeicon</url-pattern>
+        <servlet-name>ChangeIconUploadServlet</servlet-name>
+        <url-pattern>/changeiconup</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ChangeIconLibServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.ChangeIconLibServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ChangeIconLibServlet</servlet-name>
+        <url-pattern>/changeiconlib</url-pattern>
     </servlet-mapping>
 
     <servlet>
