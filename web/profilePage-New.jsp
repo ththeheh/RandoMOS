@@ -34,7 +34,8 @@
 
         .grid-container {
             display: grid;
-            grid-row-gap: 100px;
+            grid-row-gap: 50px;
+
         }
 
         form, h6, h5 {
@@ -197,7 +198,7 @@
                         </div>
 
 
-                        <div class="grid-item" style="padding-bottom: 0px">
+                        <div class="grid-item" style="margin-left: 20px">
 
                             <%--predefined icons--%>
                             <button id="fromLibrary" type="button" class="btn btn-warning btn-lg" data-toggle="modal"

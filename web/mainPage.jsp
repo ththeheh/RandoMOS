@@ -56,7 +56,7 @@
 
 </head>
 
-//to be tested.
+
 <script>
     <c:if test="${delete=='deleted'}" >
     alert("Your account is deleted! You are always welcomed to be back to RandoMOS!")
@@ -143,7 +143,7 @@
                     <c:choose>
                     <c:when test="${sessionScope.username==null}">
                     <li>
-                        <button type="button" class="btn btn-gray btn-lg" onclick="location.href='htmlfiles/reg.html'">
+                        <button type="button" class="btn btn-gray btn-lg" onclick="location.href='reg.jsp'">
                             Register
                         </button>
                     </li>
@@ -159,6 +159,7 @@
                 </li>
 
                 <li>
+                    <%--servlet for retrieving your posts needed--%>
                     <form action="#" method="get">
                         <button type="submit" class="btn btn-info btn-lg">Browse Your Posts</button>
                     </form>
