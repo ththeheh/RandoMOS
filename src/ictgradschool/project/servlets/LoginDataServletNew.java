@@ -40,7 +40,8 @@ public class LoginDataServletNew extends HttpServlet {
                 dao.setPassword(loginData);
             } else{
                 req.setAttribute("regMsg",regMsg );
-                req.getRequestDispatcher("reg.jsp").forward(req, resp);
+                req.getRequestDispatcher("reg.jsp").forward(req,resp);
+                return;
             }
 
 

@@ -219,38 +219,38 @@ public class LoginDataDAO {
          try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userReply WHERE userName = ?;")) {
             preparedStatement.setString(1, userName);
             //may need to think about if can delete comments under one username and check how the tables are joined.
-             int numRows = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
 
          }
 
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userComment WHERE userName = ?;")) {
             preparedStatement.setString(1, userName);
-            int numRows = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
 
         }
 
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_writeArt WHERE userName = ?;")) {
             preparedStatement.setString(1, userName);
-            int numRows = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
 
         }
 
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_post WHERE userName = ?;")) {
             preparedStatement.setString(1, userName);
-            int numRows = preparedStatement.executeUpdate();
+           preparedStatement.executeUpdate();
 
         }
 
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_password WHERE userName = ?;")) {
             preparedStatement.setString(1, userName);
-            int numRows = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
         }
 
 
 
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userInfo WHERE userName = ?;")) {
             preparedStatement.setString(1, userName);
-            int numRows = preparedStatement.executeUpdate();
+           preparedStatement.executeUpdate();
 
 
         }
