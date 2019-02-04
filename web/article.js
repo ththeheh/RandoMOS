@@ -2,6 +2,7 @@
 //make sure there can be multiple comments that can be replied.
 
 //i and j should continue from the latest values from initilization.
+
 var i = 0;
 var j = 100000;      //very unsmart method to distinguish comment and reply
 
@@ -13,7 +14,7 @@ function addcomment() {
     var cm = document.getElementById("comment").value;
 
     var a1 = "<div class='card dark-grey'><img class='card-img-top img-thumbnail rounded-circle boarder-primary' src='images/icons/666201.png' alt='Card image cap' style='width: 50px;height: 50px;'>" +
-        "<div class='card-body'><p class='card-title'>  Name of Commentor</p><p class='card-text'>";
+        "<div class='card-body'><p class='card-title'>Name of Commentor</p><p class='card-text'>";
     var a2 = cm + "</p></div></div></div><br/>" +
         "<button type='submit' class='btn btn-info btn-md float-right' data-toggle='modal' data-target='#replymodal" + j + "'>" +
         "           <strong>Reply Here</strong></button><br/><br/>" +

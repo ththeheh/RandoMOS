@@ -35,7 +35,7 @@
     <nav class="navbar navbar-expand-sm bg-muted">
         <div class="container">
 
-            <div class="c-header_menu" col-lg-4 col-md- col-sm-1>
+            <div class="c-header_menu col-lg-4 col-md- col-sm-1">
                 <ul class="navbar-nav">
                     <li class="nav-item ">
                         <a class="nav-link text-muted" href="#"> Home </a>
@@ -64,7 +64,7 @@
                 <div>
                     <c:choose>
                         <c:when test="${username ==null}">
-                            <a class="nav-link text-muted" href="reg.html"> Register </a>
+                            <a class="nav-link text-muted" href="htmlfiles/reg.html"> Register </a>
                         </c:when>
                         <c:otherwise>
                         </c:otherwise>
@@ -164,6 +164,10 @@
 
 <br/>
 <br/>
+
+
+
+
 
 <div class="row">
     <div class="col-lg-8 col-sm-8 col-md-8 m-auto">

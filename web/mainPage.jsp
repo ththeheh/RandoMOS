@@ -143,7 +143,7 @@
                     <c:choose>
                     <c:when test="${sessionScope.username==null}">
                     <li>
-                        <button type="button" class="btn btn-gray btn-lg" onclick="location.href='reg.html'">
+                        <button type="button" class="btn btn-gray btn-lg" onclick="location.href='htmlfiles/reg.html'">
                             Register
                         </button>
                     </li>
