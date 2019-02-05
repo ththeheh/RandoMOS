@@ -16,7 +16,7 @@ public class AddReplyServlet extends HttpServlet {
         try (Connection connection = DBConnection.createConnection()) {
 
             LoginDataDAO dao = new LoginDataDAO(connection);
-            String userName = req.getParameter("userName");
+            String userName = (String) req.getSession().getAttribute("username");
             int postId= Integer.parseInt(req.getParameter("postId"));
             int commentId = Integer.parseInt(req.getParameter("commentId"));
             int replyId = Integer.parseInt(req.getParameter("replyId"));
@@ -26,8 +26,7 @@ public class AddReplyServlet extends HttpServlet {
 
             dao.saveReplies(newReply);
             // need to call encoding class to create hashedcode to store
-            req.setAttribute("newReply",newReply);
-            req.getRequestDispatcher("article.jsp").forward(req, resp);
+
 
         } catch (SQLException e1) {
             e1.printStackTrace();
