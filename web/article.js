@@ -3,24 +3,23 @@
 
 //i and j should continue from the latest values from initilization.
 
-var i = 0;
+var i = 1;              //comment id.
 var j = 100000;      //very unsmart method to distinguish comment and reply
-
 //js for adding comments
 
-function addcomment() {
+function addcomment(postId) {
 
+    console.log("addComment running");
 
     var cm = document.getElementById("comment").value;
-
-    var a1 = "<div class='card dark-grey'><img class='card-img-top img-thumbnail rounded-circle boarder-primary' src='images/icons/666201.png' alt='Card image cap' style='width: 50px;height: 50px;'>" +
-        "<div class='card-body'><p class='card-title'>Name of Commentor</p><p class='card-text'>";
+    var a1 = "<div class='card dark-grey'><img class='card-img-top img-thumbnail rounded-circle boarder-primary' id='image"+i+"' src='' alt='Card image cap' style='width: 50px;height: 50px;'>" +
+        "<div class='card-body'><p class='card-title' id='cmuser"+i+"'></p><p class='card-text'>";
     var a2 = cm + "</p></div></div></div><br/>" +
         "<button type='submit' class='btn btn-info btn-md float-right' data-toggle='modal' data-target='#replymodal" + j + "'>" +
         "           <strong>Reply Here</strong></button><br/><br/>" +
         " <div class='modal' id='replymodal" + j + "'>" +
         "                    <div class='modal-dialog modal-lg'><div class='modal-content'><div class='modal-body'>" +
-        "                                <form action='#'><div class='form-group'><label for='article'></label>" +
+        "                                <form action='addReply'><div class='form-group'><label for='article'></label>" +
         "                                        <textarea class='form-control' rows='5' id='reply" + j + "'" + " placeholder='Reply here...'></textarea></div></form><div class='form-group'>" +
         "                                    <button type='submit' class='btn btn-primary btn-lg' data-dismiss='modal'  onclick='addReply(" + i + "," + j++ + ")'>" +
         "                                        Submit!</button></div></div><div class='modal-footer'><button type='button' class='btn btn-danger' data-dismiss='modal'>Close" +
@@ -29,7 +28,24 @@ function addcomment() {
     var a3 = "<ul id='list" + (i++) + "'></ul>";    //make this updated as per i; very
     var div = document.createElement('div');
     div.innerHTML = a1 + a2 + a3;
-    document.getElementById("cmList").appendChild(div);
+    console.log("cmList" + postId + "this is i" + i);
+    document.getElementById("cmList" + postId).appendChild(div);
+
+    $.ajax({
+        type: 'POST',
+        url: 'addComment',
+        data: {'postId': postId, 'commentId': (i - 1), 'comment': cm},
+        async: true,
+        dataType: 'json',
+        success: function (icon) {
+
+            // alert("Your comment is published!");
+        }
+    });
+
+    console.log("this is running");
+
+    userCommentUpdate();
 }
 
 
@@ -39,13 +55,12 @@ function addReply(list, replynum) {
 
     //assign new id to reply.
     var reply;
-
     reply = document.getElementById("reply" + replynum).value;
 
     var a1 = "<div class='card dark-grey'>";
     var a2 = "<img class='card-img-top img-thumbnail rounded-circle boarder-primary' src='images/icons/666201.png' alt='Card image cap' style='width: 50px;height: 50px;'>"; //icon image
     var a3 = "<div class='card-body'> ";
-    var a4 = "<p class='card-title'>  Name of Commentor</p>";
+    var a4 = "<p class='card-title' id='replyuser"+(i-1)+"_"+j+"'></p>";
     var a5 = "<p class='card-text'>";
     var a6 = reply + "</p></div></div></div><br/>" +
         "<button type='submit' class='btn btn-info btn-md float-right' data-toggle='modal' data-target='#replymodal" + j + "' onclick=''>" +
@@ -61,8 +76,16 @@ function addReply(list, replynum) {
     // var id = testlist+i;
     document.getElementById("list" + list).appendChild(div);
 
+    $.ajax({
+        type: 'POST',
+        url: 'addComment',
+        data: {'postId': postId, 'commentId': i, 'replyId': j, "reply": document.reply},
+        async: true,
+        dataType: 'json',
+        success: function () {
+            // alert("Your comment is published!");
+        }
+    });
+
 }
 
-function deleteComment() {
-
-}

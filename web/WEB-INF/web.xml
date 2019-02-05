@@ -76,22 +76,32 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.DeleteAccountServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <url-pattern>/deleteAccount</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>AddPostServlet</servlet-name>
         <servlet-class>ictgradschool.project.servlets.AddPostServlet</servlet-class>
     </servlet>
 
-    <servlet-mapping>
+        <servlet-mapping>
         <servlet-name>AddPostServlet</servlet-name>
         <url-pattern>/addPost</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>AddCommentyServlet</servlet-name>
+        <servlet-name>AddCommentServlet</servlet-name>
         <servlet-class>ictgradschool.project.servlets.AddCommentServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>AddCommentyServlet</servlet-name>
+        <servlet-name>AddCommentServlet</servlet-name>
         <url-pattern>/addComment</url-pattern>
     </servlet-mapping>
 

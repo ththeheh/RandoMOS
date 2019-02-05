@@ -20,12 +20,17 @@ public class AddPostServlet extends HttpServlet {
             String title = req.getParameter("title");
             String post = req.getParameter("post");
 
-            PostJavaBean newPost = new PostJavaBean(userName,title, post);
+            PostJavaBean newPost = new PostJavaBean(userName, title, post);
 
-            dao.savePosts(newPost);
-            // need to call encoding class to create hashedcode to store
-            req.setAttribute("newPost",newPost);
+            int postId = dao.savePosts(newPost);
+//set postId
+            newPost.setPostId(postId);
+//            System.out.println("this is running");
+
+            req.setAttribute("newPost", newPost);
+
             req.getRequestDispatcher("article.jsp").forward(req, resp);
+//            resp.sendRedirect("article.jsp");
 
         } catch (SQLException e1) {
             e1.printStackTrace();

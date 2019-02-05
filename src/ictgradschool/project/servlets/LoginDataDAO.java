@@ -256,17 +256,23 @@ public class LoginDataDAO {
 
     }
 
-     public void savePosts(PostJavaBean post) throws SQLException {
+     public int savePosts(PostJavaBean post) throws SQLException {
 
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_post(userName, postTitle, post) VALUES (?,?,?)",Statement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setString(1, post.getUserName());
-            preparedStatement.setString(2, post.getTitle());
-            preparedStatement.setString(3, post.getPost());
+             preparedStatement.setString(1, post.getUserName());
+             preparedStatement.setString(2, post.getTitle());
+             preparedStatement.setString(3, post.getPost());
 
-            //Just indicating how many rows are added
-            int numRows = preparedStatement.executeUpdate();
-            System.out.println(numRows + " post added");
-        }
+             //Just indicating how many rows are added
+             int numRows = preparedStatement.executeUpdate();
+             System.out.println(numRows + " post added");
+
+             //get automatic key
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            rs.next();
+            return rs.getInt(1);
+         }
+
     }
 
 
@@ -276,7 +282,10 @@ public class LoginDataDAO {
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_userComment(postId, commentId, userName, comment) VALUES (?,?,?,?)")) {
             preparedStatement.setInt(1, comment.getPostId());
             preparedStatement.setInt(2, comment.getCommentId());
-            preparedStatement.setString(3, comment.getUserName());
+
+            System.out.println(comment.getUserName());
+
+            preparedStatement.setString(3, comment.getUserName()); //can not be null
             preparedStatement.setString(4, comment.getComment());
 
             //Just indicating how many rows are added
@@ -293,7 +302,6 @@ public class LoginDataDAO {
             preparedStatement.setInt(3, reply.getReplyId());
             preparedStatement.setString(4, reply.getUserName());
             preparedStatement.setString(5, reply.getComment());
-
 
             //Just indicating how many rows are added
             int numRows = preparedStatement.executeUpdate();

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -16,16 +17,23 @@ public class AddCommentServlet extends HttpServlet {
         try (Connection connection = DBConnection.createConnection()) {
 
             LoginDataDAO dao = new LoginDataDAO(connection);
-            String userName = req.getParameter("userName");
-            int postId= Integer.parseInt(req.getParameter("postId"));
+            String userName = (String) req.getSession().getAttribute("username");
+            int postId = Integer.parseInt(req.getParameter("postId"));
             int commentId = Integer.parseInt(req.getParameter("commentId"));
             String comment = req.getParameter("comment");
+
+//            System.out.println("this is running" + comment);
 
             Comment newComment = new Comment(postId, commentId, userName, comment);
 
             dao.saveComments(newComment);
+//            System.out.println("running ok");
             // need to call encoding class to create hashedcode to store
-            req.setAttribute("newComment",newComment);
+//            req.setAttribute("newComment", newComment);
+//            req.getRequestDispatcher("article.jsp").forward(req, resp);
+
+            req.setAttribute("userName",userName);
+            req.setAttribute("iconPath",dao.getUserInfo(userName).getIconPath());
             req.getRequestDispatcher("article.jsp").forward(req, resp);
 
         } catch (SQLException e1) {
@@ -39,8 +47,4 @@ public class AddCommentServlet extends HttpServlet {
 
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    }
 }
