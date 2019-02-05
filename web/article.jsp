@@ -63,12 +63,10 @@
     </style>
 
     <script>
-
     </script>
 
 </head>
 <body>
-<p>this is ${userName} </p>
 <!--should be normal nav bars-->
 
 <div class="jumbotron text-center" style="margin-bottom:0; background-color: #eff5f5; ">
@@ -133,7 +131,6 @@
                             Create New Posts!
                         </button>
                     </li>
-
                     <li>
                             <%--servlet for retrieving your posts needed--%>
                         <form action="#" method="get">
@@ -161,7 +158,7 @@
             <!--<div class="triangulo"></div>-->
             <div class="profile">
                 <!--to add the profile imgs -->
-                <img class='card-img-top img-thumbnail rounded-circle boarder-primary' src='images/icons/666201.png'
+                <img id="postIcon" class='card-img-top img-thumbnail rounded-circle boarder-primary' src='${iconPath}'
                      alt='Card image cap' style='width: 150px;height: 150px;'>
                 <span class="name-author">${sessionScope.username}</span>
             </div>
@@ -213,7 +210,11 @@
     <img class="img-responsive mx-auto d-block" src="" width="600">
 </div>
 
------------------------------------------------------
+
+
+<%--THE MODAL FOR ADDING NEW POST--%>
+
+
 <div class="modal" id="myModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -242,7 +243,7 @@
                                   placeholder="Put your post content here..."></textarea>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg" onclick="">
+                        <button type="submit" class="btn btn-primary btn-lg" onclick="iconupdate()">
                             Publish!
                         </button>
                     </div>

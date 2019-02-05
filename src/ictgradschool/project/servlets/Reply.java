@@ -8,7 +8,7 @@ public class Reply extends Comment {
         super();
     }
 
-    public Reply( int postId, int commentId, int replyId, String userName,String reply ){
+    public Reply( int postId, int commentId, int replyId, String userName, String reply ){
         this.userName = userName;
         this.postId = postId;
         this.commentId = commentId;

@@ -6,10 +6,12 @@
 var i = 1;              //comment id.
 var j = 100000;      //very unsmart method to distinguish comment and reply
 //js for adding comments
+var postI;
 
 function addcomment(postId) {
 
-    // console.log("addComment running");
+
+    console.log(postId);
 
     var cm = document.getElementById("comment").value;
     var a1 = "<div class='card dark-grey'><img class='card-img-top img-thumbnail rounded-circle boarder-primary' id='image"+i+"' src='' alt='Card image cap' style='width: 50px;height: 50px;'>" +
@@ -21,7 +23,7 @@ function addcomment(postId) {
         "                    <div class='modal-dialog modal-lg'><div class='modal-content'><div class='modal-body'>" +
         "                                <form action='addReply'><div class='form-group'><label for='article'></label>" +
         "                                        <textarea class='form-control' rows='5' id='reply" + j + "'" + " placeholder='Reply here...'></textarea></div></form><div class='form-group'>" +
-        "                                    <button type='submit' class='btn btn-primary btn-lg' data-dismiss='modal'  onclick='addReply(" + i + "," + j++ + ")'>" +
+        "                                    <button type='submit' class='btn btn-primary btn-lg' data-dismiss='modal'  onclick='addReply(" + i + "," + j++ +","+ '5445' + ")'>" +
         "                                        Submit!</button></div></div><div class='modal-footer'><button type='button' class='btn btn-danger' data-dismiss='modal'>Close" +
         "                                </button></div></div></div></div>";
 
@@ -38,16 +40,15 @@ function addcomment(postId) {
         async: true,
         dataType:'text',
         success: function (userJson) {
+            // console.log(userJson);
             var jsonS = JSON.parse(userJson);
-            console.log("this is runnning as well!");
             var cmuser = "cmuser" + (i - 1);
             var imageuser = "image" + (i - 1);
-            console.log(cmuser);
-            console.log(imageuser);
+            // console.log(cmuser);
+            // console.log(imageuser);
             $("#"+cmuser).text(jsonS["userName"]);
             $("#"+imageuser).attr("src",jsonS["iconPath"]);
-
-            // alert("Your comment is published!");
+            alert("Your comment is published!");
         },
         error: function(xhr, status) {
             alert(xhr.status);}
@@ -58,11 +59,11 @@ function addcomment(postId) {
 
 //js for adding reply
 
-function addReply(list, replynum) {
+function addReply(list,replyId,postId) {
 
     //assign new id to reply.
     var reply;
-    reply = document.getElementById("reply" + replynum).value;
+    reply = document.getElementById("reply" + replyId).value;
 
     var a1 = "<div class='card dark-grey'>";
     var a2 = "<img class='card-img-top img-thumbnail rounded-circle boarder-primary' src='images/icons/666201.png' alt='Card image cap' style='width: 50px;height: 50px;'>"; //icon image
@@ -74,7 +75,7 @@ function addReply(list, replynum) {
         "           <strong>Reply Here</strong></button><br/><br/>" +
         " <div class='modal' id='replymodal" + j + "'><div class='modal-dialog modal-lg'><div class='modal-content'><div class='modal-body'><form action='#'><div class='form-group'><label for='article'></label>" +
         "                                        <textarea class='form-control' rows='5' id='reply" + j + "'" + " placeholder='Reply here...'></textarea>" +
-        "                                    </div></form><div class='form-group'><button type='submit' class='btn btn-primary btn-lg' data-dismiss='modal'  onclick='addReply(" + list + "," + j++ + ")'>" +
+        "                                    </div></form><div class='form-group'><button type='submit' class='btn btn-primary btn-lg' data-dismiss='modal'  onclick='addReply(" + i + "," + j++ +","+postId+")'>" +
         "                                        Submit!</button></div></div><div class='modal-footer'><button type='button' class='btn btn-danger' data-dismiss='modal'>Close" +
         "                                </button></div></div></div></div>";
 
@@ -83,16 +84,31 @@ function addReply(list, replynum) {
     // var id = testlist+i;
     document.getElementById("list" + list).appendChild(div);
 
-    $.ajax({
-        type: 'POST',
-        url: 'addComment',
-        data: {'postId': postId, 'commentId': i, 'replyId': j, "reply": document.reply},
-        async: true,
-        dataType: 'json',
-        success: function () {
-            // alert("Your comment is published!");
-        }
-    });
+    console.log("this is the postId"+postId);
+    //
+    // $.ajax({
+    //     type: 'POST',
+    //     url: 'addReply',
+    //     data: {'postId': postId, 'commentId': (i - 1), 'replyId': (j-2),'reply':reply},
+    //     async: true,
+    //     dataType:'text',
+    //     success: function (userJson) {
+    //         // console.log(userJson);
+    //         var jsonS = JSON.parse(userJson);
+    //         var cmuser = "cmuser" + (i - 1);
+    //         var imageuser = "image" + (i - 1);
+    //         // console.log(cmuser);
+    //         // console.log(imageuser);
+    //         $("#"+cmuser).text(jsonS["userName"]);
+    //         $("#"+imageuser).attr("src",jsonS["iconPath"]);
+    //         alert("Your reply is published!");
+    //     },
+    //     error: function(xhr, status) {
+    //         alert(xhr.status);}
+    // });
 
 }
+
+
+
 
