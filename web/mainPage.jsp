@@ -23,6 +23,9 @@
 
 
     <style>
+
+
+
         .btn {
             background-color: #e6ffe6;
             border: none;
@@ -43,8 +46,8 @@
 
         .btn {
             background-color: white;
-            color: #047c40;
-            border: 1.5px solid #047c40;
+            color: #adddcf;
+            border: 1.5px solid #adddcf;
             float:right;
         }
 
@@ -57,14 +60,25 @@
             display: inline-block;
             font-size: 20px;
             padding: 20px;
+
+        }
+
+        ul{
             float: right;
+        }
+
+        .navbar{
+            z-index: 1;
         }
 
         .article {
             width: 900px;
             height: 400px;
-            padding: 50px;
-            border: 1px solid dimgray;
+            padding: 10px;
+            border: 1px solid #adddcf;;
+            border-radius: 1rem;
+            z-index: -1;
+
         }
        .column {
            float : left;
@@ -92,7 +106,7 @@
             position: sticky;
             top: 0;
             background-color: #eff5f5;
-            opacity:0.8;
+            /*opacity:0.3;*/
             padding: 0px;
             font-size: 20px;
         }
@@ -104,11 +118,6 @@
         /*.c-header {*/
             /*background-color: transparent;*/
         /*}*/
-
-
-
-
-
 
 
     </style>
@@ -125,7 +134,6 @@
         url: 'changIconServlet',
         data: {'iconPath': document.getElementById('featuredImage').src},
         async: false,
-        dataType: 'json',
         success: function (data) {
             if (data.success) {
                 alert('Update Sucess!');
@@ -137,12 +145,13 @@
             alert('Internet Error!');
         }
     });
+
 </script>
 
 <body>
 
 <div class="sticky">
-    <header class="c-header" style="margin-top:30px; margin-bottom:10px">
+    <header class="c-header" style="margin-bottom:10px">
 
         <div class="row">
             <nav class="navbar navbar-expand-sm bg-muted">
@@ -150,7 +159,7 @@
                 <div class="c-header_menu col-lg-12 col-md-12 col-sm-12">
 
                     <ul class="navbar-nav">
-                        <li><h1 style="color:dimgray; text-align: center;">Welcome to RandoMOS! </h1></li>
+                        <li><h1 style="color:#527a67; text-align: center;">Welcome to RandoMOS! </h1></li>
 
                         <li>
                             <button type="button" class="btn btn-sm btn-gray btn-lg" onclick="location.href='mainPage.jsp'">
@@ -246,53 +255,29 @@
 
     <div class="row mb-5">
         <div class="article">
-            <div class="column left">
+            <div class="row">
+            <div class="col-6" style="overflow:auto;">
                 <img src="https://media.allure.com/photos/5bf1b1502ab5072a91e1853a/16:9/w_1200%2Cc_limit/travel%20editor%20favorite%20products.jpg"
-                     class="rounded-cornor float-left" width="300" height="230"  >
+                     class="rounded" width="400" height="350">
             </div>
-            <div class="column middle"></div>
 
-            <div class="column right">
-                <h2 style="color:dimgray;">Article </h2>
+
+            <div class="col-6">
+                <h2 style="color:#527a67;">Article </h2>
+                <h5 style="color:#527a67;">by ykim706</h5>
                 <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
                     third
                     paragraph.
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
             </div>
         </div>
-    </div>
+        </div></div>
 
     <div class="row mb-5">
         <div class="article">
             <div class="column left">
                 <img src="https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Ftimedotcom.files.wordpress.com%2F2018%2F02%2Ftaking-photo-in-car.jpg&w=800&c=sc&poi=face&q=85"
-                     class="rounded-cornor float-left" width="300" height="230"  >
-            </div>
-            <div class="column middle"></div>
-
-            <div class="column right">
-                <h2 style="color:dimgray;">Article </h2>
-                <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
-                    third
-                    paragraph.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
-                    Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
-                    third
-                    paragraph.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
-                    Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
-                    third
-                    paragraph.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mb-5">
-        <div class="article">
-            <div class="column left">
-                <img src="https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Ftimedotcom.files.wordpress.com%2F2018%2F02%2Ftaking-photo-in-car.jpg&w=800&c=sc&poi=face&q=85"
-                     class="rounded-cornor float-left" width="300" height="230"  >
+                     class="rounded float-left" width="300" height="230"  >
             </div>
             <div class="column middle"></div>
 
@@ -318,7 +303,33 @@
         <div class="article">
             <div class="column left">
                 <img src="https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Ftimedotcom.files.wordpress.com%2F2018%2F02%2Ftaking-photo-in-car.jpg&w=800&c=sc&poi=face&q=85"
-                     class="rounded-cornor float-left" width="300" height="230"  >
+                     class="rounded float-left" width="300" height="230"  >
+            </div>
+            <div class="column middle"></div>
+
+            <div class="column right">
+                <h2 style="color:dimgray;">Article </h2>
+                <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
+                    third
+                    paragraph.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
+                    Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
+                    third
+                    paragraph.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
+                    Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
+                    third
+                    paragraph.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="article">
+            <div class="column left">
+                <img src="https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Ftimedotcom.files.wordpress.com%2F2018%2F02%2Ftaking-photo-in-car.jpg&w=800&c=sc&poi=face&q=85"
+                     class="rounded float-left" width="300" height="230"  >
             </div>
             <div class="column middle"></div>
 
