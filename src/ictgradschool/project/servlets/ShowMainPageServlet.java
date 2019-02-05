@@ -21,13 +21,28 @@ public class ShowMainPageServlet extends HttpServlet {
         try (Connection connection = DBConnection.createConnection()) {
             LoginDataDAO dao = new LoginDataDAO(connection);
 
+
+
             String userName =  (String) req.getSession().getAttribute("userName");
 
-//            PostJavaBean postBean = dao.getPost(postId);
+            if(userName == null){
+                //make another method in dao
+//                dao.randomArticle();
+            }else{
 
-//            req.setAttribute("posts", postBean);
-            req.getRequestDispatcher("mainPage.jsp").forward(req,resp);
-            resp.sendRedirect("mainPage.jsp");
+
+                int postId = (int) req.getSession().getAttribute("postId");
+                //make method- getPost(userName)
+                PostJavaBean postBean = dao.getPost(postId);
+
+                req.setAttribute("posts", postBean);
+                req.getRequestDispatcher("mainPage.jsp").forward(req,resp);
+                resp.sendRedirect("mainPage.jsp");
+            }
+
+
+
+
 
 
         } catch (SQLException e) {
