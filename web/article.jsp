@@ -64,26 +64,11 @@
 
     <script>
 
-function userCommentUpdate(){
-    // console.log("this is runnning as well!")
-    var cmuser = "cmuser" + (i - 1);
-    var imageuser = "image" + (i - 1);
-    console.log(cmuser);
-    console.log(imageuser);
-
-    $("#"+cmuser).text("testing");
-    $("#"+imageuser).setAttribute("src","/boy1.png");
-
-}
-        <%--var replyuser = "replyuser" + (i - 1) + "_" + j;--%>
-        <%--$("#replyuer").innerHTML = ${sessionScope.username};--%>
-
-
     </script>
 
 </head>
 <body>
-
+<p>this is ${userName} </p>
 <!--should be normal nav bars-->
 
 <div class="jumbotron text-center" style="margin-bottom:0; background-color: #eff5f5; ">

@@ -9,7 +9,7 @@ var j = 100000;      //very unsmart method to distinguish comment and reply
 
 function addcomment(postId) {
 
-    console.log("addComment running");
+    // console.log("addComment running");
 
     var cm = document.getElementById("comment").value;
     var a1 = "<div class='card dark-grey'><img class='card-img-top img-thumbnail rounded-circle boarder-primary' id='image"+i+"' src='' alt='Card image cap' style='width: 50px;height: 50px;'>" +
@@ -36,16 +36,23 @@ function addcomment(postId) {
         url: 'addComment',
         data: {'postId': postId, 'commentId': (i - 1), 'comment': cm},
         async: true,
-        dataType: 'json',
-        success: function (icon) {
+        dataType:'text',
+        success: function (userJson) {
+            var jsonS = JSON.parse(userJson);
+            console.log("this is runnning as well!");
+            var cmuser = "cmuser" + (i - 1);
+            var imageuser = "image" + (i - 1);
+            console.log(cmuser);
+            console.log(imageuser);
+            $("#"+cmuser).text(jsonS["userName"]);
+            $("#"+imageuser).attr("src",jsonS["iconPath"]);
 
             // alert("Your comment is published!");
-        }
+        },
+        error: function(xhr, status) {
+            alert(xhr.status);}
     });
 
-    console.log("this is running");
-
-    userCommentUpdate();
 }
 
 
