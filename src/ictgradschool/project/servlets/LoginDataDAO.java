@@ -271,6 +271,16 @@ public class LoginDataDAO {
 
     }
 
+
+    public void deletePost(int postId) throws SQLException {
+
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_post WHERE postId = ?;")) {
+            preparedStatement.setInt(1, postId);
+            //may need to think about if can delete comments under one username and check how the tables are joined.
+            int numRows = preparedStatement.executeUpdate();
+            System.out.println(numRows+" post deleted");
+        }
+    }
      public int savePosts(PostJavaBean post) throws SQLException {
 
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_post(userName, postTitle, post) VALUES (?,?,?)",Statement.RETURN_GENERATED_KEYS)) {

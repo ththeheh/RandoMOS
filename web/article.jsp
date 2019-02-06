@@ -154,11 +154,11 @@
                     // console.log(userJson);
                     div1 = document.createElement('div');
 
-                    div1.innerHTML = " <button type='button' class='btn btn-sm btn-primary' data-toggle='modal' data-target='#deleteeditModal'>Edit Post </button>";
+                    div1.innerHTML = " <button type='button' class='btn btn-sm btn-primary' data-toggle='modal' data-target='#editModal'>Edit Post </button>";
 
                     div2 = document.createElement('div');
 
-                    div2.innerHTML = "<form <input type='button' class='btn btn-sm btn-primary'>Delete</inputbutton></form>";
+                    div2.innerHTML = " <form action='deletePost' method='POST'> <button type='button' name='deletepostid' value ='${newPost.postId}' class='btn btn-sm btn-danger'> Delete </button></form>";
                     // var id = testlist+i;
 
                     document.getElementsByClassName("postbody")[0].appendChild(div1);
@@ -465,7 +465,7 @@
 
 <%-------------------------------------------------edit post modal-----------------------------%>
 
-<div class="modal" id="deleteeditModal">
+<div class="modal" id="editModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- Modal Header -->

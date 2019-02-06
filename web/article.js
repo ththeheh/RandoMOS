@@ -54,6 +54,7 @@ function addcomment(postId) {
             alert(xhr.status);}
     });
 
+
 }
 
 
