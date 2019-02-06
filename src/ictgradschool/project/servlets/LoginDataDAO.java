@@ -201,6 +201,21 @@ public class LoginDataDAO {
         }
     }
 
+    public void editPost(int postId, String postTitle, String post) throws SQLException {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE blog_post SET postTitle=?, post=? WHERE postId=? ")) {
+
+            preparedStatement.setString(1, postTitle);
+            preparedStatement.setString(2, post);
+            preparedStatement.setInt(3, postId);
+
+            int numRows = preparedStatement.executeUpdate();
+            System.out.println(numRows + " post updated");
+
+        }
+    }
+
+
+
     public void changeIcon(String userName, String iconPath) throws SQLException {
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE blog_userInfo SET iconPath=? WHERE userName=? ")) {
 

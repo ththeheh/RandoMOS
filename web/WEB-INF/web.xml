@@ -126,5 +126,15 @@
         <url-pattern>/postDeleteEdit</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>EditPostServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.EditPostServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EditPostServlet</servlet-name>
+        <url-pattern>/editPost</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

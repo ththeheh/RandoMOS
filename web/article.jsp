@@ -154,7 +154,7 @@
                     // console.log(userJson);
                     div1 = document.createElement('div');
 
-                    div1.innerHTML = " <button type='button' class='btn btn-sm btn-primary' data-toggle='modal' data-target='#myModal'>Edit Post </button>";
+                    div1.innerHTML = " <button type='button' class='btn btn-sm btn-primary' data-toggle='modal' data-target='#deleteeditModal'>Edit Post </button>";
 
                     div2 = document.createElement('div');
 
@@ -166,8 +166,8 @@
 
                     <%--console.log('${newPost.title}');--%>
 
-                    document.getElementsById('edittitle').setAttribute('value', '${newPost.title}');
-                    document.getElementsById('editpost').setAttribute('value','${newPost.post}');
+                    document.getElementById("edittitle").setAttribute("value", "${newPost.title}");
+                    document.getElementById("editpost").innerText="${newPost.post}";
 
 
                     // console.log("list" + list);
@@ -248,7 +248,7 @@
                     <c:otherwise>
                         <li>
                             <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                    data-target="#myModal">
+                                    data-target="#postModal">
                                 Create New Posts!
                             </button>
                         </li>
@@ -419,7 +419,7 @@
 
 <%-------------------------------------------------modal for new post-----------------------------%>
 
-<div class="modal" id="myModal">
+<div class="modal" id="postModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- Modal Header -->
@@ -444,7 +444,7 @@
                                   placeholder="Put your post content here..."></textarea>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg" onclick="iconupdate()">
+                        <button type="submit" class="btn btn-primary btn-lg"  onclick="iconupdate()">
                             Publish!
                         </button>
                     </div>
@@ -465,7 +465,7 @@
 
 <%-------------------------------------------------edit post modal-----------------------------%>
 
-<div class="modal" id="myModal">
+<div class="modal" id="deleteeditModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- Modal Header -->
@@ -477,7 +477,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form action="addPost" method="post">
+                <form action="editPost" method="post">
                     <%--send to servlet and build the post using this page.--%>
                     <div class="form-group">
                         <label for="title"><strong> Your Title:</strong></label>
@@ -490,7 +490,7 @@
                                   placeholder="Put your post content here..."></textarea>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg" onclick="iconupdate()">
+                        <button type="submit" name="postId" value="${newPost.postId}" class="btn btn-primary btn-lg" onclick="iconupdate()">
                             Publish!
                         </button>
                     </div>
