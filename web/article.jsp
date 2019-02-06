@@ -164,13 +164,13 @@
                     document.getElementsByClassName("postbody")[0].appendChild(div1);
                     document.getElementsByClassName("postbody")[0].appendChild(div2);
 
-                    console.log('${newPost.title}');
+                    <%--console.log('${newPost.title}');--%>
 
                     document.getElementsById('edittitle').setAttribute('value', '${newPost.title}');
                     document.getElementsById('editpost').setAttribute('value','${newPost.post}');
 
 
-                    console.log("list" + list);
+                    // console.log("list" + list);
                 }
             },
 
