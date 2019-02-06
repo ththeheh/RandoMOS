@@ -116,4 +116,45 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>PostDeleteEditServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.PostDeleteEditServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PostDeleteEditServlet</servlet-name>
+        <url-pattern>/postDeleteEdit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EditPostServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.EditPostServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EditPostServlet</servlet-name>
+        <url-pattern>/editPost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeletePostServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.DeletePostServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeletePostServlet</servlet-name>
+        <url-pattern>/deletePost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShowMainPageServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.ShowMainPageServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ShowMainPageServlet</servlet-name>
+        <url-pattern>/showMain</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

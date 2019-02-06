@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class LoginDataDAO {
@@ -147,6 +148,39 @@ public class LoginDataDAO {
         return null;
     }
 
+    public List<PostJavaBean> getUserPost(String userName) throws SQLException {
+//        PostJavaBean mainPost = new PostJavaBean();
+        List<PostJavaBean> posts = new ArrayList<>();
+
+        try (Statement statement = this.connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_post")) {
+
+                while (resultSet.next()) {
+//                    System.out.println(resultSet.getRow());
+//                int randomRow = (int) (Math.floor(Math.random() * 3) + 1);
+//                resultSet.absolute(resultSet.getRow());
+                    if (userName.equals(resultSet.getString(2))) {
+                        int postId = resultSet.getInt(1);
+                        String title = resultSet.getString(3);
+                        String post = resultSet.getString(4);
+                        PostJavaBean userPost = new PostJavaBean(userName, title, post, postId);
+                        posts.add(userPost);
+                    }
+
+                    //                }
+                }
+
+                System.out.println("user posts are returned here");
+
+                Collections.sort(posts);
+
+                return posts;
+
+            }
+
+        }
+    }
+
     public List<Comment> getComments(int postId) throws SQLException {
         List<Comment> comments = new ArrayList<>();
         try (Statement statement = this.connection.createStatement()) {
@@ -157,7 +191,7 @@ public class LoginDataDAO {
                         int commentId = resultSet.getInt(3);
                         String comment = resultSet.getString(4);
                         List<Reply> replies = getReply(commentId);
-                        comments.add(new Comment(postId, commentId,userName, comment));
+                        comments.add(new Comment(postId, commentId, userName, comment));
                     }
                 }
             }
@@ -201,6 +235,20 @@ public class LoginDataDAO {
         }
     }
 
+    public void editPost(int postId, String postTitle, String post) throws SQLException {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE blog_post SET postTitle=?, post=? WHERE postId=? ")) {
+
+            preparedStatement.setString(1, postTitle);
+            preparedStatement.setString(2, post);
+            preparedStatement.setInt(3, postId);
+
+            int numRows = preparedStatement.executeUpdate();
+            System.out.println(numRows + " post updated");
+
+        }
+    }
+
+
     public void changeIcon(String userName, String iconPath) throws SQLException {
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE blog_userInfo SET iconPath=? WHERE userName=? ")) {
 
@@ -215,12 +263,12 @@ public class LoginDataDAO {
 
     public void deleteAccount(String userName) throws SQLException {
 
-         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userReply WHERE userName = ?;")) {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userReply WHERE userName = ?;")) {
             preparedStatement.setString(1, userName);
             //may need to think about if can delete comments under one username and check how the tables are joined.
             preparedStatement.executeUpdate();
 
-         }
+        }
 
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userComment WHERE userName = ?;")) {
             preparedStatement.setString(1, userName);
@@ -236,7 +284,7 @@ public class LoginDataDAO {
 
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_post WHERE userName = ?;")) {
             preparedStatement.setString(1, userName);
-           preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
 
         }
 
@@ -246,35 +294,44 @@ public class LoginDataDAO {
         }
 
 
-
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userInfo WHERE userName = ?;")) {
             preparedStatement.setString(1, userName);
-           preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
 
 
         }
 
     }
 
-     public int savePosts(PostJavaBean post) throws SQLException {
 
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_post(userName, postTitle, post) VALUES (?,?,?)",Statement.RETURN_GENERATED_KEYS)) {
-             preparedStatement.setString(1, post.getUserName());
-             preparedStatement.setString(2, post.getTitle());
-             preparedStatement.setString(3, post.getPost());
+    public void deletePost(int postId) throws SQLException {
 
-             //Just indicating how many rows are added
-             int numRows = preparedStatement.executeUpdate();
-             System.out.println(numRows + " post added");
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_post WHERE postId = ?;")) {
+            preparedStatement.setInt(1, postId);
+            //may need to think about if can delete comments under one username and check how the tables are joined.
+            int numRows = preparedStatement.executeUpdate();
+            System.out.println(numRows + " post deleted");
+        }
+    }
 
-             //get automatic key
+    public int savePosts(PostJavaBean post) throws SQLException {
+
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_post(userName, postTitle, post) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setString(1, post.getUserName());
+            preparedStatement.setString(2, post.getTitle());
+            preparedStatement.setString(3, post.getPost());
+
+            //Just indicating how many rows are added
+            int numRows = preparedStatement.executeUpdate();
+            System.out.println(numRows + " post added");
+
+            //get automatic key
             ResultSet rs = preparedStatement.getGeneratedKeys();
             rs.next();
             return rs.getInt(1);
-         }
+        }
 
     }
-
 
 
     public void saveComments(Comment comment) throws SQLException {
@@ -306,6 +363,56 @@ public class LoginDataDAO {
             //Just indicating how many rows are added
             int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " reply added");
+        }
+    }
+
+
+    public List<PostJavaBean> getLatestPost() throws SQLException {
+//        PostJavaBean mainPost = new PostJavaBean();
+        List<PostJavaBean> posts = new ArrayList<>();
+
+        try (Statement statement = this.connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_post")) {
+                resultSet.last();
+                System.out.println(resultSet.getRow());
+
+//                int randomRow = (int) (Math.floor(Math.random() * 3) + 1);
+//                resultSet.absolute(resultSet.getRow());
+                int postId = resultSet.getInt(1);
+                String userName = resultSet.getString(2);
+                String title = resultSet.getString(3);
+                String post = resultSet.getString(4);
+                PostJavaBean mainPost1 = new PostJavaBean(userName, title, post, postId);
+                mainPost1.setPostId(postId);
+                posts.add(mainPost1);
+
+                int count = 1;
+                while (resultSet.previous()) {
+//                    System.out.println(resultSet.getRow());
+//                int randomRow = (int) (Math.floor(Math.random() * 3) + 1);
+//                resultSet.absolute(resultSet.getRow());
+                    postId = resultSet.getInt(1);
+                    userName = resultSet.getString(2);
+                    title = resultSet.getString(3);
+                    post = resultSet.getString(4);
+                    PostJavaBean mainPost2 = new PostJavaBean(userName, title, post, postId);
+                    mainPost2.setPostId(postId);
+                    posts.add(mainPost2);
+                    if (count++ > 3) {
+                        break;
+                    }
+                    System.out.println(mainPost2.getPost());
+
+
+//                }
+                }
+
+                System.out.println("posts are returned here");
+
+                return posts;
+
+            }
+
         }
     }
 }

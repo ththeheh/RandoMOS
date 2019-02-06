@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostJavaBean implements Serializable {
+public class PostJavaBean implements Serializable, Comparable<PostJavaBean> {
     private String userName;
     private String iconPath;
     private String title;
@@ -13,6 +13,13 @@ public class PostJavaBean implements Serializable {
     private List<Comment> comments = new ArrayList<>();
 
     public PostJavaBean(){}
+
+    public PostJavaBean(String userName, String title, String post,int postId) {
+        this.userName = userName;
+        this.title = title;
+        this.post = post;
+        this.postId = postId;
+    }
 
     public PostJavaBean(String userName, String title, String post) {
         this.userName = userName;
@@ -69,6 +76,8 @@ public class PostJavaBean implements Serializable {
         this.comments = comments;
     }
 
-
-
+    @Override
+    public int compareTo(PostJavaBean o) {
+        return   this.postId - o.postId;
+    }
 }
