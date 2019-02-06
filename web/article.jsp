@@ -73,34 +73,9 @@
 
         .article1 {
             width: 900px;
-            height: 1200px;
+            height: auto;
             padding: 30px;
             border: 1px solid lightgray;
-        }
-
-        .article2 {
-            width: 900px;
-            height: 300px;
-            padding: 10px;
-            border: 1px solid lightgray;
-        }
-
-        .column {
-            float: left;
-            padding: 10px;
-            height: 300px;
-        }
-
-        .left {
-            width: 25%;
-        }
-
-        .middle {
-            width: 15%;
-        }
-
-        .right {
-            width: 60%;
         }
 
         div.sticky {
@@ -117,22 +92,6 @@
             width: 100%;
             height: auto;
         }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: auto auto auto auto;
-            grid-gap: 10px;
-            border: 1px;
-            padding: 10px;
-        }
-
-        .grid-container > .article_thumb {
-
-            text-align: center;
-            padding: 20px 0px 0px 20px;
-            font-size: 30px;
-        }
-
     </style>
 </head>
 
@@ -158,7 +117,7 @@
 
                     div2 = document.createElement('div');
 
-                    div2.innerHTML = " <form action='deletePost' method='POST'> <button type='button' name='deletepostid' value ='${newPost.postId}' class='btn btn-sm btn-danger'> Delete </button></form>";
+                    div2.innerHTML = " <form action='deletePost' method='POST'> <button type='submit' name='deletepostid' value ='${newPost.postId}' class='btn btn-sm btn-danger'> Delete </button></form>";
                     // var id = testlist+i;
 
                     document.getElementsByClassName("postbody")[0].appendChild(div1);
@@ -167,7 +126,7 @@
                     <%--console.log('${newPost.title}');--%>
 
                     document.getElementById("edittitle").setAttribute("value", "${newPost.title}");
-                    document.getElementById("editpost").innerText="${newPost.post}";
+                    document.getElementById("editpost").innerText = "${newPost.post}";
 
 
                     // console.log("list" + list);
@@ -180,6 +139,47 @@
             }
         })
     })
+
+
+    $(document).ready(function () {
+        var i = 0;
+        var j = 100000;
+        var cmuser = cmuser + i;
+        while ($("#" + cmuser).length) {
+            if ($("#" + cmuser).text ===${sessionScope.username}) {
+                var x = document.createElement("button");
+                var t = document.getElementById("submit" + i);
+                t.appendChild(x);
+
+                x.addEventListener("click", function (i) {
+                    document.getElementById("commentdiv" + i).remove();
+                });
+            }
+            //add deletebutton to reply
+            var replyuser = replyuser + i + j;
+            while ($("#" + replyuser).length) {
+                if ($("#" + replyuser).text ===${sessionScope.username}) {
+                    var y = document.createElement("button");
+                    var b = document.getElementById("submit" + j);
+                    b.appendChild(y);
+
+                    y.addEventListener("click", function (j) {
+                        document.getElementById("replydiv" + j).remove();
+                    });
+                }
+                j++;
+                replyuser = replyuser + i + j;
+            }
+            i++;
+            cmuser = cmuser + i;
+
+        }
+
+
+        i++;
+    }
+    })
+    ;
 
 
 </script>
@@ -369,144 +369,99 @@
 
 
     <%--display thumbnamils of user's articles--%>
-    <div class="row ">
-        <div class="article2">
-            <div class="grid-container">
-                <div class="article_thumb ">
-                    <div class="row top">
-                        <img src="https://www.bcdtravel.com/move-global/wp-content/uploads/sites/142/Move_MarketMonitor_Spain_image_Aug2018.jpg"
-                             width="240" height="200">
-                    </div>
-                    <div class="row middle"></div>
 
-                    <div class="row bottom">
-                        <h4 style="color:lightsteelblue; text-anchor: middle;"> &nbsp Passion in Spain </h4>
 
-                    </div>
+    <%-------------------------------------------------modal for new post-----------------------------%>
+
+    <div class="modal" id="postModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">You can write your post here!
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="addPost" method="post">
+                        <%--send to servlet and build the post using this page.--%>
+                        <div class="form-group">
+                            <label for="title"><strong> Your Title:</strong></label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
 
-                <div class="article_thumb">
-                    <div class="row middle">
-                        <img src="https://www.telegraph.co.uk/content/dam/Travel/2016/October/venice-tourists-AP-TRAVEL.jpg?imwidth=1400"
-                             width="240" height="200">
-                    </div>
-                    <div class="row middle"></div>
+                        <div class="form-group">
+                            <label for="post"></label>
+                            <textarea class="form-control" rows="20" id="post" name="post"
+                                      placeholder="Put your post content here..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg" onclick="iconupdate()">
+                                Publish!
+                            </button>
+                        </div>
+                    </form>
 
-                    <div class="row bottom">
-                        <h4 style="color:lightsteelblue; text-align: -moz-center"> &nbsp Memories of Venice </h4>
-
-                    </div>
                 </div>
 
-                <div class="article_thumb">
-                    <div class="row bottom">
-                        <img src="https://www.telegraph.co.uk/content/dam/Travel/2018/July/PAris-tourist-iStock-514717188.jpg?imwidth=1400"
-                             width="240" height="200">
-                    </div>
-                    <div class="row middle"></div>
-
-                    <div class="row bottom">
-                        <h4 style="color:lightsteelblue; "> &nbsp Travel to Europe </h4>
-
-                    </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close
+                    </button>
                 </div>
+
             </div>
         </div>
     </div>
-</div>
 
 
-<%-------------------------------------------------modal for new post-----------------------------%>
+    <%-------------------------------------------------edit post modal-----------------------------%>
 
-<div class="modal" id="postModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">You can write your post here!
-                </h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div class="modal" id="editModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">You can write your post here!
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="editPost" method="post">
+                        <%--send to servlet and build the post using this page.--%>
+                        <div class="form-group">
+                            <label for="title"><strong> Your Title:</strong></label>
+                            <input type="text" class="form-control" id="edittitle" name="title" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="post"></label>
+                            <textarea class="form-control" rows="20" id="editpost" name="post"
+                                      placeholder="Put your post content here..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" name="postId" value="${newPost.postId}" class="btn btn-primary btn-lg"
+                                    onclick="iconupdate()">
+                                Publish!
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close
+                    </button>
+                </div>
+
             </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form action="addPost" method="post">
-                    <%--send to servlet and build the post using this page.--%>
-                    <div class="form-group">
-                        <label for="title"><strong> Your Title:</strong></label>
-                        <input type="text" class="form-control" id="title" name="title" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="post"></label>
-                        <textarea class="form-control" rows="20" id="post" name="post"
-                                  placeholder="Put your post content here..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg"  onclick="iconupdate()">
-                            Publish!
-                        </button>
-                    </div>
-                </form>
-
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close
-                </button>
-            </div>
-
         </div>
     </div>
-</div>
-
-
-<%-------------------------------------------------edit post modal-----------------------------%>
-
-<div class="modal" id="editModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">You can write your post here!
-                </h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form action="editPost" method="post">
-                    <%--send to servlet and build the post using this page.--%>
-                    <div class="form-group">
-                        <label for="title"><strong> Your Title:</strong></label>
-                        <input type="text" class="form-control" id="edittitle" name="title" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="post"></label>
-                        <textarea class="form-control" rows="20" id="editpost" name="post"
-                                  placeholder="Put your post content here..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" name="postId" value="${newPost.postId}" class="btn btn-primary btn-lg" onclick="iconupdate()">
-                            Publish!
-                        </button>
-                    </div>
-                </form>
-
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close
-                </button>
-            </div>
-
-        </div>
-    </div>
-</div>
 
 </body>
 </html>

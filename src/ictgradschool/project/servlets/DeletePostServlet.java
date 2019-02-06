@@ -23,11 +23,14 @@ public class DeletePostServlet extends HttpServlet {
 
         try (Connection connection = DBConnection.createConnection()) {
             LoginDataDAO dao = new LoginDataDAO(connection);
+            System.out.println("servlet is running");
             String userName = (String)req.getSession().getAttribute("username");
-            int postId = Integer.parseInt(req.getParameter("postId"));
+            int postId = Integer.parseInt(req.getParameter("deletepostid"));
             dao.deletePost(postId);
 
-            req.setAttribute("delete","postdeleted");
+            req.setAttribute("postdelete","deleted");
+
+            System.out.println(postId);
 
             //add postdelted to mainpage for alert("Your post is deleted").
 

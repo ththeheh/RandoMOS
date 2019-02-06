@@ -40,11 +40,6 @@ public class ShowMainPageServlet extends HttpServlet {
                 resp.sendRedirect("mainPage.jsp");
             }
 
-
-
-
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
