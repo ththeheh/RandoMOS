@@ -146,4 +146,15 @@
         <url-pattern>/deletePost</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ShowMainPageServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.ShowMainPageServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ShowMainPageServlet</servlet-name>
+        <url-pattern>/showMain</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

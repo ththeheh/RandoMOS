@@ -19,13 +19,11 @@
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
 
     <style>
-
-
-
         .btn {
             background-color: #e6ffe6;
             border: none;
@@ -48,7 +46,7 @@
             background-color: white;
             color: #adddcf;
             border: 1.5px solid #adddcf;
-            float:right;
+            float: right;
         }
 
         .btn:hover {
@@ -63,11 +61,11 @@
 
         }
 
-        ul{
+        ul {
             float: right;
         }
 
-        .navbar{
+        .navbar {
             z-index: 1;
         }
 
@@ -80,25 +78,17 @@
             z-index: -1;
 
         }
-       .column {
-           float : left;
-           padding: 10px;
-           height: 300px;
-       }
-        .left{
-            width: 25%;
-        }
-        .middle{
-            width: 15%;
-        }
-        .right{
-            width: 60%;
-        }
-        /*.jumbotron{*/
-            /*margin:0;*/
-            /*width:100%;*/
-            /*height:50px;*/
 
+        /*.column {*/
+        /*float : left;*/
+        /*padding: 10px;*/
+        /*height: 300px;*/
+        /*}*/
+
+        /*.jumbotron{*/
+        /*margin:0;*/
+        /*width:100%;*/
+        /*height:50px;*/
         /*}*/
 
         div.sticky {
@@ -110,17 +100,20 @@
             padding: 0px;
             font-size: 20px;
         }
-        div .column-left image{
-            width:100%;
-            height:auto;
+
+        div .column-left image {
+            width: 100%;
+            height: auto;
         }
 
-        /*.c-header {*/
-            /*background-color: transparent;*/
-        /*}*/
+        .c-header {
+            margin-bottom: 10px;
+        }
 
 
     </style>
+
+
 </head>
 
 
@@ -129,29 +122,39 @@
     alert("Your account is deleted! You are always welcomed to be back to RandoMOS!")
     </c:if>
 
-    ${'.post'}.onclick.ajax({
-        type: 'POST',
-        url: 'changIconServlet',
-        data: {'iconPath': document.getElementById('featuredImage').src},
-        async: false,
-        success: function (data) {
-            if (data.success) {
-                alert('Update Sucess!');
-            } else {
-                alert('Update Fail!');
-            }
-        },
-        error: function (err) {
-            alert('Internet Error!');
-        }
-    });
+    //to be done
+    // console.log("this is running!")
+    // $(document).ready(function () {
+    //     alert("hi");
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: 'showMain',
+    //         success: function (json) {
+    //             alert("success");
+    //         },
+    //         error: function(xhr){
+    //             alert(xhr);}
+    //
+    //     });
+
+
+    // })
 
 </script>
 
+
+<%--<jsp:include page="/showMain" flush="true">--%>
+
 <body>
 
+
+<c:if test="${stop!=true}">
+    <jsp:include page="/showMain"/>
+</c:if>
+
+
 <div class="sticky">
-    <header class="c-header" style="margin-bottom:10px">
+    <header class="c-header">
 
         <div class="row">
             <nav class="navbar navbar-expand-sm bg-muted">
@@ -162,7 +165,8 @@
                         <li><h1 style="color:#527a67; text-align: center;">Welcome to RandoMOS! </h1></li>
 
                         <li>
-                            <button type="button" class="btn btn-sm btn-gray btn-lg" onclick="location.href='mainPage.jsp'">
+                            <button type="button" class="btn btn-sm btn-gray btn-lg"
+                                    onclick="location.href='mainPage.jsp'">
                                 Home
                             </button>
                         </li>
@@ -179,7 +183,8 @@
 
                                     <li>
                                         <form action="userinfo" method="get">
-                                            <button type="submit" class="btn  btn-sm btn-info btn-lg">My Profile</button>
+                                            <button type="submit" class="btn  btn-sm btn-info btn-lg">My Profile
+                                            </button>
                                         </form>
                                     </li>
 
@@ -201,7 +206,8 @@
                             <c:choose>
                             <c:when test="${sessionScope.username==null}">
                             <li>
-                                <button type="button" class="btn btn-sm btn-gray btn-lg" onclick="location.href='reg.jsp'">
+                                <button type="button" class="btn btn-sm btn-gray btn-lg"
+                                        onclick="location.href='reg.jsp'">
                                     Register
                                 </button>
                             </li>
@@ -236,171 +242,85 @@
 </div>
 
 
-    <%------------------------------------%>
+<%------------------------------------%>
 
-    <%--<div class="jumbotron text-center" style="margin-bottom:0; background-color: #eff5f5; ">--%>
-        <%--<h1 style="color:dimgray;">Welcome to RandoMOS! </h1>--%>
-    <%--</div>--%>
-    <%--</div>--%>
-
-
-
-
+<%--<div class="jumbotron text-center" style="margin-bottom:0; background-color: #eff5f5; ">--%>
+<%--<h1 style="color:dimgray;">Welcome to RandoMOS! </h1>--%>
+<%--</div>--%>
+<%--</div>--%>
 
 
 <%---------------------------------forum-------------------------------------------------------%>
 
-
 <div class="container">
 
+    <%--<div class="col-6">--%>
+    <c:forEach items="${posts}" var="post">
     <div class="row mb-5">
+
         <div class="article">
             <div class="row">
-            <div class="col-6" style="overflow:auto;">
-                <img src="https://media.allure.com/photos/5bf1b1502ab5072a91e1853a/16:9/w_1200%2Cc_limit/travel%20editor%20favorite%20products.jpg"
-                     class="rounded" width="400" height="350">
-            </div>
+                <div class="col-6" style="overflow:auto;">
+
+                    <img src='${post.iconPath}' class="rounded" width="100" height="100">
+                </div>
 
 
-            <div class="col-6">
-                <h2 style="color:#527a67;">Article </h2>
-                <h5 style="color:#527a67;">by ykim706</h5>
-                <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
-                    third
-                    paragraph.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
-            </div>
-        </div>
-        </div></div>
+                <div class="col-6">
+                    <h2 style="color:#527a67;">${post.title} </h2>
+                    <h5 style="color:#527a67;">by ${post.userName}</h5>
+                </div>
+                </c:forEach>
 
-    <div class="row mb-5">
-        <div class="article">
-            <div class="column left">
-                <img src="https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Ftimedotcom.files.wordpress.com%2F2018%2F02%2Ftaking-photo-in-car.jpg&w=800&c=sc&poi=face&q=85"
-                     class="rounded float-left" width="300" height="230"  >
-            </div>
-            <div class="column middle"></div>
-
-            <div class="column right">
-                <h2 style="color:dimgray;">Article </h2>
-                <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
-                    third
-                    paragraph.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
-                    Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
-                    third
-                    paragraph.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
-                    Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
-                    third
-                    paragraph.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
             </div>
         </div>
     </div>
-
-    <div class="row mb-5">
-        <div class="article">
-            <div class="column left">
-                <img src="https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Ftimedotcom.files.wordpress.com%2F2018%2F02%2Ftaking-photo-in-car.jpg&w=800&c=sc&poi=face&q=85"
-                     class="rounded float-left" width="300" height="230"  >
-            </div>
-            <div class="column middle"></div>
-
-            <div class="column right">
-                <h2 style="color:dimgray;">Article </h2>
-                <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
-                    third
-                    paragraph.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
-                    Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
-                    third
-                    paragraph.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
-                    Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
-                    third
-                    paragraph.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mb-5">
-        <div class="article">
-            <div class="column left">
-                <img src="https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Ftimedotcom.files.wordpress.com%2F2018%2F02%2Ftaking-photo-in-car.jpg&w=800&c=sc&poi=face&q=85"
-                     class="rounded float-left" width="300" height="230"  >
-            </div>
-            <div class="column middle"></div>
-
-            <div class="column right">
-                <h2 style="color:dimgray;">Article </h2>
-                <p>Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
-                    third
-                    paragraph.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
-                    Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
-                    third
-                    paragraph.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
-                    Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
-                    third
-                    paragraph.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
-            </div>
-        </div>
-    </div>
-
-
 </div>
-
-
-
 
 <%-------------------------------------------------modal-----------------------------%>
 
-                <div class="modal" id="myModal">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <h4 class="modal-title">You can write your post here!
-                                </h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
+<div class="modal" id="myModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">You can write your post here!
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
 
-                            <!-- Modal body -->
-                            <div class="modal-body">
-                                <form action="#">
-                                    <%--send to servlet and build the post using this page.--%>
-                                    <div class="form-group">
-                                        <label for="title"><strong> Your Title:</strong></label>
-                                        <input type="text" class="form-control" id="title" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="post"></label>
-                                        <textarea class="form-control" rows="20" id="post"
-                                                  placeholder="Put your post content here..."></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-lg" onclick="">
-                                            Publish!
-                                        </button>
-                                    </div>
-                                </form>
-
-                            </div>
-
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close
-                                </button>
-                            </div>
-
-                        </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="#">
+                    <%--send to servlet and build the post using this page.--%>
+                    <div class="form-group">
+                        <label for="title"><strong> Your Title:</strong></label>
+                        <input type="text" class="form-control" id="title" required>
                     </div>
-                </div>
+
+                    <div class="form-group">
+                        <label for="post"></label>
+                        <textarea class="form-control" rows="20" id="post"
+                                  placeholder="Put your post content here..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg" onclick="">
+                            Publish!
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
