@@ -95,9 +95,9 @@ function addReply(list,replyId,postId) {
         data: {'postId': postId, 'commentId': (i - 1), 'replyId': (j-2),'reply':reply},
         async: true,
         dataType:'text',
-        success: function (userJson) {
+        success: function (userJsonStr) {
             // console.log(userJson);
-            var jsonS = JSON.parse(userJson);
+            var jsonS = JSON.parse(userJsonStr);
             var replyuser = "replyuser" + (i-1)+"_"+(j-2);
             var imageuser = "image" + (j - 2);
             // console.log(cmuser);

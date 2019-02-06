@@ -37,13 +37,13 @@ public class AddCommentServlet extends HttpServlet {
             String iconPath = dao.getUserInfo(userName).getIconPath();
 //            System.out.println(userName+dao.getUserInfo(userName).getIconPath());
 
-            String userJson = "{\"userName\":"+"\""+userName+"\""+","+"\"iconPath\":"+"\""+iconPath+"\""+"}";  //not working properly0
+            String userJsonStr = "{\"userName\":"+"\""+userName+"\""+","+"\"iconPath\":"+"\""+iconPath+"\""+"}";  //not working properly0
 
-            System.out.println(userJson);
+            System.out.println(userJsonStr);
 
             resp.setContentType("text");
 //            resp.setCharacterEncoding("UTF-8");
-            out.print(userJson);
+            out.print(userJsonStr);
             out.flush();
 
         } catch (SQLException e1) {

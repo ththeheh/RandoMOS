@@ -139,17 +139,48 @@
 
 <script>
 
+    $(document).ready(function () {
+        var postUserName = $('#usernamepost').text();
 
-    var userName = '${sessionScope.username}';
+        $.ajax({
+            type: 'POST',
+            url: 'postDeleteEdit',
+            data: {'postUserName': postUserName},
+            async: true,
+            dataType: 'text',
+            success: function (succ) {
+                console.log(succ);
+                if (succ === "success") {
+                    // console.log(userJson);
+                    div1 = document.createElement('div');
 
-    console.log(userName);
+                    div1.innerHTML = " <button type='button' class='btn btn-sm btn-primary' data-toggle='modal' data-target='#myModal'>Edit Post </button>";
 
-    var userNamePost = $('#usernamepost');
-    console.log(userNamePost);
+                    div2 = document.createElement('div');
 
-    if (userName === userNamePost) {
+                    div2.innerHTML = "<form <input type='button' class='btn btn-sm btn-primary'>Delete</inputbutton></form>";
+                    // var id = testlist+i;
 
-    }
+                    document.getElementsByClassName("postbody")[0].appendChild(div1);
+                    document.getElementsByClassName("postbody")[0].appendChild(div2);
+
+                    console.log('${newPost.title}');
+
+                    document.getElementsById('edittitle').setAttribute('value', '${newPost.title}');
+                    document.getElementsById('editpost').setAttribute('value','${newPost.post}');
+
+
+                    console.log("list" + list);
+                }
+            },
+
+            error: function (xhr, status) {
+                console.log("fail");
+                alert(xhr.status);
+            }
+        })
+    })
+
 
 </script>
 
@@ -183,13 +214,11 @@
                                         <button type="submit" class="btn btn-sm btn-info btn-lg">Log out</button>
                                     </form>
                                 </li>
-
                                 <li>
                                     <form action="userinfo" method="get">
                                         <button type="submit" class="btn  btn-sm btn-info btn-lg">My Profile</button>
                                     </form>
                                 </li>
-
 
                             </c:when>
                             <%--<a class="nav-link text-muted" href="mainPage.jsp" onclick="destroySess()"> Logout </a>--%>
@@ -262,7 +291,6 @@
                              alt='Card image cap' style='width: 40px;height: 40px;'>
                         <span id="usernamepost" class="name-author">${sessionScope.username}</span>
                     </div>
-                    <h2 class="title"></h2>
                     <%--user icon end--%>
 
                     <%--date start--%>
@@ -274,14 +302,14 @@
                 <%--date end--%>
 
                 <%--postid start--%>
-           <%----%>
+                <%----%>
                 <%--<div class="row m-auto">--%>
-               <%----%>
-                    <%--<div class="col-lg-8 text m-auto">--%>
-                         <%--<p><br/><br/><br/></p>--%>
-                      <%----%>
-                    <%--</div>--%>
-                    <%----%>
+                <%----%>
+                <%--<div class="col-lg-8 text m-auto">--%>
+                <%--<p><br/><br/><br/></p>--%>
+                <%----%>
+                <%--</div>--%>
+                <%----%>
                 <%--</div>--%>
                 <%--postid end--%>
                 <%----article information end------------------------------%>
@@ -289,7 +317,7 @@
 
             </div>
 
-            <div class="">
+            <div class="postbody">
                 <h2 style="color:dimgray;">Article </h2>
 
                 <div class="image" style="margin-bottom: 15px">
@@ -389,7 +417,7 @@
 </div>
 
 
-<%-------------------------------------------------modal-----------------------------%>
+<%-------------------------------------------------modal for new post-----------------------------%>
 
 <div class="modal" id="myModal">
     <div class="modal-dialog modal-lg">
@@ -413,6 +441,52 @@
                     <div class="form-group">
                         <label for="post"></label>
                         <textarea class="form-control" rows="20" id="post" name="post"
+                                  placeholder="Put your post content here..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg" onclick="iconupdate()">
+                            Publish!
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<%-------------------------------------------------edit post modal-----------------------------%>
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">You can write your post here!
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="addPost" method="post">
+                    <%--send to servlet and build the post using this page.--%>
+                    <div class="form-group">
+                        <label for="title"><strong> Your Title:</strong></label>
+                        <input type="text" class="form-control" id="edittitle" name="title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="post"></label>
+                        <textarea class="form-control" rows="20" id="editpost" name="post"
                                   placeholder="Put your post content here..."></textarea>
                     </div>
                     <div class="form-group">
