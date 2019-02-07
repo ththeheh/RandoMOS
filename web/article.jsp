@@ -702,7 +702,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form action="addpost" method="post">
+                <form action="addPost" method="post">
                     <%--send to servlet and build the post using this page.--%>
                     <div class="form-group">
                         <label for="title"><strong> Your Title:</strong></label>
