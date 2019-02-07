@@ -715,7 +715,7 @@
                                   placeholder="Put your post content here..."></textarea>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg" onclick="iconupdate()">
+                        <button type="submit" class="btn btn-primary btn-lg" onclick="">
                             Publish!
                         </button>
                     </div>
@@ -762,7 +762,7 @@
                     </div>
                     <div class="form-group">
                         <button type="submit" name="postId" value="${post.postId}" class="btn btn-primary btn-lg"
-                                onclick="iconupdate()">
+                                onclick="">
                             Publish!
                         </button>
                     </div>

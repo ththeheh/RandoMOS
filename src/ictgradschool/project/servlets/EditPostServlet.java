@@ -20,31 +20,22 @@ public class EditPostServlet extends HttpServlet {
 
         try (Connection connection = DBConnection.createConnection()) {
             LoginDataDAO dao = new LoginDataDAO(connection);
-            String userName = (String) req.getSession().getAttribute("username");
+//            String userName = (String) req.getSession().getAttribute("username");
             int postId = Integer.parseInt(req.getParameter("postId"));
             String title = req.getParameter("title");
             String post = req.getParameter("post");
             //update the user info
 
             dao.editPost(postId, title, post);
+            PostJavaBean showPost = dao.getPost(postId);
 
-            //get the user info and redirect to the profile page.
+            showPost.setIconPath(dao.getUserInfo(showPost.getUserName()).getIconPath());
+//            System.out.println("this is running");
+            req.setAttribute("post", showPost);
+            req.setAttribute("show",true);
 
-//            PostJavaBean updatedPost = new PostJavaBean(userName, title, post);
-//
-//            UserInfoJavabean userInfo = dao.getUserInfo(userName);
-////set postId
-//            updatedPost.setPostId(postId);
-////            System.out.println("this is running");
-//
-//            req.setAttribute("newPost", updatedPost);
-//            req.setAttribute("iconPath",userInfo.getIconPath());
-//
-//            req.getRequestDispatcher("article.jsp").forward(req, resp);
-
-
-            //                    req.setAttribute("login", userName); //do later
-
+            req.getRequestDispatcher("article.jsp").forward(req,resp);
+            resp.sendRedirect("article.jsp");
 
         } catch (SQLException e) {
             e.printStackTrace();
