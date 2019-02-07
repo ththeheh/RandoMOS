@@ -33,6 +33,7 @@ public class AddPostServlet extends HttpServlet {
             req.setAttribute("iconPath",userInfo.getIconPath());
 
             req.getRequestDispatcher("article.jsp").forward(req, resp);
+            resp.sendRedirect("article.jsp");
 //            resp.sendRedirect("article.jsp");
 
         } catch (SQLException e1) {

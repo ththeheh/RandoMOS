@@ -24,7 +24,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-    <script type="text/javascript" src="article.js"></script>
 
 
     <style>
@@ -98,6 +97,8 @@
 
 <script>
 
+
+
     $(document).ready(function () {
         var postUserName = $('#usernamepost').text();
 
@@ -128,7 +129,6 @@
                     document.getElementById("edittitle").setAttribute("value", "${newPost.title}");
                     document.getElementById("editpost").innerText = "${newPost.post}";
 
-
                     // console.log("list" + list);
                 }
             },
@@ -138,52 +138,41 @@
                 alert(xhr.status);
             }
         })
-    })
+    });
 
 
-    $(document).ready(function () {
-        var i = 0;
-        var j = 100000;
-        var cmuser = cmuser + i;
-        while ($("#" + cmuser).length) {
-            if ($("#" + cmuser).text ===${sessionScope.username}) {
-                var x = document.createElement("button");
-                var t = document.getElementById("submit" + i);
-                t.appendChild(x);
+    function showCMDelete(i) {
+        var cmuser = "cmuser"+i;
+        if ($("#" + cmuser).text() === '${sessionScope.username}') {
+            var deleteCm = "delete" + (i);
+            console.log("delete comment id " + deleteCm);
+            $("#" + deleteCm).css("visibility", "visible");
+        }
+    }
 
-                x.addEventListener("click", function (i) {
-                    document.getElementById("commentdiv" + i).remove();
-                });
-            }
-            //add deletebutton to reply
-            var replyuser = replyuser + i + j;
-            while ($("#" + replyuser).length) {
-                if ($("#" + replyuser).text ===${sessionScope.username}) {
-                    var y = document.createElement("button");
-                    var b = document.getElementById("submit" + j);
-                    b.appendChild(y);
+    function showRPDelete(i,j) {
 
-                    y.addEventListener("click", function (j) {
-                        document.getElementById("replydiv" + j).remove();
-                    });
-                }
-                j++;
-                replyuser = replyuser + i + j;
-            }
-            i++;
-            cmuser = cmuser + i;
+        var replyuser = "replyuser" + (i) + "_" + (j);
+
+        if ($("#" + replyuser).text() === '${sessionScope.username}') {
+            var deleteRep = "delete" + j;
+            $("#" + deleteRep).css("visibility", "visible");
 
         }
-
-
-        i++;
     }
-    })
-    ;
 
+    function deleteCM(i) {
+        $("#" + "commentdiv" + i).remove();
+    }
+
+    function deleteReply(id) {
+        $("#" + "replydiv" + id).remove();
+
+    }
 
 </script>
 
+<script type="text/javascript" src="article.js"></script>
 
 <body>
 
@@ -295,7 +284,7 @@
 
                     <%--date start--%>
                     <div class="col-lg-9 mx-5 ">
-                        <h4 style="font-size: small; color: dimgray">${newPost.title} Title here</h4>
+                        <h4 style="font-size: small; color: dimgray">${newPost.title} </h4>
                         <h4 style="font-size: small; color: dimgray">Date: 6/02/2019</h4>
                     </div>
                 </div>
@@ -318,7 +307,7 @@
             </div>
 
             <div class="postbody">
-                <h2 style="color:dimgray;">Article </h2>
+                <h2 style="color:dimgray;">${newPost.title}</h2>
 
                 <div class="image" style="margin-bottom: 15px">
                     <img src="https://media.allure.com/photos/5bf1b1502ab5072a91e1853a/16:9/w_1200%2Cc_limit/travel%20editor%20favorite%20products.jpg"
@@ -326,22 +315,8 @@
                 </div>
 
 
-                <p style="color: dimgray;">This is the post from the database. ${newPost.post}.
-                    Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien
-                    This is the
-                    third paragraph.
-                    Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
-                    third
-                    paragraph.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
-                    Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
-                    third
-                    paragraph.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.
-                    Euismod lectus eros, nec feugiat magna ultricies a. Suspendisse et sapien This is the
-                    third
-                    paragraph.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod lectus.</p>
+                <p style="color: dimgray;">${newPost.post}.</p>
+
             </div>
 
             <%-------------------------comment start----------------------------------%>
