@@ -22,6 +22,7 @@ public class Comment implements Serializable {
         this.postId = postId;
         this.commentId = commentId;
         this.replies = replies;
+        this.iconPath = iconPath;
     }
 
     public Comment(int postId, int commentId, String userName, String comment) {
@@ -52,7 +53,7 @@ public class Comment implements Serializable {
     }
 
 
-    public List<Reply> getReply() {
+    public List<Reply> getReplies() {
         return this.replies;
     }
 

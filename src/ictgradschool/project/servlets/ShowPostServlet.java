@@ -21,8 +21,8 @@ public class ShowPostServlet extends HttpServlet {
         try (Connection connection = DBConnection.createConnection()) {
             LoginDataDAO dao = new LoginDataDAO(connection);
 
-            String userName = (String) req.getSession().getAttribute("username");
-            System.out.println(req.getParameter("postId"));
+//            String userName = (String) req.getSession().getAttribute("username");
+//            System.out.println("this is the post Id"+req.getParameter("postId"));
             int postId =Integer.parseInt(req.getParameter("postId"));
 //            req.setAttribute("postId", postId);
             PostJavaBean showPost = dao.getPost(postId);

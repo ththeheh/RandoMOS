@@ -191,9 +191,13 @@ public class LoginDataDAO {
                         String userName = resultSet.getString(3);
                         int commentId = resultSet.getInt(2);
                         String comment = resultSet.getString(4);
+                        System.out.println("this comment is loaded into post" + comment);
                         String iconPath = getUserInfo(userName).getIconPath();
-                        List<Reply> replies = getReplies(postId,commentId);
-                        comments.add(new Comment(postId, commentId, userName, comment,replies,iconPath));
+                        System.out.println("this iconPath is loaded into post" + iconPath);
+                        List<Reply> replies = getReplies(postId, commentId);
+                        comments.add(new Comment(postId, commentId, userName, comment, replies, iconPath));
+
+                        System.out.println("the comment Id loaded: " + commentId);
                     }
                 }
             }
@@ -206,12 +210,17 @@ public class LoginDataDAO {
         try (Statement statement = this.connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_userReply")) {
                 while (resultSet.next()) {
-                    if (resultSet.getInt(2) == (commentId)) {
+                    if (resultSet.getInt(1) == postId && resultSet.getInt(2) == (commentId)) {
                         String userName = resultSet.getString(4);
                         int replyId = resultSet.getInt(3);
                         String reply = resultSet.getString(5);
                         String iconPath = getUserInfo(userName).getIconPath();
-                        replies.add(new Reply(postId, commentId, replyId, userName, reply,iconPath));
+
+                        System.out.println("this reply is loaded into post" + reply);
+                        System.out.println("this iconPath is loaded into post" + iconPath);
+
+                        replies.add(new Reply(postId, commentId, replyId, userName, reply, iconPath));
+
                     }
                 }
             }
@@ -438,25 +447,22 @@ public class LoginDataDAO {
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userReply WHERE postId = ? AND commentId = ? ")) {
             preparedStatement.setInt(1, postId);
             preparedStatement.setInt(2, commentId);
-             preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
 
         }
 
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userComment WHERE postId = ? AND commentId = ?")) {
             preparedStatement.setInt(1, postId);
             preparedStatement.setInt(2, commentId);
-            int numRows =preparedStatement.executeUpdate();
+            int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " comment and all replies deleted");
         }
-
 
 
         //may need to think about if can delete comments under one username and check how the tables are joined.
 
     }
 }
-
-
 
 
 //    public List<Post> getMyPost(String userName) throws SQLException {

@@ -27,7 +27,7 @@ public class ShowMainPageServlet extends HttpServlet {
             List<PostJavaBean> posts = new ArrayList<>();
             String userName = (String) req.getSession().getAttribute("username");
 
-            System.out.println(userName + " userName");
+            System.out.println( " userName: "+userName);
 
 
 

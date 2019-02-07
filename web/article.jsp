@@ -197,8 +197,8 @@
     $(document).ready(function () {
         var postUserName = $('#usernamepost').text();
         console.log("${sessionScope.username}");
-        if ('${sessionScope.username}'.length) {  //to continue
-            // if (false ) {
+        if ('${sessionScope.username}'.length) { //to continue
+// if (false ) {
 
             console.log("this is running!");
             $.ajax({
@@ -210,7 +210,7 @@
                 success: function (succ) {
                     console.log(succ);
                     if (succ === "success") {
-                        // console.log(userJson);
+// console.log(userJson);
                         div1 = document.createElement('div');
 
                         div1.innerHTML = " <button type='button' class='btn btn-sm btn-primary' data-toggle='modal' data-target='#editModal'>Edit post </button>";
@@ -218,7 +218,7 @@
                         div2 = document.createElement('div');
 
                         div2.innerHTML = " <form action='deletepost' method='post'> <button type='submit' name='deletepostid' value ='${post.postId}' class='btn btn-sm btn-danger'> Delete </button></form>";
-                        // var id = testlist+i;
+// var id = testlist+i;
 
                         document.getElementsByClassName("postbody")[0].appendChild(div1);
                         document.getElementsByClassName("postbody")[0].appendChild(div2);
@@ -228,7 +228,7 @@
                         document.getElementById("edittitle").setAttribute("value", "${post.title}");
                         document.getElementById("editpost").innerText = "${post.post}";
 
-                        // console.log("list" + list);
+// console.log("list" + list);
                     }
                 },
 
@@ -243,20 +243,43 @@
 
     function showCMDelete(i) {
         var cmuser = "cmuser" + i;
-        if ($("#" + cmuser).text() === '${sessionScope.username}') {
+        console.log("this is the cmuser from show function"+cmuser);
+        console.log($("#" + cmuser).text());
+        console.log("this is the session"+'${sessionScope.username}')
+        if ($("#" + cmuser).text() == '${sessionScope.username}') {
             var deleteCm = "delete" + (i);
             console.log("delete comment id " + deleteCm);
             $("#" + deleteCm).css("visibility", "visible");
         }
     }
 
-    function showRPdelete(i, j) {
+    function showRPDelete(i, j) {
 
         var replyuser = "replyuser" + (i) + "_" + (j);
 
         if ($("#" + replyuser).text() === '${sessionScope.username}') {
+            console.log("why is this runnin?");
             var deleteRep = "delete" + j;
             $("#" + deleteRep).css("visibility", "visible");
+
+        }
+    }
+
+    function showCMReply(i) {
+        var cmuser = "cmuser" + i;
+        if ($("#" + cmuser).text() === '${sessionScope.username}') {
+            var replyCm = "submit" + (i);
+            $("#" + replyCm).css("visibility", "visible");
+        }
+    }
+
+    function showRPReply(i,j) {
+
+        var replyuser = "replyuser" + (i) + "_" + (j);
+
+        if ($("#" + replyuser).text() === '${sessionScope.username}') {
+            var replyRep = "submit" + j;
+            $("#" + replyRep).css("visibility", "visible");
 
         }
     }
@@ -272,7 +295,7 @@
             async: true,
             dataType: 'text',
             success: function (succ) {
-                // console.log(userJson);
+// console.log(userJson);
                 alert("Comment deleted!");
             },
             error: function (xhr, status) {
@@ -292,7 +315,7 @@
             async: true,
             dataType: 'text',
             success: function (succ) {
-                // console.log(userJson);
+// console.log(userJson);
                 alert("Reply deleted!");
             },
             error: function (xhr, status) {
@@ -304,34 +327,53 @@
 
     $(document).ready(function () {
 
-        console.log('${show}');
+        <%--console.log('${show}');--%>
+        var i = 1;
+        var j = 100000;
 
+        if ('${show}' === 'true') { //this is good, dont change.
 
-        if ('${show}' === 'true') {
+            console.log("the comments size is " + '${post.comments.size()}'); //this is working
+//el show number with '' is number.
+            <%--if ('${post.comments.size()}'.length) {--%>
+            <%--for (var i = 1; i <=${post.comments.size()}; i++) {--%>
+            <c:forEach items="${post.comments}" var="comment">
+            console.log('${comment.comment}');
+            <%--console.log("this is the first comment"+'${comment.comment}');--%>
+            addcomment(${post.postId}, true);
+            console.log("${comment.iconPath}");
+            $("#" + "image" + i).attr("src", "${comment.iconPath}");
+            $("#" + "cmuser" + i).text("${comment.userName}");
+            $("#" + "CMContent" + i).text("${comment.comment}");
+            // console.log("this is running");
+            <%--console.log(${comment.replies.size()});--%>
+            <%--console.log("the replies size is " + '${comment.replies.size()}'); //this is working--%>
+            console.log("this is i from show post  :"+ i);
+            console.log("this is text"+$("#" + "cmuser" + i).text());
+            showCMDelete(i);
+            showCMReply(i);
 
-            console.log("the comments size is " + '${post.comments.size()}');
-            if ('${post.comments.size()}') {
-                for (var i = 1; i <=${post.comments.size()}; i++) {
-                    addcomment(${post.postId});
-                    $("#" + "image" + i).attr("src", '${post.comments[i-1].iconPath}');
-                    $("#" + "cmuser" + i).text('${post.comments[i-1].userName}');
-                    $("#" + "commentdiv" + i + ".card-text").text('${post.comments[i-1].comment}');
-                    if ('${post.comments[i-1].replies.size()}') {
-                        for (var j = 100000; j < 100000 +${post.comments[i-1].replies.size()}; j++) {
-                            addReply(i, j, ${post.postId});
-                            $("#" + "image" + j).attr("src", '${post.comments[i-1].replies[j-100000].iconPath}');
-                            $("#" + "replyuser" + i + "_" + j).text('${post.comments[i-1].replies[j-100000].userName}');
-                            $("#" + "replydiv" + j + ".card-text").text('${post.comments[i-1].replies[j-100000].comment}');
-                        }
-                    }
-                }
-            }
+            <c:forEach items="${comment.replies}" var="reply">
+            addReply(i, j, ${post.postId}, true);
+            $("#" + "image" + j).attr("src", '${reply.iconPath}');
+            $("#" + "replyuser" + i + "_" + j).text('${reply.userName}');
+            $("#" + "RPContent" + j).text('${reply.comment}');
+            <%--}--%>
+            <%--}--%>
+            showRPDelete(i, j );
+            showRPReply(i,j);
+            j++;
 
+            </c:forEach>
+            i++;
+            </c:forEach>
         }
-    });
+    })
 
 
 </script>
+
+<script type="text/javascript" src="article.js"></script>
 
 <script type="text/javascript" src="../lib/jquery-3.3.1.js"></script>
 
@@ -375,7 +417,7 @@
         }
 
         /* Insert a new post into the page. This creates the appropriate elements with classes, attributes
-         * and text, then inserts the content into the page */
+        * and text, then inserts the content into the page */
         function insert_post_into_page(post) {
             // Main post div container
             var post_div = $('<div>');
@@ -611,7 +653,7 @@
                         <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
                     </div>
                     <button type="submit" class="btn btn-info btn-lg float-right"
-                            onclick="addcomment('${post.postId}')">Comment
+                            onclick="addcomment('${post.postId}',false)">Comment
                     </button>
                 </div>
             </div>
