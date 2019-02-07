@@ -22,7 +22,19 @@ public class ShowPostServlet extends HttpServlet {
             LoginDataDAO dao = new LoginDataDAO(connection);
 
             String userName = (String) req.getSession().getAttribute("username");
+            System.out.println(req.getParameter("postId"));
+            int postId =Integer.parseInt(req.getParameter("postId"));
 //            req.setAttribute("postId", postId);
+            PostJavaBean showPost = dao.getPost(postId);
+
+
+            UserInfoJavabean userInfo = dao.getUserInfo(showPost.getUserName());
+            showPost.setIconPath(dao.getUserInfo(showPost.getUserName()).getIconPath());
+//            System.out.println("this is running");
+
+            req.setAttribute("post", showPost);
+            req.setAttribute("show",true);
+
             req.getRequestDispatcher("article.jsp").forward(req,resp);
             resp.sendRedirect("article.jsp");
 //                    req.setAttribute("login", userName); //do later

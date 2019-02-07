@@ -177,6 +177,16 @@
         <url-pattern>/deleteComment</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ShowPostServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.ShowPostServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ShowPostServlet</servlet-name>
+        <url-pattern>/showPost</url-pattern>
+    </servlet-mapping>
+
 
 
 </web-app>

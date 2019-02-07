@@ -10,16 +10,25 @@ public class Comment implements Serializable {
     protected int commentId;
     protected String comment;
     protected String userName;
+    protected String iconPath;
     protected List<Reply> replies = new ArrayList<>();
+
     public Comment() {
     }
 
-    public Comment( int postId, int commentId,String userName, String comment) {
+    public Comment(int postId, int commentId, String userName, String comment, List<Reply> replies, String iconPath) {
         this.userName = userName;
         this.comment = comment;
         this.postId = postId;
         this.commentId = commentId;
-//        this.replies = replies;
+        this.replies = replies;
+    }
+
+    public Comment(int postId, int commentId, String userName, String comment) {
+        this.userName = userName;
+        this.comment = comment;
+        this.postId = postId;
+        this.commentId = commentId;
     }
 
     public String getUserName() {
@@ -38,7 +47,12 @@ public class Comment implements Serializable {
         return this.commentId;
     }
 
-    public List<Reply> getReply(){
+    public String getIconPath() {
+        return this.iconPath;
+    }
+
+
+    public List<Reply> getReply() {
         return this.replies;
     }
 
@@ -54,12 +68,17 @@ public class Comment implements Serializable {
         this.postId = postId;
     }
 
-    public void setCommentId (int commentId){
+    public void setCommentId(int commentId) {
         this.commentId = commentId;
     }
 
-    public void setReplies(List<Reply> replies){
+    public void setReplies(List<Reply> replies) {
         this.replies = replies;
     }
+
+    public String setIconPath(String iconPath) {
+        return this.iconPath = iconPath;
+    }
+
 }
 

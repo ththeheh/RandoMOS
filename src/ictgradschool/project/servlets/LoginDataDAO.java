@@ -133,11 +133,12 @@ public class LoginDataDAO {
         try (Statement statement = this.connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_post")) {
                 while (resultSet.next()) {
-                    if (resultSet.getInt(2) == (postId)) {
-                        post.setUserName(resultSet.getString(1));
-                        post.setPostId(resultSet.getInt(2));
+                    if (resultSet.getInt(1) == (postId)) {
+                        post.setUserName(resultSet.getString(2));
+                        post.setPostId(resultSet.getInt(1));
                         post.setTitle(resultSet.getString(3));
                         post.setPost(resultSet.getString(4));
+                        post.setComments(getComments(postId));
                         return post;
                     }
                 }
@@ -186,12 +187,13 @@ public class LoginDataDAO {
         try (Statement statement = this.connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_userComment")) {
                 while (resultSet.next()) {
-                    if (resultSet.getInt(2) == (postId)) {
-                        String userName = resultSet.getString(1);
-                        int commentId = resultSet.getInt(3);
+                    if (resultSet.getInt(1) == (postId)) {
+                        String userName = resultSet.getString(3);
+                        int commentId = resultSet.getInt(2);
                         String comment = resultSet.getString(4);
-                        List<Reply> replies = getReply(commentId);
-                        comments.add(new Comment(postId, commentId, userName, comment));
+                        String iconPath = getUserInfo(userName).getIconPath();
+                        List<Reply> replies = getReplies(postId,commentId);
+                        comments.add(new Comment(postId, commentId, userName, comment,replies,iconPath));
                     }
                 }
             }
@@ -199,17 +201,17 @@ public class LoginDataDAO {
         return comments;
     }
 
-    public List<Reply> getReply(int commentId) throws SQLException {
+    public List<Reply> getReplies(int postId, int commentId) throws SQLException {
         List<Reply> replies = new ArrayList<>();
         try (Statement statement = this.connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_userReply")) {
                 while (resultSet.next()) {
                     if (resultSet.getInt(2) == (commentId)) {
-                        String userName = resultSet.getString(1);
-                        int postId = resultSet.getInt(2);
-                        int replyId = resultSet.getInt(4);
+                        String userName = resultSet.getString(4);
+                        int replyId = resultSet.getInt(3);
                         String reply = resultSet.getString(5);
-                        replies.add(new Reply(postId, commentId, replyId, userName, reply));
+                        String iconPath = getUserInfo(userName).getIconPath();
+                        replies.add(new Reply(postId, commentId, replyId, userName, reply,iconPath));
                     }
                 }
             }
@@ -431,7 +433,7 @@ public class LoginDataDAO {
 
 
     public void deleteComment(int postId, int commentId) throws SQLException {
-        System.out.printf(postId+"   "+commentId);
+//        System.out.printf(postId+"   "+commentId);
 
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userReply WHERE postId = ? AND commentId = ? ")) {
             preparedStatement.setInt(1, postId);

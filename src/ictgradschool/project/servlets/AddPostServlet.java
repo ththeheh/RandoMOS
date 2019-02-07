@@ -27,10 +27,10 @@ public class AddPostServlet extends HttpServlet {
             UserInfoJavabean userInfo = dao.getUserInfo(userName);
 //set postId
             newPost.setPostId(postId);
+            newPost.setIconPath(userInfo.getIconPath());
 //            System.out.println("this is running");
 
-            req.setAttribute("newPost", newPost);
-            req.setAttribute("iconPath",userInfo.getIconPath());
+            req.setAttribute("Post", newPost);
 
             req.getRequestDispatcher("article.jsp").forward(req, resp);
             resp.sendRedirect("article.jsp");

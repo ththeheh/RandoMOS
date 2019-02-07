@@ -25,6 +25,7 @@ public class AddReplyServlet extends HttpServlet {
             int replyId = Integer.parseInt(req.getParameter("replyId"));
             String reply = req.getParameter("reply");
 
+
 //            System.out.println("this is running" + comment);
 
             Reply newReply = new Reply(postId, commentId,replyId, userName,reply);

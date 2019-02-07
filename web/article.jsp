@@ -24,37 +24,126 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script type="text/javascript" src="post.js"></script>
 
 
     <style>
         .btn {
             background-color: #e6ffe6;
+            text-align: center;
             border: none;
             color: white;
-            padding: 8px 15px;
+            padding-top: 0.25em;
+            padding-bottom: 0.25em;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-
             font-size: 16px;
             margin: 2px 2px;
-
             -webkit-transition-duration: 0.4s;
             transition-duration: 0.4s;
             cursor: pointer;
-
         }
 
         .btn {
             background-color: white;
-            color: #047c40;
-            border: 1.5px solid #047c40;
+            color: #adddcf;
+            border: 1px solid #adddcf;
             float: right;
         }
 
         .btn:hover {
             background-color: #eff5f5;
             color: #024a26;
+        }
+
+        .button {
+            background-color: #e6ffe6;
+            width: 100%;
+            text-align: center;
+            border: none;
+            color: white;
+            padding: auto;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        .button {
+            background-color: white;
+            color: #adddcf;
+            border: 1px solid #adddcf;
+            border-radius: 15px;
+        }
+
+        .button:hover {
+            background-color: #eff5f5;
+            color: #024a26;
+        }
+
+        .post-load {
+            margin-top: 2em;
+            background-color: white
+        }
+
+        .post1 {
+            margin: 10px;
+            padding: 20px;
+            border: 1px solid #adddcf;
+            border-radius: 10px;
+        }
+
+        #posts, postList {
+            grid-area: posts;
+        }
+
+        /*textarea {*/
+
+        /*background-color: white;*/
+        /*color: #adddcf;*/
+        /*border: 1px solid #adddcf;*/
+        /*border-radius: 15px;*/
+
+        /*width: 100%;*/
+        /*height: 150px;*/
+        /*padding: 12px 20px;*/
+        /*box-sizing: border-box;*/
+        /*resize: none;*/
+        /*}*/
+
+        .column {
+
+            margin: 0px;
+            height: auto;
+            max-width: 100%;
+
+        }
+
+        .panel {
+
+            max-width: 100%;
+            height: auto;
+            padding: 15px;
+            margin: 10px;
+            border: 1px solid #adddcf;
+            border-radius: 15px;
+            color: #adddcf;
+        }
+
+        .panel > h2 {
+            text-align: center;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        body > div {
+            display: flex;
+            justify-content: center;
         }
 
         .c-header {
@@ -68,13 +157,6 @@
             height: 40px;
             float: right;
             padding: 20px;
-        }
-
-        .article1 {
-            width: 900px;
-            height: auto;
-            padding: 30px;
-            border: 1px solid lightgray;
         }
 
         div.sticky {
@@ -91,58 +173,76 @@
             width: 100%;
             height: auto;
         }
+
+        .grid-container {
+            margin: auto;
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            grid-gap: 10px;
+            border: 1px;
+            padding: 10px;
+        }
+
+        .grid-container > .post_thumb {
+
+            text-align: center;
+            padding: 20px 0px 0px 20px;
+            font-size: 30px;
+        }
+
     </style>
 </head>
-
-
 <script>
-
-
 
     $(document).ready(function () {
         var postUserName = $('#usernamepost').text();
+        console.log("${sessionScope.username}");
+        if ('${sessionScope.username}' === null ) {  //to continue 
+        // if (false ) {
 
-        $.ajax({
-            type: 'POST',
-            url: 'postDeleteEdit',
-            data: {'postUserName': postUserName},
-            async: true,
-            dataType: 'text',
-            success: function (succ) {
-                console.log(succ);
-                if (succ === "success") {
-                    // console.log(userJson);
-                    div1 = document.createElement('div');
+            console.log("this is running!");
+            $.ajax({
+                type: 'post',
+                url: 'postDeleteEdit',
+                data: {'postUserName': postUserName},
+                async: true,
+                dataType: 'text',
+                success: function (succ) {
+                    console.log(succ);
+                    if (succ === "success") {
+                        // console.log(userJson);
+                        div1 = document.createElement('div');
 
-                    div1.innerHTML = " <button type='button' class='btn btn-sm btn-primary' data-toggle='modal' data-target='#editModal'>Edit Post </button>";
+                        div1.innerHTML = " <button type='button' class='btn btn-sm btn-primary' data-toggle='modal' data-target='#editModal'>Edit post </button>";
 
-                    div2 = document.createElement('div');
+                        div2 = document.createElement('div');
 
-                    div2.innerHTML = " <form action='deletePost' method='POST'> <button type='submit' name='deletepostid' value ='${newPost.postId}' class='btn btn-sm btn-danger'> Delete </button></form>";
-                    // var id = testlist+i;
+                        div2.innerHTML = " <form action='deletepost' method='post'> <button type='submit' name='deletepostid' value ='${post.postId}' class='btn btn-sm btn-danger'> Delete </button></form>";
+                        // var id = testlist+i;
 
-                    document.getElementsByClassName("postbody")[0].appendChild(div1);
-                    document.getElementsByClassName("postbody")[0].appendChild(div2);
+                        document.getElementsByClassName("postbody")[0].appendChild(div1);
+                        document.getElementsByClassName("postbody")[0].appendChild(div2);
 
-                    <%--console.log('${newPost.title}');--%>
+                        <%--console.log('${post.title}');--%>
 
-                    document.getElementById("edittitle").setAttribute("value", "${newPost.title}");
-                    document.getElementById("editpost").innerText = "${newPost.post}";
+                        document.getElementById("edittitle").setAttribute("value", "${post.title}");
+                        document.getElementById("editpost").innerText = "${post.post}";
 
-                    // console.log("list" + list);
+                        // console.log("list" + list);
+                    }
+                },
+
+                error: function (xhr, status) {
+                    console.log("fail");
+                    alert(xhr.status);
                 }
-            },
-
-            error: function (xhr, status) {
-                console.log("fail");
-                alert(xhr.status);
-            }
-        })
-    });
+            })
+        }
+    })
 
 
     function showCMDelete(i) {
-        var cmuser = "cmuser"+i;
+        var cmuser = "cmuser" + i;
         if ($("#" + cmuser).text() === '${sessionScope.username}') {
             var deleteCm = "delete" + (i);
             console.log("delete comment id " + deleteCm);
@@ -150,7 +250,7 @@
         }
     }
 
-    function showRPDelete(i,j) {
+    function showRPdelete(i, j) {
 
         var replyuser = "replyuser" + (i) + "_" + (j);
 
@@ -163,12 +263,12 @@
 
     function deleteCM(i) {
         $("#" + "commentdiv" + i).remove();
-        $("#"+"list"+i).remove();
+        $("#" + "list" + i).remove();
 
         $.ajax({
-            type: 'POST',
+            type: 'post',
             url: 'deleteComment',
-            data: {'postId': '${newPost.postId}', 'commentId':i},
+            data: {'postId': '${post.postId}', 'commentId': i},
             async: true,
             dataType: 'text',
             success: function (succ) {
@@ -186,9 +286,9 @@
     function deleteReply(id) {
         $("#" + "replydiv" + id).remove();
         $.ajax({
-            type: 'POST',
+            type: 'post',
             url: 'deleteReply',
-            data: {'postId': '${newPost.postId}', 'replyId':id},
+            data: {'postId': '${post.postId}', 'replyId': id},
             async: true,
             dataType: 'text',
             success: function (succ) {
@@ -202,9 +302,170 @@
         })
     }
 
+    $(document).ready(function () {
+
+        console.log('${show}');
+
+
+        if ('${show}'=== 'true') {
+            var i = 1;
+            var j = 100000;
+
+            console.log("the comments size is " + '${post.comments.size()}');
+
+            for (i; i < '${post.comments.size()}'; i++) {
+                addcomment('${post.postId}');
+                $("#" + "image" + i).attr("src", '${post.comments[i-1].iconPath}');
+                $("#" + "cmuser" + i).text('${post.comments[i-1].userName}');
+                $("#" + "commentdiv" + i + ".card-text").text('${post.comments[i-1].comment}');
+                for (j; (j - 100000) < '${post.comments[i-1].replies.size()}'; j++) {
+                    addReply(i, j, '${post.postId}');
+                    $("#" + "image" + j).attr("src", '${post.comments[i-1].replies[j-100000].iconPath}');
+                    $("#" + "replyuser" + i + "_" + j).text('${post.comments[i-1].replies[j-100000].userName}');
+                    $("#" + "replydiv" + j + ".card-text").text('${post.comments[i-1].replies[j-100000].comment}');
+                }
+            }
+        }
+
+    });
+
+
 </script>
 
-<script type="text/javascript" src="article.js"></script>
+<script type="text/javascript" src="../lib/jquery-3.3.1.js"></script>
+
+<%--something for future--%>
+<script>
+    $(document).ready(function () {
+
+        /*number of post to display*/
+        const load_post_count = 3;
+        var load_post_next = 0;
+
+
+        /* Replace the partial content of an post with the full post text */
+        function load_full_post() {
+            // Retrieve the post id from the element attribute
+            var post_id = $(this).attr('post_id');
+
+            // Grab a reference to the paragraph of text that should be replaced
+            // This needs to be done here as you cannot use $(this) in the 'success' method of an ajax call
+            var post_content = $(this).prev();
+
+            // Disable and hide the 'show full content' button as it is no longer needed
+            $(this).off('click');
+            $(this).hide();
+
+            $.ajax({
+                url: 'https://sporadic.nz/ajax/posts',
+                type: 'GET',
+                data: {id: post_id},
+                success: function (post) {
+                    post_content.text(post.content);
+                }
+            });
+        }
+
+
+        function clear_and_register_post_handlers() {
+
+            $('.post-read-more').off('click');
+            $('.post-read-more').click(load_full_post);
+        }
+
+        /* Insert a new post into the page. This creates the appropriate elements with classes, attributes
+         * and text, then inserts the content into the page */
+        function insert_post_into_page(post) {
+            // Main post div container
+            var post_div = $('<div>');
+            post_div.addClass('post');
+
+            // post title line
+            var post_title = $('<h5>').text(post.title);
+            post_title.addClass('post-title');
+
+            // Author line
+            var post_author = $('<h6>');
+            post_author.addClass('post-author');
+            post_author.attr('author_id', post.author_id); // Store the author id for later use
+
+            /*// post body
+            var post_body = $('<p>').text(post.content);
+            post_body.addClass('post-body');*/
+
+            // 'Show full content' button
+            var post_read_more = $('<div>').text('Show full content');
+            post_read_more.addClass('post-read-more');
+            post_read_more.addClass('button');
+            post_read_more.attr('post_id', post.id); // Store the post id for later use
+
+            // Nest all the elements inside the main post div
+            post_div.append(post_title);
+            post_div.append(post_author);
+            // post_div.append(post_body);
+            post_div.append(post_read_more);
+
+            // Need to retrieve the authors name, get this then update the page
+            $.ajax({
+                url: 'https://sporadic.nz/ajax/users',
+                type: 'GET',
+                data: {id: post.author_id},
+                success: function (user) {
+                    // Set the authors name
+                    post_author.text(user.first_name + ' ' + user.last_name);
+
+                    // Insert the post at the bottom of the page, above the 'load more posts' button
+                    $('#post-load-button').before(post_div);
+
+                    // Ensure that the author name and 'show full content' buttons will work
+                    clear_and_register_post_handlers();
+                }
+            });
+        }
+
+        /* Load the next batch of posts into the page */
+        function load_more_posts() {
+            // Remove the click handler to avoid double click duplicate loads
+            $('#post-load-button').off('click');
+
+            $.ajax({
+                url: 'https://sporadic.nz/ajax/posts',
+                type: 'GET',
+                data: {
+                    from: load_post_next,
+                    count: load_post_count
+                },
+                success: function (msg) {
+                    if (msg.length < load_post_count) {
+                        // Disable the button if there are no more posts
+                        $('#post-load-button').off('click');
+                        $('#post-load-button').css("background-color", "red");
+                    }
+
+                    if (msg.length !== 0) {
+                        // Grab the id of the last post and mark the next post as the first to be fetched next
+                        load_post_next = msg[msg.length - 1].id + 1;
+
+                        // Load each post into the page
+                        for (var i = 0; i < msg.length; i++) {
+                            insert_post_into_page(msg[i]);
+                        }
+                    }
+
+                    // Reattach the click handler
+                    $('#post-load-button').click(load_more_posts);
+                }
+            });
+        }
+
+        // Register click event on the post load button
+        $('#post-load-button').click(load_more_posts);
+
+        // Do an initial load
+        load_more_posts();
+    });
+</script>
+
 
 <body>
 
@@ -218,7 +479,7 @@
 
                 <ul class="navbar-nav ">
 
-                    <li><h1 style="color:dimgray; text-align: center;">Design for travel</h1></li>
+                    <li><h1 style="color:dimgray; text-align: center;">Your posts</h1></li>
 
                     <li>
                         <button type="button" class="btn btn-sm btn-gray btn-lg" onclick="location.href='mainPage.jsp'">
@@ -235,11 +496,13 @@
                                         <button type="submit" class="btn btn-sm btn-info btn-lg">Log out</button>
                                     </form>
                                 </li>
+
                                 <li>
                                     <form action="userinfo" method="get">
                                         <button type="submit" class="btn  btn-sm btn-info btn-lg">My Profile</button>
                                     </form>
                                 </li>
+
 
                             </c:when>
                             <%--<a class="nav-link text-muted" href="mainPage.jsp" onclick="destroySess()"> Logout </a>--%>
@@ -270,14 +533,14 @@
                         <li>
                             <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
                                     data-target="#postModal">
-                                Create New Posts!
+                                Create New posts!
                             </button>
                         </li>
 
                         <li>
                                 <%--servlet for retrieving your posts needed--%>
                             <form action="#" method="get">
-                                <button type="submit" class="btn btn-sm btn-info btn-lg">Browse Your Posts</button>
+                                <button type="submit" class="btn btn-sm btn-info btn-lg">Browse Your posts</button>
                             </form>
                         </li>
                     </c:otherwise>
@@ -290,64 +553,51 @@
 </div>
 
 
-<%---------------------------------articles-------------------------------------------------------%>
+<%---------------------------------posts-------------------------------------------------------%>
 
 
 <div class="container">
 
-    <%----display a full article-------------------%>
+    <%----display a full post-------------------%>
     <div class="row mb-5">
-        <div class="article1">
+        <div class="post1">
 
-            <%--article information start----------------------%>
-            <div class="articleInfo">
+            <%--post information start----------------------%>
+            <div class="postInfo">
 
                 <%--user icon--%>
                 <div class="row">
 
-                    <!--<div class="triangulo"></div>-->
+                    <!--<div class="triangulo"></div>-->`
                     <div class="col-lg3">
                         <img class='card-img-top img-thumbnail rounded-circle boarder-primary'
-                             src='${iconPath}'
+                             src='${post.iconPath}'
                              alt='Card image cap' style='width: 40px;height: 40px;'>
                         <span id="usernamepost" class="name-author">${sessionScope.username}</span>
                     </div>
+                    <h2 class="title"></h2>
                     <%--user icon end--%>
 
                     <%--date start--%>
                     <div class="col-lg-9 mx-5 ">
-                        <h4 style="font-size: small; color: dimgray">${newPost.title} </h4>
+                        <h4 style="font-size: small; color: dimgray">${post.title}</h4>
                         <h4 style="font-size: small; color: dimgray">Date: 6/02/2019</h4>
                     </div>
                 </div>
-                <%--date end--%>
-
-                <%--postid start--%>
-                <%----%>
-                <%--<div class="row m-auto">--%>
-                <%----%>
-                <%--<div class="col-lg-8 text m-auto">--%>
-                <%--<p><br/><br/><br/></p>--%>
-                <%----%>
-                <%--</div>--%>
-                <%----%>
-                <%--</div>--%>
-                <%--postid end--%>
-                <%----article information end------------------------------%>
-
-
             </div>
 
-            <div class="postbody">
-                <h2 style="color:dimgray;">${newPost.title}</h2>
+            <div class="">
+                <h2 style="color:dimgray;">${post.title}</h2>
 
                 <div class="image" style="margin-bottom: 15px">
                     <img src="https://media.allure.com/photos/5bf1b1502ab5072a91e1853a/16:9/w_1200%2Cc_limit/travel%20editor%20favorite%20products.jpg"
-                         width="850" height="500">
+                         class="rounded" width="850" height="500">
                 </div>
 
-
-                <p style="color: dimgray;">${newPost.post}.</p>
+                <div id="postList" class="panel" style="color:dimgray;">
+                    <%--load posts here--%>
+                    <p style="color: dimgray;">${post.post}.</p>
+                </div>
 
             </div>
 
@@ -360,115 +610,132 @@
                         <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
                     </div>
                     <button type="submit" class="btn btn-info btn-lg float-right"
-                            onclick="addcomment('${newPost.postId}')"><strong>Comment</strong>
+                            onclick="addcomment('${post.postId}')">Comment
                     </button>
                 </div>
             </div>
 
             <div class="row">
-                <ul id="cmList${newPost.postId}" class="col-lg-8 m-auto">
+                <ul id="cmList${post.postId}" class="col-lg-8 m-auto">
                 </ul>
             </div>
             <%---------------------------comment end-------------------------------------------%>
 
         </div>
     </div>
+    <%--------------------------added--%>
+    <div id="listpost" class="panel">
+        <h4 style="color:#FFA07A">Explore your memories</h4>
 
 
-    <%--display thumbnamils of user's articles--%>
+        <div class="column ">
+
+            <div id="posts" style="color:dimgray;">
+                <div id="post-load-button" class="post-load button">Load more posts</div>
+            </div>
 
 
-    <%-------------------------------------------------modal for new post-----------------------------%>
+        </div>
 
-    <div class="modal" id="postModal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">You can write your post here!
-                    </h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
 
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <form action="addPost" method="post">
-                        <%--send to servlet and build the post using this page.--%>
-                        <div class="form-group">
-                            <label for="title"><strong> Your Title:</strong></label>
-                            <input type="text" class="form-control" id="title" name="title" required>
-                        </div>
+    </div>
+    <%---------------------added--%>
 
-                        <div class="form-group">
-                            <label for="post"></label>
-                            <textarea class="form-control" rows="20" id="post" name="post"
-                                      placeholder="Put your post content here..."></textarea>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-lg" onclick="iconupdate()">
-                                Publish!
-                            </button>
-                        </div>
-                    </form>
 
-                </div>
+</div>
 
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close
-                    </button>
-                </div>
+
+<%-------------------------------------------------modal for new post-----------------------------%>
+
+<div class="modal" id="postModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">You can write your post here!
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="addpost" method="post">
+                    <%--send to servlet and build the post using this page.--%>
+                    <div class="form-group">
+                        <label for="title"><strong> Your Title:</strong></label>
+                        <input type="text" class="form-control" id="title" name="title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="post"></label>
+                        <textarea class="form-control" rows="20" id="post" name="post"
+                                  placeholder="Put your post content here..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg" onclick="iconupdate()">
+                            Publish!
+                        </button>
+                    </div>
+                </form>
 
             </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close
+                </button>
+            </div>
+
         </div>
     </div>
+</div>
 
 
-    <%-------------------------------------------------edit post modal-----------------------------%>
+<%-------------------------------------------------edit post modal-----------------------------%>
 
-    <div class="modal" id="editModal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">You can write your post here!
-                    </h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
+<div class="modal" id="editModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">You can write your post here!
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
 
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <form action="editPost" method="post">
-                        <%--send to servlet and build the post using this page.--%>
-                        <div class="form-group">
-                            <label for="title"><strong> Your Title:</strong></label>
-                            <input type="text" class="form-control" id="edittitle" name="title" required>
-                        </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="editpost" method="post">
+                    <%--send to servlet and build the post using this page.--%>
+                    <div class="form-group">
+                        <label for="title"><strong> Your Title:</strong></label>
+                        <input type="text" class="form-control" id="edittitle" name="title" required>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="post"></label>
-                            <textarea class="form-control" rows="20" id="editpost" name="post"
-                                      placeholder="Put your post content here..."></textarea>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" name="postId" value="${newPost.postId}" class="btn btn-primary btn-lg"
-                                    onclick="iconupdate()">
-                                Publish!
-                            </button>
-                        </div>
-                    </form>
-
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close
-                    </button>
-                </div>
+                    <div class="form-group">
+                        <label for="post"></label>
+                        <textarea class="form-control" rows="20" id="editpost" name="post"
+                                  placeholder="Put your post content here..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="postId" value="${post.postId}" class="btn btn-primary btn-lg"
+                                onclick="iconupdate()">
+                            Publish!
+                        </button>
+                    </div>
+                </form>
 
             </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close
+                </button>
+            </div>
+
         </div>
     </div>
+</div>
 
 </body>
 </html>
