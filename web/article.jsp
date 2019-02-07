@@ -197,8 +197,8 @@
     $(document).ready(function () {
         var postUserName = $('#usernamepost').text();
         console.log("${sessionScope.username}");
-        if ('${sessionScope.username}' === null ) {  //to continue 
-        // if (false ) {
+        if ('${sessionScope.username}'.length) {  //to continue
+            // if (false ) {
 
             console.log("this is running!");
             $.ajax({
@@ -307,26 +307,27 @@
         console.log('${show}');
 
 
-        if ('${show}'=== 'true') {
-            var i = 1;
-            var j = 100000;
+        if ('${show}' === 'true') {
 
             console.log("the comments size is " + '${post.comments.size()}');
-
-            for (i; i < '${post.comments.size()}'; i++) {
-                addcomment('${post.postId}');
-                $("#" + "image" + i).attr("src", '${post.comments[i-1].iconPath}');
-                $("#" + "cmuser" + i).text('${post.comments[i-1].userName}');
-                $("#" + "commentdiv" + i + ".card-text").text('${post.comments[i-1].comment}');
-                for (j; (j - 100000) < '${post.comments[i-1].replies.size()}'; j++) {
-                    addReply(i, j, '${post.postId}');
-                    $("#" + "image" + j).attr("src", '${post.comments[i-1].replies[j-100000].iconPath}');
-                    $("#" + "replyuser" + i + "_" + j).text('${post.comments[i-1].replies[j-100000].userName}');
-                    $("#" + "replydiv" + j + ".card-text").text('${post.comments[i-1].replies[j-100000].comment}');
+            if ('${post.comments.size()}') {
+                for (var i = 1; i <=${post.comments.size()}; i++) {
+                    addcomment(${post.postId});
+                    $("#" + "image" + i).attr("src", '${post.comments[i-1].iconPath}');
+                    $("#" + "cmuser" + i).text('${post.comments[i-1].userName}');
+                    $("#" + "commentdiv" + i + ".card-text").text('${post.comments[i-1].comment}');
+                    if ('${post.comments[i-1].replies.size()}') {
+                        for (var j = 100000; j < 100000 +${post.comments[i-1].replies.size()}; j++) {
+                            addReply(i, j, ${post.postId});
+                            $("#" + "image" + j).attr("src", '${post.comments[i-1].replies[j-100000].iconPath}');
+                            $("#" + "replyuser" + i + "_" + j).text('${post.comments[i-1].replies[j-100000].userName}');
+                            $("#" + "replydiv" + j + ".card-text").text('${post.comments[i-1].replies[j-100000].comment}');
+                        }
+                    }
                 }
             }
-        }
 
+        }
     });
 
 
