@@ -243,6 +243,9 @@
                 <form action="profileUpdate.jsp">
                     <button type="submit" style="float: right;" class="btn btn-primary btn-lg">Edit profile</button>
                 </form>
+                <form action="mainPage.jsp">
+                    <button type="submit" style="float: right;" class="btn btn-primary btn-lg">Go to Main</button>
+                </form>
             </div>
         </div>
     </div>
