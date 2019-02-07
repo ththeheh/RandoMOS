@@ -156,5 +156,27 @@
         <url-pattern>/showMain</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>DeleteReplyServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.DeleteReplyServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteReplyServlet</servlet-name>
+        <url-pattern>/deleteReply</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>DeleteCommentServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.DeleteCommentServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteCommentServlet</servlet-name>
+        <url-pattern>/deleteComment</url-pattern>
+    </servlet-mapping>
+
+
 
 </web-app>

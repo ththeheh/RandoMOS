@@ -163,11 +163,43 @@
 
     function deleteCM(i) {
         $("#" + "commentdiv" + i).remove();
+        $("#"+"list"+i).remove();
+
+        $.ajax({
+            type: 'POST',
+            url: 'deleteComment',
+            data: {'postId': '${newPost.postId}', 'commentId':i},
+            async: true,
+            dataType: 'text',
+            success: function (succ) {
+                // console.log(userJson);
+                alert("Comment deleted!");
+            },
+            error: function (xhr, status) {
+                alert(xhr.status);
+            }
+
+        })
+
     }
 
     function deleteReply(id) {
         $("#" + "replydiv" + id).remove();
+        $.ajax({
+            type: 'POST',
+            url: 'deleteReply',
+            data: {'postId': '${newPost.postId}', 'replyId':id},
+            async: true,
+            dataType: 'text',
+            success: function (succ) {
+                // console.log(userJson);
+                alert("Reply deleted!");
+            },
+            error: function (xhr, status) {
+                alert(xhr.status);
+            }
 
+        })
     }
 
 </script>

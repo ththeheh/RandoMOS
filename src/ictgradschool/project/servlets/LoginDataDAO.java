@@ -415,7 +415,45 @@ public class LoginDataDAO {
 
         }
     }
+
+
+    public void deleteReply(int postId, int replyId) throws SQLException {
+
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userReply WHERE postId = ? AND replyId = ?")) {
+            preparedStatement.setInt(1, postId);
+            preparedStatement.setInt(2, replyId);
+
+            //may need to think about if can delete comments under one username and check how the tables are joined.
+            int numRows = preparedStatement.executeUpdate();
+            System.out.println(numRows + " reply deleted");
+        }
+    }
+
+
+    public void deleteComment(int postId, int commentId) throws SQLException {
+        System.out.printf(postId+"   "+commentId);
+
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userReply WHERE postId = ? AND commentId = ? ")) {
+            preparedStatement.setInt(1, postId);
+            preparedStatement.setInt(2, commentId);
+             preparedStatement.executeUpdate();
+
+        }
+
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userComment WHERE postId = ? AND commentId = ?")) {
+            preparedStatement.setInt(1, postId);
+            preparedStatement.setInt(2, commentId);
+            int numRows =preparedStatement.executeUpdate();
+            System.out.println(numRows + " comment and all replies deleted");
+        }
+
+
+
+        //may need to think about if can delete comments under one username and check how the tables are joined.
+
+    }
 }
+
 
 
 
