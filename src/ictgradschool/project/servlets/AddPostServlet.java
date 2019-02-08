@@ -17,8 +17,12 @@ public class AddPostServlet extends HttpServlet {
 
             LoginDataDAO dao = new LoginDataDAO(connection);
             String userName = (String) req.getSession().getAttribute("username");
+            System.out.println(userName);
             String title = req.getParameter("title");
+            System.out.println("add post title: "+title);
+
             String post = req.getParameter("post");
+            System.out.println("addpost :"+post);
 
             PostJavaBean newPost = new PostJavaBean(userName, title, post);
 
@@ -30,10 +34,10 @@ public class AddPostServlet extends HttpServlet {
             newPost.setIconPath(userInfo.getIconPath());
 //            System.out.println("this is running");
 
-            req.setAttribute("Post", newPost);
+            req.setAttribute("post", newPost);
 
             req.getRequestDispatcher("article.jsp").forward(req, resp);
-            resp.sendRedirect("article.jsp");
+//            resp.sendRedirect("article.jsp");
 //            resp.sendRedirect("article.jsp");
 
         } catch (SQLException e1) {

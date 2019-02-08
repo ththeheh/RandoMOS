@@ -196,6 +196,8 @@
 
     $(document).ready(function () {
         var postUserName = $('#usernamepost').text();
+
+        console.log($('#usernamepost').text());
         console.log("${sessionScope.username}");
         if ('${sessionScope.username}'.length) { //to continue
 // if (false ) {
@@ -244,7 +246,6 @@
     function showCMDelete(i) {
         var cmuser = "cmuser" + i;
         console.log("this is the cmuser from show function"+cmuser);
-        console.log($("#" + cmuser).text());
         console.log("this is the session"+'${sessionScope.username}')
         if ($("#" + cmuser).text() == '${sessionScope.username}') {
             var deleteCm = "delete" + (i);
@@ -258,7 +259,7 @@
         var replyuser = "replyuser" + (i) + "_" + (j);
 
         if ($("#" + replyuser).text() === '${sessionScope.username}') {
-            console.log("why is this runnin?");
+            // console.log("why is this runnin?");
             var deleteRep = "delete" + j;
             $("#" + deleteRep).css("visibility", "visible");
 
@@ -267,21 +268,21 @@
 
     function showCMReply(i) {
         var cmuser = "cmuser" + i;
-        if ($("#" + cmuser).text() === '${sessionScope.username}') {
+        <%--if ($("#" + cmuser).text() === '${sessionScope.username}') {--%>
             var replyCm = "submit" + (i);
             $("#" + replyCm).css("visibility", "visible");
-        }
+        // }
     }
 
     function showRPReply(i,j) {
 
         var replyuser = "replyuser" + (i) + "_" + (j);
 
-        if ($("#" + replyuser).text() === '${sessionScope.username}') {
+        <%--if ($("#" + replyuser).text() === '${sessionScope.username}') {--%>
             var replyRep = "submit" + j;
             $("#" + replyRep).css("visibility", "visible");
 
-        }
+        // }
     }
 
     function deleteCM(i) {
@@ -326,6 +327,11 @@
     }
 
     $(document).ready(function () {
+        //show comment button
+
+        if('${sessionScope.username}'.length){
+            $('#commentdiv').css("visibility", "visible");
+        }
 
         <%--console.log('${show}');--%>
         var i = 1;
@@ -616,7 +622,7 @@
                         <img class='card-img-top img-thumbnail rounded-circle boarder-primary'
                              src='${post.iconPath}'
                              alt='Card image cap' style='width: 40px;height: 40px;'>
-                        <span id="usernamepost" class="name-author">${post.username}</span>
+                        <span id="usernamepost" class="name-author">${post.userName}</span>
                     </div>
                     <h2 class="title"></h2>
                     <%--user icon end--%>
@@ -629,7 +635,7 @@
                 </div>
             </div>
 
-            <div class="">
+            <div class="postbody">
                 <h2 style="color:dimgray;">${post.title}</h2>
 
                 <div class="image" style="margin-bottom: 15px">
@@ -646,13 +652,13 @@
 
             <%-------------------------comment start----------------------------------%>
 
-            <div class="row" style="margin-top: 20px;">
+            <div class="row" id="commentdiv" style="margin-top: 20px;visibility: hidden">
                 <div class="col-lg-11 col-sm-8 col-md-8 m-auto">
                     <div class="form-group">
                         <label for="comment" style="color: dimgray;">Your Comment:</label>
-                        <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+                        <textarea class="form-control" rows="5" id="comment"  name="comment" ></textarea>
                     </div>
-                    <button type="submit" class="btn btn-info btn-lg float-right"
+                    <button type="submit"  class="btn btn-info btn-lg float-right"
                             onclick="addcomment('${post.postId}',false)">Comment
                     </button>
                 </div>
@@ -669,7 +675,7 @@
     <%--------------------------added--%>
     <div id="listpost" class="panel">
         <h4 style="color:#FFA07A">Explore your memories</h4>
-`
+
 
         <div class="column ">
 
@@ -706,7 +712,7 @@
                     <%--send to servlet and build the post using this page.--%>
                     <div class="form-group">
                         <label for="title"><strong> Your Title:</strong></label>
-                        <input type="text" class="form-control" id="title" name="title" required>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Put your title here..." required>
                     </div>
 
                     <div class="form-group">
@@ -748,11 +754,11 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form action="editpost" method="post">
+                <form action="editPost" method="post">
                     <%--send to servlet and build the post using this page.--%>
                     <div class="form-group">
                         <label for="title"><strong> Your Title:</strong></label>
-                        <input type="text" class="form-control" id="edittitle" name="title" required>
+                        <input type="text" class="form-control" id="edittitle" name="title" placeholder="Put your title here..." required>
                     </div>
 
                     <div class="form-group">

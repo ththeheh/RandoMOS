@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-public class PostDeleteEditServlet extends HttpServlet {
+public class PostDeleteEditBtnServlet extends HttpServlet {
     //Retrieve parameters and store new entries in the database
     //Redirect back to the LoginDataServlet
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,6 +22,7 @@ public class PostDeleteEditServlet extends HttpServlet {
         String postUserName = req.getParameter("postUserName");
 
         System.out.println(postUserName);
+        System.out.println("this is the session username"+userName);
         System.out.println(userName);
         System.out.println(postUserName.equals(userName));
 

@@ -283,16 +283,16 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form action="#">
+                <form action="addPost" method="post">
                     <%--send to servlet and build the post using this page.--%>
                     <div class="form-group">
                         <label for="title"><strong> Your Title:</strong></label>
-                        <input type="text" class="form-control" id="title" required>
+                        <input type="text" class="form-control" id="title"  name="title" placeholder="Put your title here..." required>
                     </div>
 
                     <div class="form-group">
                         <label for="post"></label>
-                        <textarea class="form-control" rows="20" id="post"
+                        <textarea class="form-control" rows="20" id="post" name="post"
                                   placeholder="Put your post content here..."></textarea>
                     </div>
                     <div class="form-group">

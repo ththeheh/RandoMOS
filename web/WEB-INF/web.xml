@@ -118,7 +118,7 @@
 
     <servlet>
         <servlet-name>PostDeleteEditServlet</servlet-name>
-        <servlet-class>ictgradschool.project.servlets.PostDeleteEditServlet</servlet-class>
+        <servlet-class>ictgradschool.project.servlets.PostDeleteEditBtnServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
