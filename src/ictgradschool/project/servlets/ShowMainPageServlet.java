@@ -27,7 +27,7 @@ public class ShowMainPageServlet extends HttpServlet {
             List<PostJavaBean> posts = new ArrayList<>();
             String userName = (String) req.getSession().getAttribute("username");
 
-            System.out.println(userName + " userName");
+            System.out.println( " userName: "+userName);
 
 
 
@@ -45,7 +45,7 @@ public class ShowMainPageServlet extends HttpServlet {
                 req.setAttribute("stop",true);
                 req.setAttribute("posts", posts);
 
-                System.out.println("posts will be dispatched");
+                System.out.println("latest posts will be dispatched");
 
                 req.getRequestDispatcher("mainPage.jsp").forward(req, resp);
 
@@ -64,7 +64,7 @@ public class ShowMainPageServlet extends HttpServlet {
                 req.setAttribute("stop",true);
                 req.setAttribute("posts", posts);
 
-                System.out.println("posts will be dispatched");
+                System.out.println("your posts will be dispatched");
 
                 req.getRequestDispatcher("mainPage.jsp").forward(req, resp);
 

@@ -23,8 +23,6 @@ public class LoginDataServlet extends HttpServlet {
         //create a new session.
         HttpSession session = req.getSession();
 
-        PrintWriter out = resp.getWriter();
-
         try (Connection connection = DBConnection.createConnection()) {
             LoginDataDAO dao = new LoginDataDAO(connection);
             String userName = req.getParameter("username");
@@ -38,6 +36,9 @@ public class LoginDataServlet extends HttpServlet {
                 if (!usernameinfo.equals("Not match") && !usernameinfo.equals("Not exist")) {
 
                     session.setAttribute("username", userName);
+
+                    System.out.println("this session username should be "+ req.getSession().getAttribute("username"));
+
 //                   System.out.println(session.getAttribute("username"));
 
                     resp.sendRedirect("mainPage.jsp");            //if the username is a username, send to mainpage

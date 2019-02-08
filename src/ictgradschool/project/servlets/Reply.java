@@ -16,6 +16,16 @@ public class Reply extends Comment {
         this.comment = reply;
             }
 
+
+    public Reply( int postId, int commentId, int replyId, String userName, String reply, String iconPath ){
+        this.userName = userName;
+        this.postId = postId;
+        this.commentId = commentId;
+        this.replyId = replyId;
+        this.comment = reply;
+        this.iconPath = iconPath;
+    }
+
     public int getReplyId(){
         return this.replyId;
     }

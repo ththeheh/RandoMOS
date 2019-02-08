@@ -61,22 +61,17 @@
 
         }
 
+        #pcontent {
+            color: dimgray;
+            z-index: -1;
+        }
+
         ul {
             float: right;
         }
 
         .navbar {
             z-index: 1;
-        }
-
-        .article {
-            width: 900px;
-            height: 400px;
-            padding: 10px;
-            border: 1px solid #adddcf;;
-            border-radius: 1rem;
-            z-index: -1;
-
         }
 
         /*.column {*/
@@ -110,6 +105,11 @@
             margin-bottom: 10px;
         }
 
+        .card {
+            border: 1px solid #adddcf;
+            border-radius: 15px;
+        }
+
 
     </style>
 
@@ -122,23 +122,6 @@
     alert("Your account is deleted! You are always welcomed to be back to RandoMOS!")
     </c:if>
 
-    //to be done
-    // console.log("this is running!")
-    // $(document).ready(function () {
-    //     alert("hi");
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: 'showMain',
-    //         success: function (json) {
-    //             alert("success");
-    //         },
-    //         error: function(xhr){
-    //             alert(xhr);}
-    //
-    //     });
-
-
-    // })
 
 </script>
 
@@ -225,7 +208,7 @@
 
                             <li>
                                     <%--servlet for retrieving your posts needed--%>
-                                <form action="#" method="get">
+                                <form action="showMain" method="get">
                                     <button type="submit" class="btn btn-sm btn-info btn-lg">Browse Your Posts</button>
                                 </form>
                             </li>
@@ -252,30 +235,39 @@
 
 <%---------------------------------forum-------------------------------------------------------%>
 
-<div class="container">
+<div class="container" style="z-index: -1">
 
     <%--<div class="col-6">--%>
     <c:forEach items="${posts}" var="post">
-    <div class="row mb-5">
-
-        <div class="article">
+        <div class="card">
             <div class="row">
-                <div class="col-6" style="overflow:auto;">
-
-                    <img src='${post.iconPath}' class="rounded" width="100" height="100">
+                <div class="col-lg-3">
+                    <img src="${post.iconPath}" alt="" style="width:50px;height: auto">
                 </div>
-
-
-                <div class="col-6">
-                    <h2 style="color:#527a67;">${post.title} </h2>
-                    <h5 style="color:#527a67;">by ${post.userName}</h5>
+                <div class="col-lg-6">
+                    <h5 id="pcontent">${post.title} <em>by</em> ${post.userName}</h5>
                 </div>
-                </c:forEach>
-
+                <div class="col-lg-3">
+                    <form action="showPost" method="POST">
+                        <div class="form-group">
+                            <input type="hidden" value="${post.postId}" name="postId">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="loadPost" class="btn login_btn"
+                                   style="color:lightseagreen;border-radius: 15px">
+                        </div>
+                    </form>
+                </div>
             </div>
+
         </div>
-    </div>
+        <br/>
+
+
+    </c:forEach>
+
 </div>
+
 
 <%-------------------------------------------------modal-----------------------------%>
 
@@ -291,16 +283,16 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form action="#">
+                <form action="addPost" method="post">
                     <%--send to servlet and build the post using this page.--%>
                     <div class="form-group">
                         <label for="title"><strong> Your Title:</strong></label>
-                        <input type="text" class="form-control" id="title" required>
+                        <input type="text" class="form-control" id="title"  name="title" placeholder="Put your title here..." required>
                     </div>
 
                     <div class="form-group">
                         <label for="post"></label>
-                        <textarea class="form-control" rows="20" id="post"
+                        <textarea class="form-control" rows="20" id="post" name="post"
                                   placeholder="Put your post content here..."></textarea>
                     </div>
                     <div class="form-group">

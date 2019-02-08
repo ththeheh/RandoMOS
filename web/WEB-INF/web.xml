@@ -118,7 +118,7 @@
 
     <servlet>
         <servlet-name>PostDeleteEditServlet</servlet-name>
-        <servlet-class>ictgradschool.project.servlets.PostDeleteEditServlet</servlet-class>
+        <servlet-class>ictgradschool.project.servlets.PostDeleteEditBtnServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -155,6 +155,38 @@
         <servlet-name>ShowMainPageServlet</servlet-name>
         <url-pattern>/showMain</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteReplyServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.DeleteReplyServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteReplyServlet</servlet-name>
+        <url-pattern>/deleteReply</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>DeleteCommentServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.DeleteCommentServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteCommentServlet</servlet-name>
+        <url-pattern>/deleteComment</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShowPostServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.ShowPostServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ShowPostServlet</servlet-name>
+        <url-pattern>/showPost</url-pattern>
+    </servlet-mapping>
+
 
 
 </web-app>

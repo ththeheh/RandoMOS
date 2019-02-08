@@ -142,15 +142,9 @@
             <div class="card-body">
 
 
-                <form action="editProf" method="post">
-                    <%--input-group removed for username, firstname, lastname--%>
-                    <div class="form-group">
-                        <label for="userName">Username: &nbsp</label>
-                        <input type="text" class="form-control" id="userName" name="userName" required>
-                    </div>
-                </form>
 
-                <form action="loginDataNew" method="post">
+
+                <form action="editProf" method="post">
                     <div class="form-group">
                         <label for="firstName">First Name: &nbsp</label>
                         <input type="text" class="form-control" id="firstName" name="firstName" required>
@@ -430,10 +424,6 @@
 
 
                     <!--add name to match the parameter names. -->
-                    <div class="form-group">
-                        <label for="email">Email Address:</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
 
                     <div class="form-group">
                         <label for="birthday">Birthday: </label>
