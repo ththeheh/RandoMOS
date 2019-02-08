@@ -121,18 +121,15 @@
     <c:if test="${delete=='deleted'}" >
     alert("Your account is deleted! You are always welcomed to be back to RandoMOS!")
     </c:if>
-
-
 </script>
-
 
 <%--<jsp:include page="/showMain" flush="true">--%>
 
 <body>
 
-
 <c:if test="${stop!=true}">
-    <jsp:include page="/showMain"/>
+    <jsp:include page="/showMain"/>;
+    <%--<c:set var="${stop1}" value="true" />--%>
 </c:if>
 
 
@@ -209,7 +206,7 @@
                             <li>
                                     <%--servlet for retrieving your posts needed--%>
                                 <form action="showMain" method="get">
-                                    <button type="submit" class="btn btn-sm btn-info btn-lg">Browse Your Posts</button>
+                                    <button type="submit" class="btn btn-sm btn-info btn-lg" name="userPost" value="true">Browse Your Posts</button>
                                 </form>
                             </li>
                         </c:otherwise>

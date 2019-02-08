@@ -44,7 +44,7 @@ public class LoginDataDAO {
 
             //5 length salt
             int iteration = 10;
-            int saltLength = 5;
+            int saltLength = 2;
             byte[] saltByte = Passwords.getNextSalt(saltLength);
             String hashedCode = Passwords.base64Encode(Passwords.hash(loginData.getPassword().toCharArray(), saltByte, iteration));
 //            System.out.println(hashedCode);
@@ -67,15 +67,19 @@ public class LoginDataDAO {
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_password")) {
                 while (resultSet.next()) {
                     if (resultSet.getString(1).equals(userName)) {
+
+                        System.out.println("find the username: " + userName);
                         //convert password to hashedcode and then compare.
                         String salt = resultSet.getString(3);
                         int iteration = resultSet.getInt(4);
+                        System.out.println("ths salt got is " + salt);
                         byte[] saltByte = salt.getBytes();
                         if (Passwords.isExpectedPassword(password.toCharArray(), saltByte, iteration, Passwords.base64Decode(resultSet.getString(2)))) {
                             return userName;
+                        } else {
+                            return "Not match";
                         }
                     }
-                    return "Not match";
                 }
             }
             return "Not exist";

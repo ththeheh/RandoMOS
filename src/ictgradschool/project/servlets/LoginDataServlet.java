@@ -32,6 +32,8 @@ public class LoginDataServlet extends HttpServlet {
 //            System.out.println(password);
 
             try {
+                System.out.println("log in password "+password);
+
                 String usernameinfo = dao.validation(userName, password);
                 if (!usernameinfo.equals("Not match") && !usernameinfo.equals("Not exist")) {
 
