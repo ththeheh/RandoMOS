@@ -13,7 +13,11 @@ function addcomment(postId,show) {
 
     // console.log(postId);
 
-    var cm = document.getElementById("comment").value;
+    var cm = document.getElementById("comment");
+    if(cm.length === 0){
+        cm ="";
+    }
+
     var a1 = "<div class='card dark-grey' id='commentdiv" + i + "' ><img class='card-img-top img-thumbnail rounded-circle boarder-primary' id='image" + i + "' src='' alt='Card image cap' style='width: 50px;height: 50px;'>" +
         "<div class='card-body'><p class='card-title' id='cmuser" + i + "'></p><p class='card-text' id='CMContent"+i+"'>";
     var a2 = cm + "</p></div><br/><div>" +

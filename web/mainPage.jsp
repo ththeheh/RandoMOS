@@ -242,7 +242,7 @@
         <div class="card">
             <div class="row">
                 <div class="col-lg-3">
-                    <img src="${post.iconPath}" alt="icon" style="width:50px;height: auto">
+                    <img src="${post.iconPath}" alt="" style="width:50px;height: auto">
                 </div>
                 <div class="col-lg-6">
                     <h5 id="pcontent">${post.title} <em>by</em> ${post.userName}</h5>

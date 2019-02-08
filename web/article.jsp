@@ -616,7 +616,7 @@
                         <img class='card-img-top img-thumbnail rounded-circle boarder-primary'
                              src='${post.iconPath}'
                              alt='Card image cap' style='width: 40px;height: 40px;'>
-                        <span id="usernamepost" class="name-author">${sessionScope.username}</span>
+                        <span id="usernamepost" class="name-author">${post.username}</span>
                     </div>
                     <h2 class="title"></h2>
                     <%--user icon end--%>
@@ -669,7 +669,7 @@
     <%--------------------------added--%>
     <div id="listpost" class="panel">
         <h4 style="color:#FFA07A">Explore your memories</h4>
-
+`
 
         <div class="column ">
 

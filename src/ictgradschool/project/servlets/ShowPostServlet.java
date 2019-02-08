@@ -30,6 +30,7 @@ public class ShowPostServlet extends HttpServlet {
 
             UserInfoJavabean userInfo = dao.getUserInfo(showPost.getUserName());
             showPost.setIconPath(dao.getUserInfo(showPost.getUserName()).getIconPath());
+            System.out.println("this is the post username"+showPost.getUserName());
 //            System.out.println("this is running");
 
             req.setAttribute("post", showPost);
