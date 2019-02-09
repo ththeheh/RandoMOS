@@ -32,7 +32,6 @@
     <link href='https://fonts.googleapis.com/css?family=Euphoria+Script' rel='stylesheet' type='text/css'>
 
 
-
     <style>
         .btn {
             background-color: #e6ffe6;
@@ -55,6 +54,7 @@
             background-color: white;
             color: #adddcf;
             border: 1px solid #adddcf;
+            border-radius: 15px;
             float: right;
         }
 
@@ -98,6 +98,8 @@
         .post1 {
             margin: 10px;
             padding: 20px;
+            width:850px;
+            height:auto;
             border: 1px solid #adddcf;
             border-radius: 10px;
         }
@@ -196,6 +198,24 @@
             font-size: 30px;
         }
 
+        /*for WYSIWYG*/
+        #post {
+            resize: vertical;
+            overflow: auto;
+            border: 1px solid silver;
+            border-radius: 5px;
+            min-height: 100px;
+            box-shadow: inset 0 0 10px silver;
+            padding: 1em;
+            background: white;
+            margin: 0 auto;
+            width: 90%;
+        }
+
+        .navbar-nav li {
+            float: right;
+        }
+
     </style>
 </head>
 <script>
@@ -251,8 +271,8 @@
 
     function showCMDelete(i) {
         var cmuser = "cmuser" + i;
-        console.log("this is the cmuser from show function"+cmuser);
-        console.log("this is the session"+'${sessionScope.username}')
+        console.log("this is the cmuser from show function" + cmuser);
+        console.log("this is the session" + '${sessionScope.username}')
         if ($("#" + cmuser).text() == '${sessionScope.username}') {
             var deleteCm = "delete" + (i);
             console.log("delete comment id " + deleteCm);
@@ -275,18 +295,18 @@
     function showCMReply(i) {
         var cmuser = "cmuser" + i;
         <%--if ($("#" + cmuser).text() === '${sessionScope.username}') {--%>
-            var replyCm = "submit" + (i);
-            $("#" + replyCm).css("visibility", "visible");
+        var replyCm = "submit" + (i);
+        $("#" + replyCm).css("visibility", "visible");
         // }
     }
 
-    function showRPReply(i,j) {
+    function showRPReply(i, j) {
 
         var replyuser = "replyuser" + (i) + "_" + (j);
 
         <%--if ($("#" + replyuser).text() === '${sessionScope.username}') {--%>
-            var replyRep = "submit" + j;
-            $("#" + replyRep).css("visibility", "visible");
+        var replyRep = "submit" + j;
+        $("#" + replyRep).css("visibility", "visible");
 
         // }
     }
@@ -335,7 +355,7 @@
     $(document).ready(function () {
         //show comment button
 
-        if('${sessionScope.username}'.length){
+        if ('${sessionScope.username}'.length) {
             $('#commentdiv').css("visibility", "visible");
         }
 
@@ -360,8 +380,8 @@
             // console.log("this is running");
             <%--console.log(${comment.replies.size()});--%>
             <%--console.log("the replies size is " + '${comment.replies.size()}'); //this is working--%>
-            console.log("this is i from show post  :"+ i);
-            console.log("this is text"+$("#" + "cmuser" + i).text());
+            console.log("this is i from show post  :" + i);
+            console.log("this is text" + $("#" + "cmuser" + i).text());
             showCMDelete(i);
             showCMReply(i);
 
@@ -372,8 +392,8 @@
             $("#" + "RPContent" + j).text('${reply.comment}');
             <%--}--%>
             <%--}--%>
-            showRPDelete(i, j );
-            showRPReply(i,j);
+            showRPDelete(i, j);
+            showRPReply(i, j);
             j++;
 
             </c:forEach>
@@ -383,10 +403,9 @@
     })
 
 
-
-    $(function() {
-        $('#editControls a').click(function(e) {
-            switch($(this).data('role')) {
+    $(function () {
+        $('#editControls a').click(function (e) {
+            switch ($(this).data('role')) {
                 case 'h1':
                 case 'h2':
                 case 'p':
@@ -399,7 +418,6 @@
 
         });
     });
-
 
 
 </script>
@@ -545,85 +563,85 @@
 
 
 <div class="sticky">
-    <header class="c-header">
+    <%--<header class="c-header">--%>
 
         <div class="row">
+            <nav class="navbar navbar-expand-sm bg-muted">
 
-            <div class="c-header_menu col-lg-12 col-md-12 col-sm-12">
+                <div class="c-header_menu col-lg-12 col-md-12 col-sm-12">
 
-                <ul class="navbar-nav ">
+                    <ul class="navbar-nav ">
 
-                    <li><h1 style="color:dimgray; text-align: center;">Your posts</h1></li>
+                        <%--<li><h1 style="color:dimgray; text-align: center;">Your posts</h1></li>--%>
 
-                    <li>
-                        <button type="button" class="btn btn-sm btn-gray btn-lg" onclick="location.href='mainPage.jsp'">
-                            Home
-                        </button>
-                    </li>
+                        <li>
+                            <button type="button" class="btn btn-sm btn-gray btn-lg"
+                                    onclick="location.href='mainPage.jsp'">
+                                Home
+                            </button>
+                        </li>
 
-                    <div>
-                        <c:choose>
-                            <c:when test="${sessionScope.username!= null}">
+                        <div>
+                            <c:choose>
+                                <c:when test="${sessionScope.username!= null}">
 
-                                <li>
-                                    <form action="logout" method="get">
-                                        <button type="submit" class="btn btn-sm btn-info btn-lg">Log out</button>
-                                    </form>
-                                </li>
+                                    <li>
+                                        <form action="logout" method="get">
+                                            <button type="submit" class="btn btn-sm btn-info btn-lg">Log out</button>
+                                        </form>
+                                    </li>
 
-                                <li>
-                                    <form action="userinfo" method="get">
-                                        <button type="submit" class="btn  btn-sm btn-info btn-lg">My Profile</button>
-                                    </form>
-                                </li>
+                                    <li>
+                                        <form action="userinfo" method="get">
+                                            <button type="submit" class="btn  btn-sm btn-info btn-lg">My Profile
+                                            </button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                                data-target="#postModal">
+                                            Create New posts!
+                                        </button>
+                                    </li>
+
+                                    <li>                                            <%--servlet for retrieving your posts needed--%>
+                                        <form action="showMain" method="get">
+                                            <button type="submit" class="btn btn-sm btn-info btn-lg">Browse Your posts
+                                            </button>
+                                        </form>
+                                    </li>
 
 
-                            </c:when>
-                            <%--<a class="nav-link text-muted" href="mainPage.jsp" onclick="destroySess()"> Logout </a>--%>
-                            <c:otherwise>
-                                <li>
-                                    <button type="button" class="btn btn-sm btn-gray btn-lg"
-                                            onclick="location.href='loginPage.jsp'">
-                                        Login
-                                    </button>
-                                </li>
-                            </c:otherwise>
+                                </c:when>
+                                <%--<a class="nav-link text-muted" href="mainPage.jsp" onclick="destroySess()"> Logout </a>--%>
+                                <c:otherwise>
+                                    <li>
+                                        <button type="button" class="btn btn-sm btn-gray btn-lg"
+                                                onclick="location.href='loginPage.jsp'">
+                                            Login
+                                        </button>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                            <c:when test="${sessionScope.username==null}">
+                            <li>
+                                <button type="button" class="btn btn-sm btn-gray btn-lg"
+                                        onclick="location.href='reg.jsp'">
+                                    Register
+                                </button>
+                            </li>
+
+                        </div>
+
+                        </c:when>
                         </c:choose>
-                    </div>
 
-                    <div>
-                        <c:choose>
-                        <c:when test="${sessionScope.username==null}">
-                        <li>
-                            <button type="button" class="btn btn-sm btn-gray btn-lg" onclick="location.href='reg.jsp'">
-                                Register
-                            </button>
-                        </li>
-
-                    </div>
-
-                    </c:when>
-                    <c:otherwise>
-                        <li>
-                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                    data-target="#postModal">
-                                Create New posts!
-                            </button>
-                        </li>
-
-                        <li>
-                                <%--servlet for retrieving your posts needed--%>
-                            <form action="#" method="get">
-                                <button type="submit" class="btn btn-sm btn-info btn-lg">Browse Your posts</button>
-                            </form>
-                        </li>
-                    </c:otherwise>
-                    </c:choose>
-
-                </ul>
-            </div>
+                    </ul>
+                </div>
+            </nav>
         </div>
-    </header>
+    <%--</header>--%>
 </div>
 
 
@@ -663,11 +681,6 @@
             <div class="postbody">
                 <h2 style="color:dimgray;">${post.title}</h2>
 
-                <div class="image" style="margin-bottom: 15px">
-                    <img src="https://media.allure.com/photos/5bf1b1502ab5072a91e1853a/16:9/w_1200%2Cc_limit/travel%20editor%20favorite%20products.jpg"
-                         class="rounded" width="850" height="500">
-                </div>
-
                 <div id="postList" class="panel" style="color:dimgray;">
                     <%--load posts here--%>
                     <p style="color: dimgray;">${post.post}.</p>
@@ -681,9 +694,9 @@
                 <div class="col-lg-11 col-sm-8 col-md-8 m-auto">
                     <div class="form-group">
                         <label for="comment" style="color: dimgray;">Your Comment:</label>
-                        <textarea class="form-control" rows="5" id="comment"  name="comment" ></textarea>
+                        <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
                     </div>
-                    <button type="submit"  class="btn btn-info btn-lg float-right"
+                    <button type="submit" class="btn btn-info btn-lg float-right"
                             onclick="addcomment('${post.postId}',false)">Comment
                     </button>
                 </div>
@@ -733,63 +746,68 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <div class="content">
-                    <div id="editparent">
-                        <div id='editControls' style='text-align:center; padding:5px;'>
-                            <div class='btn-group'>
-                                <a class='btn' data-role='undo' href='#'><i class='icon-undo'></i></a>
-                                <a class='btn' data-role='redo' href='#'><i class='icon-repeat'></i></a>
-                            </div>
-                            <div class='btn-group'>
-                                <a class='btn' data-role='bold' href='#'><b>Bold</b></a>
-                                <a class='btn' data-role='italic' href='#'><em>Italic</em></a>
-                                <a class='btn' data-role='underline' href='#'><u><b>U</b></u></a>
-                                <a class='btn' data-role='strikeThrough' href='#'><strike>abc</strike></a>
-                            </div>
-                            <div class='btn-group'>
-                                <a class='btn' data-role='justifyLeft' href='#'><i class='icon-align-left'></i></a>
-                                <a class='btn' data-role='justifyCenter' href='#'><i class='icon-align-center'></i></a>
-                                <a class='btn' data-role='justifyRight' href='#'><i class='icon-align-right'></i></a>
-                                <a class='btn' data-role='justifyFull' href='#'><i class='icon-align-justify'></i></a>
-                            </div>
-                            <div class='btn-group'>
-                                <a class='btn' data-role='indent' href='#'><i class='icon-indent-right'></i></a>
-                                <a class='btn' data-role='outdent' href='#'><i class='icon-indent-left'></i></a>
-                            </div>
-                            <div class='btn-group'>
-                                <a class='btn' data-role='insertUnorderedList' href='#'><i class='icon-list-ul'></i></a>
-                                <a class='btn' data-role='insertOrderedList' href='#'><i class='icon-list-ol'></i></a>
-                            </div>
-                            <div class='btn-group'>
-                                <a class='btn' data-role='h1' href='#'>h<sup>1</sup></a>
-                                <a class='btn' data-role='h2' href='#'>h<sup>2</sup></a>
-                                <a class='btn' data-role='p' href='#'>p</a>
-                            </div>
-                            <div class='btn-group'>
-                                <a class='btn' data-role='subscript' href='#'><i class='icon-subscript'></i></a>
-                                <a class='btn' data-role='superscript' href='#'><i class='icon-superscript'></i></a>
-                            </div>
-                        </div>
-                        <div id='editor' style='' contenteditable>
-                            <p><b>Lorem</b> <i>ipsum</i> <u>dolor</u> amet, consectetur adipisicing elit. Necessitatibus natus vero voluptatem aliquam molestias dicta aperiam dignissimos laudantium accusamus saepe!</p>
-                        </div>
-                    </div>
-                </div>
-
-
-
                 <form action="addPost" method="post">
                     <%--send to servlet and build the post using this page.--%>
                     <div class="form-group">
                         <label for="title"><strong> Your Title:</strong></label>
-                        <input type="text" class="form-control" id="title" name="title" placeholder="Put your title here..." required>
+                        <input type="text" class="form-control" id="title" name="title"
+                               placeholder="Put your title here..." required>
                     </div>
 
-                    <div class="form-group">
-                        <label for="post"></label>
-                        <textarea class="form-control" rows="20" id="post" name="post"
-                                  placeholder="Put your post content here..."></textarea>
+                    <div class="content">
+                        <div id="editparent">
+                            <div id='editControls' style='text-align:center; padding:5px;'>
+                                <div class='btn-group'>
+                                    <a class='btn' data-role='undo' href='#'><i class='icon-undo'></i></a>
+                                    <a class='btn' data-role='redo' href='#'><i class='icon-repeat'></i></a>
+                                </div>
+                                <div class='btn-group'>
+                                    <a class='btn' data-role='bold' href='#'><b>Bold</b></a>
+                                    <a class='btn' data-role='italic' href='#'><em>Italic</em></a>
+                                    <a class='btn' data-role='underline' href='#'><u><b>U</b></u></a>
+                                    <a class='btn' data-role='strikeThrough' href='#'><strike>abc</strike></a>
+                                </div>
+                                <div class='btn-group'>
+                                    <a class='btn' data-role='justifyLeft' href='#'><i class='icon-align-left'></i></a>
+                                    <a class='btn' data-role='justifyCenter' href='#'><i class='icon-align-center'></i></a>
+                                    <a class='btn' data-role='justifyRight' href='#'><i
+                                            class='icon-align-right'></i></a>
+                                    <a class='btn' data-role='justifyFull' href='#'><i
+                                            class='icon-align-justify'></i></a>
+                                </div>
+                                <div class='btn-group'>
+                                    <a class='btn' data-role='indent' href='#'><i class='icon-indent-right'></i></a>
+                                    <a class='btn' data-role='outdent' href='#'><i class='icon-indent-left'></i></a>
+                                </div>
+                                <div class='btn-group'>
+                                    <a class='btn' data-role='insertUnorderedList' href='#'><i class='icon-list-ul'></i></a>
+                                    <a class='btn' data-role='insertOrderedList' href='#'><i
+                                            class='icon-list-ol'></i></a>
+                                </div>
+                                <div class='btn-group'>
+                                    <a class='btn' data-role='h1' href='#'>h<sup>1</sup></a>
+                                    <a class='btn' data-role='h2' href='#'>h<sup>2</sup></a>
+                                    <a class='btn' data-role='p' href='#'>p</a>
+                                </div>
+                                <div class='btn-group'>
+                                    <a class='btn' data-role='subscript' href='#'><i class='icon-subscript'></i></a>
+                                    <a class='btn' data-role='superscript' href='#'><i class='icon-superscript'></i></a>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div id="post" contenteditable>
+                                    <p>Put your post content here...</p>
+
+                             </div>
                     </div>
+
+                    <%--<div class="form-group">--%>
+                    <%--<label for="post"></label>--%>
+                    <%--<textarea class="form-control" rows="20" id="post" name="post"--%>
+                    <%--placeholder="Put your post content here..."></textarea>--%>
+                    <%--</div>--%>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-lg" onclick="">
                             Publish!
@@ -828,7 +846,8 @@
                     <%--send to servlet and build the post using this page.--%>
                     <div class="form-group">
                         <label for="title"><strong> Your Title:</strong></label>
-                        <input type="text" class="form-control" id="edittitle" name="title" placeholder="Put your title here..." required>
+                        <input type="text" class="form-control" id="edittitle" name="title"
+                               placeholder="Put your title here..." required>
                     </div>
 
                     <div class="form-group">
