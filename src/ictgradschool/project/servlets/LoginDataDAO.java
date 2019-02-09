@@ -44,7 +44,7 @@ public class LoginDataDAO {
 
             //5 length salt
             int iteration = 10;
-            int saltLength = 5;
+            int saltLength = 2;
             byte[] saltByte = Passwords.getNextSalt(saltLength);
             String hashedCode = Passwords.base64Encode(Passwords.hash(loginData.getPassword().toCharArray(), saltByte, iteration));
 //            System.out.println(hashedCode);
@@ -67,15 +67,19 @@ public class LoginDataDAO {
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_password")) {
                 while (resultSet.next()) {
                     if (resultSet.getString(1).equals(userName)) {
+
+                        System.out.println("find the username: " + userName);
                         //convert password to hashedcode and then compare.
                         String salt = resultSet.getString(3);
                         int iteration = resultSet.getInt(4);
+                        System.out.println("ths salt got is " + salt);
                         byte[] saltByte = salt.getBytes();
                         if (Passwords.isExpectedPassword(password.toCharArray(), saltByte, iteration, Passwords.base64Decode(resultSet.getString(2)))) {
                             return userName;
+                        } else {
+                            return "Not match";
                         }
                     }
-                    return "Not match";
                 }
             }
             return "Not exist";
@@ -92,6 +96,7 @@ public class LoginDataDAO {
                     if (resultSet.getString(1).equals(userName)) {
                         return "username";
                     }
+
                     if (resultSet.getString(6).equals(email)) {
                         return "email";
                     }
@@ -317,8 +322,21 @@ public class LoginDataDAO {
 
     public void deletePost(int postId) throws SQLException {
 
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userReply WHERE postId = ?;")){
+            preparedStatement.setInt(1, postId);
+            System.out.println("replies deleted!");
+            preparedStatement.executeUpdate();
+        }
+
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userComment WHERE postId = ?;")){
+            preparedStatement.setInt(1, postId);
+            System.out.println("comments deleted!");
+            preparedStatement.executeUpdate();
+        }
+
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_post WHERE postId = ?;")) {
             preparedStatement.setInt(1, postId);
+
             //may need to think about if can delete comments under one username and check how the tables are joined.
             int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " post deleted");
@@ -397,7 +415,6 @@ public class LoginDataDAO {
                 mainPost1.setPostId(postId);
                 posts.add(mainPost1);
 
-                int count = 1;
                 while (resultSet.previous()) {
 //                    System.out.println(resultSet.getRow());
 //                int randomRow = (int) (Math.floor(Math.random() * 3) + 1);
@@ -409,12 +426,12 @@ public class LoginDataDAO {
                     PostJavaBean mainPost2 = new PostJavaBean(userName, title, post, postId);
                     mainPost2.setPostId(postId);
                     posts.add(mainPost2);
-                    if (count++ > 3) {
+
+
+                    if (posts.size() > 11) {
                         break;
                     }
-                    System.out.println(mainPost2.getPost());
-
-
+//                    System.out.println(mainPost2.getPost());
 //                }
                 }
 

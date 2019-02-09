@@ -22,9 +22,24 @@
             integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
             crossorigin="anonymous"></script>
 
+    <%--from https://gijgo.com/--%>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
     <script type="text/javascript" src="post.js"></script>
+
+
+    <%--WYSIWYG --%>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <link href='https://fonts.googleapis.com/css?family=Euphoria+Script' rel='stylesheet' type='text/css'>
 
 
     <style>
@@ -49,6 +64,7 @@
             background-color: white;
             color: #adddcf;
             border: 1px solid #adddcf;
+            border-radius: 15px;
             float: right;
         }
 
@@ -72,6 +88,10 @@
             cursor: pointer;
         }
 
+        textarea {
+            height: 600px;
+        }
+
         .button {
             background-color: white;
             color: #adddcf;
@@ -92,6 +112,8 @@
         .post1 {
             margin: 10px;
             padding: 20px;
+            width: 850px;
+            height: auto;
             border: 1px solid #adddcf;
             border-radius: 10px;
         }
@@ -190,9 +212,31 @@
             font-size: 30px;
         }
 
+        /*for WYSIWYG*/
+        #post {
+            resize: vertical;
+            overflow: auto;
+            border: 1px solid silver;
+            border-radius: 5px;
+            min-height: 100px;
+            box-shadow: inset 0 0 10px silver;
+            padding: 1em;
+            background: white;
+            margin: 0 auto;
+            width: 90%;
+        }
+
+        .navbar-nav li {
+            float: right;
+        }
+
     </style>
 </head>
 <script>
+
+    $("#postModal").on('shown', function () {
+        $("#postModal").val("");
+    });
 
     $(document).ready(function () {
         var postUserName = $('#usernamepost').text();
@@ -207,10 +251,12 @@
                 type: 'post',
                 url: 'postDeleteEdit',
                 data: {'postUserName': postUserName},
-                async: true,
+                // async: true,
                 dataType: 'text',
                 success: function (succ) {
+
                     console.log(succ);
+
                     if (succ === "success") {
 // console.log(userJson);
                         div1 = document.createElement('div');
@@ -219,7 +265,7 @@
 
                         div2 = document.createElement('div');
 
-                        div2.innerHTML = " <form action='deletepost' method='post'> <button type='submit' name='deletepostid' value ='${post.postId}' class='btn btn-sm btn-danger'> Delete </button></form>";
+                        div2.innerHTML = " <form action='deletePost' method='post'> <button type='submit' name='deletepostid' value ='${post.postId}' class='btn btn-sm btn-danger'> Delete </button></form>";
 // var id = testlist+i;
 
                         document.getElementsByClassName("postbody")[0].appendChild(div1);
@@ -228,7 +274,7 @@
                         <%--console.log('${post.title}');--%>
 
                         document.getElementById("edittitle").setAttribute("value", "${post.title}");
-                        document.getElementById("editpost").innerText = "${post.post}";
+                        document.getElementById("editpostContent").innerHTML = "<div>" + '${post.post}' + "</div>";
 
 // console.log("list" + list);
                     }
@@ -245,8 +291,8 @@
 
     function showCMDelete(i) {
         var cmuser = "cmuser" + i;
-        console.log("this is the cmuser from show function"+cmuser);
-        console.log("this is the session"+'${sessionScope.username}')
+        console.log("this is the cmuser from show function" + cmuser);
+        console.log("this is the session" + '${sessionScope.username}')
         if ($("#" + cmuser).text() == '${sessionScope.username}') {
             var deleteCm = "delete" + (i);
             console.log("delete comment id " + deleteCm);
@@ -269,18 +315,18 @@
     function showCMReply(i) {
         var cmuser = "cmuser" + i;
         <%--if ($("#" + cmuser).text() === '${sessionScope.username}') {--%>
-            var replyCm = "submit" + (i);
-            $("#" + replyCm).css("visibility", "visible");
+        var replyCm = "submit" + (i);
+        $("#" + replyCm).css("visibility", "visible");
         // }
     }
 
-    function showRPReply(i,j) {
+    function showRPReply(i, j) {
 
         var replyuser = "replyuser" + (i) + "_" + (j);
 
         <%--if ($("#" + replyuser).text() === '${sessionScope.username}') {--%>
-            var replyRep = "submit" + j;
-            $("#" + replyRep).css("visibility", "visible");
+        var replyRep = "submit" + j;
+        $("#" + replyRep).css("visibility", "visible");
 
         // }
     }
@@ -329,7 +375,7 @@
     $(document).ready(function () {
         //show comment button
 
-        if('${sessionScope.username}'.length){
+        if ('${sessionScope.username}'.length) {
             $('#commentdiv').css("visibility", "visible");
         }
 
@@ -354,8 +400,8 @@
             // console.log("this is running");
             <%--console.log(${comment.replies.size()});--%>
             <%--console.log("the replies size is " + '${comment.replies.size()}'); //this is working--%>
-            console.log("this is i from show post  :"+ i);
-            console.log("this is text"+$("#" + "cmuser" + i).text());
+            console.log("this is i from show post  :" + i);
+            console.log("this is text" + $("#" + "cmuser" + i).text());
             showCMDelete(i);
             showCMReply(i);
 
@@ -366,8 +412,8 @@
             $("#" + "RPContent" + j).text('${reply.comment}');
             <%--}--%>
             <%--}--%>
-            showRPDelete(i, j );
-            showRPReply(i,j);
+            showRPDelete(i, j);
+            showRPReply(i, j);
             j++;
 
             </c:forEach>
@@ -377,9 +423,26 @@
     })
 
 
+    $(function () {
+        $('#editControls a').click(function (e) {
+            switch ($(this).data('role')) {
+                case 'h1':
+                case 'h2':
+                case 'p':
+                    document.execCommand('formatBlock', false, $(this).data('role'));
+                    break;
+                default:
+                    document.execCommand($(this).data('role'), false, null);
+                    break;
+            }
+
+        });
+    });
+
+
 </script>
 
-<script type="text/javascript" src="article.js"></script>
+<script type="text/javascript" src="post.js"></script>
 
 <script type="text/javascript" src="../lib/jquery-3.3.1.js"></script>
 
@@ -520,18 +583,20 @@
 
 
 <div class="sticky">
-    <header class="c-header">
+    <%--<header class="c-header">--%>
 
-        <div class="row">
+    <div class="row">
+        <nav class="navbar navbar-expand-sm bg-muted">
 
             <div class="c-header_menu col-lg-12 col-md-12 col-sm-12">
 
                 <ul class="navbar-nav ">
 
-                    <li><h1 style="color:dimgray; text-align: center;">Your posts</h1></li>
+                    <%--<li><h1 style="color:dimgray; text-align: center;">Your posts</h1></li>--%>
 
                     <li>
-                        <button type="button" class="btn btn-sm btn-gray btn-lg" onclick="location.href='mainPage.jsp'">
+                        <button type="button" class="btn btn-sm btn-gray btn-lg"
+                                onclick="location.href='mainPage.jsp'">
                             Home
                         </button>
                     </li>
@@ -548,7 +613,21 @@
 
                                 <li>
                                     <form action="userinfo" method="get">
-                                        <button type="submit" class="btn  btn-sm btn-info btn-lg">My Profile</button>
+                                        <button type="submit" class="btn  btn-sm btn-info btn-lg">My Profile
+                                        </button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                            data-target="#postModal">
+                                        Create New posts!
+                                    </button>
+                                </li>
+
+                                <li>                                            <%--servlet for retrieving your posts needed--%>
+                                    <form action="showMain" method="get">
+                                        <button type="submit" class="btn btn-sm btn-info btn-lg">Browse Your posts
+                                        </button>
                                     </form>
                                 </li>
 
@@ -564,13 +643,11 @@
                                 </li>
                             </c:otherwise>
                         </c:choose>
-                    </div>
-
-                    <div>
                         <c:choose>
                         <c:when test="${sessionScope.username==null}">
                         <li>
-                            <button type="button" class="btn btn-sm btn-gray btn-lg" onclick="location.href='reg.jsp'">
+                            <button type="button" class="btn btn-sm btn-gray btn-lg"
+                                    onclick="location.href='reg.jsp'">
                                 Register
                             </button>
                         </li>
@@ -578,27 +655,13 @@
                     </div>
 
                     </c:when>
-                    <c:otherwise>
-                        <li>
-                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                    data-target="#postModal">
-                                Create New posts!
-                            </button>
-                        </li>
-
-                        <li>
-                                <%--servlet for retrieving your posts needed--%>
-                            <form action="#" method="get">
-                                <button type="submit" class="btn btn-sm btn-info btn-lg">Browse Your posts</button>
-                            </form>
-                        </li>
-                    </c:otherwise>
                     </c:choose>
 
                 </ul>
             </div>
-        </div>
-    </header>
+        </nav>
+    </div>
+    <%--</header>--%>
 </div>
 
 
@@ -617,7 +680,7 @@
                 <%--user icon--%>
                 <div class="row">
 
-                    <!--<div class="triangulo"></div>-->`
+                    <!--<div class="triangulo"></div>-->
                     <div class="col-lg3">
                         <img class='card-img-top img-thumbnail rounded-circle boarder-primary'
                              src='${post.iconPath}'
@@ -638,11 +701,6 @@
             <div class="postbody">
                 <h2 style="color:dimgray;">${post.title}</h2>
 
-                <div class="image" style="margin-bottom: 15px">
-                    <img src="https://media.allure.com/photos/5bf1b1502ab5072a91e1853a/16:9/w_1200%2Cc_limit/travel%20editor%20favorite%20products.jpg"
-                         class="rounded" width="850" height="500">
-                </div>
-
                 <div id="postList" class="panel" style="color:dimgray;">
                     <%--load posts here--%>
                     <p style="color: dimgray;">${post.post}.</p>
@@ -656,9 +714,9 @@
                 <div class="col-lg-11 col-sm-8 col-md-8 m-auto">
                     <div class="form-group">
                         <label for="comment" style="color: dimgray;">Your Comment:</label>
-                        <textarea class="form-control" rows="5" id="comment"  name="comment" ></textarea>
+                        <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
                     </div>
-                    <button type="submit"  class="btn btn-info btn-lg float-right"
+                    <button type="submit" class="btn btn-info btn-lg float-right"
                             onclick="addcomment('${post.postId}',false)">Comment
                     </button>
                 </div>
@@ -712,14 +770,19 @@
                     <%--send to servlet and build the post using this page.--%>
                     <div class="form-group">
                         <label for="title"><strong> Your Title:</strong></label>
-                        <input type="text" class="form-control" id="title" name="title" placeholder="Put your title here..." required>
+                        <input type="text" class="form-control" id="title" name="title"
+                               placeholder="Put your title here..." required>
                     </div>
+                    <%--wyswyg   sooo-------------------%>
+                    <textarea id="editor" name="post"><div style="height: 400px;"></div></textarea>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $("#editor").editor({
+                                uiLibrary: 'bootstrap4'
+                            });
+                        });
+                    </script>
 
-                    <div class="form-group">
-                        <label for="post"></label>
-                        <textarea class="form-control" rows="20" id="post" name="post"
-                                  placeholder="Put your post content here..."></textarea>
-                    </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-lg" onclick="">
                             Publish!
@@ -758,14 +821,19 @@
                     <%--send to servlet and build the post using this page.--%>
                     <div class="form-group">
                         <label for="title"><strong> Your Title:</strong></label>
-                        <input type="text" class="form-control" id="edittitle" name="title" placeholder="Put your title here..." required>
+                        <input type="text" class="form-control" id="edittitle" name="title"
+                               placeholder="Put your title here..." required>
                     </div>
 
-                    <div class="form-group">
-                        <label for="post"></label>
-                        <textarea class="form-control" rows="20" id="editpost" name="post"
-                                  placeholder="Put your post content here..."></textarea>
-                    </div>
+                    <textarea id="editpost" name="post"><div id="editpostContent"
+                                                             style="height: 400px;"></div></textarea>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $("#editpost").editor({
+                                uiLibrary: 'bootstrap4'
+                            });
+                        });
+                    </script>
                     <div class="form-group">
                         <button type="submit" name="postId" value="${post.postId}" class="btn btn-primary btn-lg"
                                 onclick="">

@@ -25,6 +25,7 @@ public class EditPostServlet extends HttpServlet {
             String title = req.getParameter("title");
             String post = req.getParameter("post");
             //update the user info
+            post = post.substring(post.indexOf(">")+1,post.lastIndexOf("<"));
 
             dao.editPost(postId, title, post);
             PostJavaBean showPost = dao.getPost(postId);
@@ -34,8 +35,8 @@ public class EditPostServlet extends HttpServlet {
             req.setAttribute("post", showPost);
             req.setAttribute("show",true);
 
-            req.getRequestDispatcher("article.jsp").forward(req,resp);
-            resp.sendRedirect("article.jsp");
+            req.getRequestDispatcher("post.jsp").forward(req,resp);
+            resp.sendRedirect("post.jsp");
 
         } catch (SQLException e) {
             e.printStackTrace();

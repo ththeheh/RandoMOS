@@ -27,6 +27,8 @@ public class DeleteAccountServlet extends HttpServlet {
             dao.deleteAccount(userName);
 
             req.getSession().setAttribute(null,userName);
+
+            req.setAttribute("stop",false);
             req.setAttribute("delete","deleted");
             req.getRequestDispatcher("mainPage.jsp").forward(req, resp);
             } catch (SQLException e) {

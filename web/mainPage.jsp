@@ -22,6 +22,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <link href='https://fonts.googleapis.com/css?family=Euphoria+Script' rel='stylesheet' type='text/css'>
+
 
     <style>
         .btn {
@@ -91,7 +100,8 @@
             position: sticky;
             top: 0;
             background-color: #eff5f5;
-            /*opacity:0.3;*/
+            opacity: 1.0;
+            z-index: 2;
             padding: 0px;
             font-size: 20px;
         }
@@ -122,18 +132,17 @@
     alert("Your account is deleted! You are always welcomed to be back to RandoMOS!")
     </c:if>
 
+    <c:if test="${stop!=true}">
+    <jsp:include page="/showMain"/>;
+    <%--<c:set var="${stop1}" value="true" />--%>
+    </c:if>
 
 </script>
-
 
 <%--<jsp:include page="/showMain" flush="true">--%>
 
 <body>
 
-
-<c:if test="${stop!=true}">
-    <jsp:include page="/showMain"/>
-</c:if>
 
 
 <div class="sticky">
@@ -201,7 +210,7 @@
                         <c:otherwise>
                             <li>
                                 <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                        data-target="#myModal">
+                                        data-target="#postModal">
                                     Create New Posts!
                                 </button>
                             </li>
@@ -209,7 +218,7 @@
                             <li>
                                     <%--servlet for retrieving your posts needed--%>
                                 <form action="showMain" method="get">
-                                    <button type="submit" class="btn btn-sm btn-info btn-lg">Browse Your Posts</button>
+                                    <button type="submit" class="btn btn-sm btn-info btn-lg" name="userPost" value="true">Browse Your Posts</button>
                                 </form>
                             </li>
                         </c:otherwise>
@@ -236,6 +245,7 @@
 <%---------------------------------forum-------------------------------------------------------%>
 
 <div class="container" style="z-index: -1">
+<div style="height:60px"><h3 style="color:dodgerblue">Here are the latest 10 posts for you!</h3></div>
 
     <%--<div class="col-6">--%>
     <c:forEach items="${posts}" var="post">
@@ -245,7 +255,7 @@
                     <img src="${post.iconPath}" alt="" style="width:50px;height: auto">
                 </div>
                 <div class="col-lg-6">
-                    <h5 id="pcontent">${post.title} <em>by</em> ${post.userName}</h5>
+                    <p id="pcontent" style="color: lightseagreen;font-size:20px"><b>${post.title}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;by ;&nbsp;&nbsp;&nbsp;&nbsp;${post.userName}</p>
                 </div>
                 <div class="col-lg-3">
                     <form action="showPost" method="POST">
@@ -271,7 +281,7 @@
 
 <%-------------------------------------------------modal-----------------------------%>
 
-<div class="modal" id="myModal">
+<div class="modal" id="postModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- Modal Header -->
@@ -287,14 +297,27 @@
                     <%--send to servlet and build the post using this page.--%>
                     <div class="form-group">
                         <label for="title"><strong> Your Title:</strong></label>
-                        <input type="text" class="form-control" id="title"  name="title" placeholder="Put your title here..." required>
+                        <input type="text" class="form-control" id="title" name="title"
+                               placeholder="Put your title here..." required>
                     </div>
 
-                    <div class="form-group">
-                        <label for="post"></label>
-                        <textarea class="form-control" rows="20" id="post" name="post"
-                                  placeholder="Put your post content here..."></textarea>
-                    </div>
+                    <%--wyswyg   sooo-------------------%>
+                    <textarea id="editor" name="post"><div style="height:800px;width:auto"></div></textarea>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $("#editor").editor({
+                                uiLibrary: 'bootstrap4'
+                            });
+                        });
+                    </script>
+
+                    <%--wyswyg   sooo-------------------%>
+
+                    <%--<div class="form-group">--%>
+                    <%--<label for="post"></label>--%>
+                    <%--<textarea class="form-control" rows="20" id="post" name="post"--%>
+                    <%--placeholder="Put your post content here..."></textarea>--%>
+                    <%--</div>--%>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-lg" onclick="">
                             Publish!

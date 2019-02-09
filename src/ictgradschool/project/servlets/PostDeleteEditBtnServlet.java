@@ -21,16 +21,16 @@ public class PostDeleteEditBtnServlet extends HttpServlet {
         String userName = (String) req.getSession().getAttribute("username");
         String postUserName = req.getParameter("postUserName");
 
-        System.out.println(postUserName);
+        System.out.println("this is the postusername"+postUserName);
         System.out.println("this is the session username"+userName);
-        System.out.println(userName);
-        System.out.println(postUserName.equals(userName));
+        System.out.println("is equal"+postUserName.equals(userName));
 
         if (postUserName.equals(userName)) {
             //can not do userName.equals(postUserName) as .equals(null) not working.
 //                System.out.println("equal");
             String succ = "success";
 //            resp.setCharacterEncoding("UTF-8");
+            resp.setContentType("text");
             out.print(succ);
             out.flush();
             System.out.println("equal");
@@ -41,7 +41,7 @@ public class PostDeleteEditBtnServlet extends HttpServlet {
 //            resp.setCharacterEncoding("UTF-8");
             String succ = "fail";
 
-            out.print("fail");
+            out.print(succ);
             out.flush();
         }
 

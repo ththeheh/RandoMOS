@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Register to RadoMOS</title>
+    <title>Register to RandoMOS</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -19,6 +19,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script type="text/javascript" src="post.js"></script>
+
 
     <style type="text/css">
         * {
@@ -125,9 +130,38 @@
             color: #024a26;
         }
 
-
     </style>
     <script type="text/javascript" src="regjs.js"></script>
+    <script>
+        // $("#userName").on('input change paste', function(){  not working, also tried change, not detecting.
+        function userNameCheck() {
+            console.log("this guy is running!");
+            console.log($('#userName').val());
+            $.ajax({
+                type: 'get',
+                url: 'userNameCheck',
+                data: {'userName': $('#userName').val()},
+                async: true,
+                dataType: 'text',
+                success: function (succ) {
+// console.log(userJson);
+                    if (succ !== 'Okay') {
+                        $('#userNameMsg').css("visibility", "visible");
+                    } else {
+                        $('#userNameMsg').css("visibility", "hidden");
+
+                    }
+                },
+                error: function (xhr, status) {
+                    alert(xhr.status);
+                }
+            })
+
+        }
+
+
+    </script>
+
 </head>
 <body>
 
@@ -151,8 +185,10 @@
                 <form action="loginDataNew" method="post">
                     <%--input-group removed for username, firstname, lastname--%>
                     <div class="form-group">
-                        <label for="userName">Username: &nbsp</label>
-                        <input type="text" class="form-control" id="userName" name="userName" required>
+                        <p id="userNameMsg" style="color:red;visibility: hidden"><b>User Name Taken!</b></p>
+                        <label for="userName">Username: </label>
+                        <input type="text" class="form-control" id="userName" name="userName" oninput="userNameCheck()"
+                               required>
                     </div>
 
                     <div class="form-group">
@@ -465,6 +501,10 @@
                     <!--<button type="submit" class=" pull-right btn-link"><a href="www.google.com">Forget password</a></button>-->
 
                 </form>
+                <button type="button" class="btn float-left btn-info btn-lg"
+                        onclick="location.href='mainPage.jsp'">
+                    Home
+                </button>
             </div>
         </div>
     </div>

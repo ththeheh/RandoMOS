@@ -29,12 +29,17 @@ public class DeletePostServlet extends HttpServlet {
             dao.deletePost(postId);
 
             req.setAttribute("postdelete","deleted");
+            req.setAttribute("stop",true);
 
             System.out.println(postId);
 
             //add postdelted to mainpage for alert("Your post is deleted").
 
             req.getRequestDispatcher("mainPage.jsp").forward(req, resp);
+//            resp.sendRedirect("mainPage.jsp");
+
+
+
         } catch (SQLException e) {
             throw new ServletException(e);
         }
