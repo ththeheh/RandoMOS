@@ -88,6 +88,10 @@
             cursor: pointer;
         }
 
+        textarea{
+            height:600px;
+        }
+
         .button {
             background-color: white;
             color: #adddcf;
@@ -230,6 +234,10 @@
 </head>
 <script>
 
+    $( "#postModal" ).on('shown', function(){
+        $( "#postModal" ).val("");
+        });
+
     $(document).ready(function () {
         var postUserName = $('#usernamepost').text();
 
@@ -266,7 +274,7 @@
                         <%--console.log('${post.title}');--%>
 
                         document.getElementById("edittitle").setAttribute("value", "${post.title}");
-                        document.getElementById("editpostContent").innerHTML= '${post.post}';
+                        document.getElementById("editpostContent").innerHTML= "<div>"+'${post.post}'+"</div>";
 
 // console.log("list" + list);
                     }
@@ -766,7 +774,7 @@
                                placeholder="Put your title here..." required>
                     </div>
                     <%--wyswyg   sooo-------------------%>
-                    <textarea id="editor" name="post"><div style="height:600px;width:auto"></div></textarea>
+                    <textarea id="editor" name="post" ><div style="height: 400px;"></div></textarea>
                     <script type="text/javascript">
                         $(document).ready(function () {
                             $("#editor").editor({
@@ -817,7 +825,7 @@
                                placeholder="Put your title here..." required>
                     </div>
 
-                        <textarea id="editpost" name="post"><div id="editpostContent" style="height:800px;width:auto"></div></textarea>
+                        <textarea id="editpost" name="post" ><div id="editpostContent" style="height: 400px;"></div></textarea>
                         <script type="text/javascript">
                             $(document).ready(function () {
                                 $("#editpost").editor({
