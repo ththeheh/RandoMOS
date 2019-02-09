@@ -36,8 +36,8 @@ public class ShowPostServlet extends HttpServlet {
             req.setAttribute("post", showPost);
             req.setAttribute("show",true);
 
-            req.getRequestDispatcher("article.jsp").forward(req,resp);
-            resp.sendRedirect("article.jsp");
+            req.getRequestDispatcher("post.jsp").forward(req,resp);
+            resp.sendRedirect("post.jsp");
 //                    req.setAttribute("login", userName); //do later
 
 

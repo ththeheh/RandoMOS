@@ -34,7 +34,7 @@ public class AddReplyServlet extends HttpServlet {
 //            System.out.println("running ok");
             // need to call encoding class to create hashedcode to store
 //            req.setAttribute("newComment", newComment);
-//            req.getRequestDispatcher("article.jsp").forward(req, resp);
+//            req.getRequestDispatcher("post.jsp").forward(req, resp);
 
             String iconPath = dao.getUserInfo(userName).getIconPath();
 //            System.out.println(userName+dao.getUserInfo(userName).getIconPath());

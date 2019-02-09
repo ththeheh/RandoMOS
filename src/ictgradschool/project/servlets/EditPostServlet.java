@@ -35,8 +35,8 @@ public class EditPostServlet extends HttpServlet {
             req.setAttribute("post", showPost);
             req.setAttribute("show",true);
 
-            req.getRequestDispatcher("article.jsp").forward(req,resp);
-            resp.sendRedirect("article.jsp");
+            req.getRequestDispatcher("post.jsp").forward(req,resp);
+            resp.sendRedirect("post.jsp");
 
         } catch (SQLException e) {
             e.printStackTrace();

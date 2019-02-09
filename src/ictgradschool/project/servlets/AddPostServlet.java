@@ -37,9 +37,9 @@ public class AddPostServlet extends HttpServlet {
 
             req.setAttribute("post", newPost);
 
-            req.getRequestDispatcher("article.jsp").forward(req, resp);
-//            resp.sendRedirect("article.jsp");
-//            resp.sendRedirect("article.jsp");
+            req.getRequestDispatcher("post.jsp").forward(req, resp);
+//            resp.sendRedirect("post.jsp");
+//            resp.sendRedirect("post.jsp");
 
         } catch (SQLException e1) {
             e1.printStackTrace();

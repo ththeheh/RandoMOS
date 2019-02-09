@@ -88,8 +88,8 @@
             cursor: pointer;
         }
 
-        textarea{
-            height:600px;
+        textarea {
+            height: 600px;
         }
 
         .button {
@@ -234,9 +234,9 @@
 </head>
 <script>
 
-    $( "#postModal" ).on('shown', function(){
-        $( "#postModal" ).val("");
-        });
+    $("#postModal").on('shown', function () {
+        $("#postModal").val("");
+    });
 
     $(document).ready(function () {
         var postUserName = $('#usernamepost').text();
@@ -274,7 +274,7 @@
                         <%--console.log('${post.title}');--%>
 
                         document.getElementById("edittitle").setAttribute("value", "${post.title}");
-                        document.getElementById("editpostContent").innerHTML= "<div>"+'${post.post}'+"</div>";
+                        document.getElementById("editpostContent").innerHTML = "<div>" + '${post.post}' + "</div>";
 
 // console.log("list" + list);
                     }
@@ -442,7 +442,7 @@
 
 </script>
 
-<script type="text/javascript" src="article.js"></script>
+<script type="text/javascript" src="post.js"></script>
 
 <script type="text/javascript" src="../lib/jquery-3.3.1.js"></script>
 
@@ -774,7 +774,7 @@
                                placeholder="Put your title here..." required>
                     </div>
                     <%--wyswyg   sooo-------------------%>
-                    <textarea id="editor" name="post" ><div style="height: 400px;"></div></textarea>
+                    <textarea id="editor" name="post"><div style="height: 400px;"></div></textarea>
                     <script type="text/javascript">
                         $(document).ready(function () {
                             $("#editor").editor({
@@ -825,14 +825,15 @@
                                placeholder="Put your title here..." required>
                     </div>
 
-                        <textarea id="editpost" name="post" ><div id="editpostContent" style="height: 400px;"></div></textarea>
-                        <script type="text/javascript">
-                            $(document).ready(function () {
-                                $("#editpost").editor({
-                                    uiLibrary: 'bootstrap4'
-                                });
+                    <textarea id="editpost" name="post"><div id="editpostContent"
+                                                             style="height: 400px;"></div></textarea>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $("#editpost").editor({
+                                uiLibrary: 'bootstrap4'
                             });
-                        </script>
+                        });
+                    </script>
                     <div class="form-group">
                         <button type="submit" name="postId" value="${post.postId}" class="btn btn-primary btn-lg"
                                 onclick="">

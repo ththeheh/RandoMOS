@@ -96,6 +96,7 @@ public class LoginDataDAO {
                     if (resultSet.getString(1).equals(userName)) {
                         return "username";
                     }
+
                     if (resultSet.getString(6).equals(email)) {
                         return "email";
                     }

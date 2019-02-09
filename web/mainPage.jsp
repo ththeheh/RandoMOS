@@ -100,7 +100,7 @@
             position: sticky;
             top: 0;
             background-color: #eff5f5;
-            opacity:0.8;
+            opacity: 1.0;
             z-index: 2;
             padding: 0px;
             font-size: 20px;
@@ -245,7 +245,7 @@
 <%---------------------------------forum-------------------------------------------------------%>
 
 <div class="container" style="z-index: -1">
-<div style="height:60px"><h3>Here are the latest 10 posts for you!</h3></div>
+<div style="height:60px"><h3 style="color:dodgerblue">Here are the latest 10 posts for you!</h3></div>
 
     <%--<div class="col-6">--%>
     <c:forEach items="${posts}" var="post">
@@ -255,7 +255,7 @@
                     <img src="${post.iconPath}" alt="" style="width:50px;height: auto">
                 </div>
                 <div class="col-lg-6">
-                    <h5 id="pcontent">${post.title} <em>by</em> ${post.userName}</h5>
+                    <p id="pcontent" style="color: lightseagreen;font-size:20px"><b>${post.title}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;by ;&nbsp;&nbsp;&nbsp;&nbsp;${post.userName}</p>
                 </div>
                 <div class="col-lg-3">
                     <form action="showPost" method="POST">
