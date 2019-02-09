@@ -22,6 +22,7 @@ public class AddPostServlet extends HttpServlet {
             System.out.println("add post title: "+title);
 
             String post = req.getParameter("post");
+            post = post.substring(post.indexOf(">")+1,post.lastIndexOf("<"));
             System.out.println("addpost :"+post);
 
             PostJavaBean newPost = new PostJavaBean(userName, title, post);

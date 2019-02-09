@@ -14,6 +14,7 @@ public class LogOutServlet extends HttpServlet {
             req.getSession().invalidate();
         }
 
-        resp.sendRedirect("mainPage.jsp");
+        req.setAttribute("stop",true);
+        req.getRequestDispatcher("mainPage.jsp").forward(req,resp);
     }
 }

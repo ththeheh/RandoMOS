@@ -321,8 +321,21 @@ public class LoginDataDAO {
 
     public void deletePost(int postId) throws SQLException {
 
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userReply WHERE postId = ?;")){
+            preparedStatement.setInt(1, postId);
+            System.out.println("replies deleted!");
+            preparedStatement.executeUpdate();
+        }
+
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userComment WHERE postId = ?;")){
+            preparedStatement.setInt(1, postId);
+            System.out.println("comments deleted!");
+            preparedStatement.executeUpdate();
+        }
+
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_post WHERE postId = ?;")) {
             preparedStatement.setInt(1, postId);
+
             //may need to think about if can delete comments under one username and check how the tables are joined.
             int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " post deleted");
@@ -401,7 +414,6 @@ public class LoginDataDAO {
                 mainPost1.setPostId(postId);
                 posts.add(mainPost1);
 
-                int count = 1;
                 while (resultSet.previous()) {
 //                    System.out.println(resultSet.getRow());
 //                int randomRow = (int) (Math.floor(Math.random() * 3) + 1);
@@ -413,12 +425,12 @@ public class LoginDataDAO {
                     PostJavaBean mainPost2 = new PostJavaBean(userName, title, post, postId);
                     mainPost2.setPostId(postId);
                     posts.add(mainPost2);
-                    if (count++ > 3) {
+
+
+                    if (posts.size() > 11) {
                         break;
                     }
-                    System.out.println(mainPost2.getPost());
-
-
+//                    System.out.println(mainPost2.getPost());
 //                }
                 }
 
