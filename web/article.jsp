@@ -33,7 +33,7 @@
 
 
     <style>
-        .btn {
+        .btn:not  {
             background-color: #e6ffe6;
             text-align: center;
             border: none;
@@ -660,7 +660,7 @@
                 <%--user icon--%>
                 <div class="row">
 
-                    <!--<div class="triangulo"></div>-->`
+                    <!--<div class="triangulo"></div>-->
                     <div class="col-lg3">
                         <img class='card-img-top img-thumbnail rounded-circle boarder-primary'
                              src='${post.iconPath}'
