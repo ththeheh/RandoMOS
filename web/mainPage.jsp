@@ -120,6 +120,34 @@
             border-radius: 15px;
         }
 
+        /*.search-container button {*/
+            /*float: right;*/
+            /*padding: 6px 10px;*/
+            /*margin-top: 8px;*/
+            /*margin-right: 16px;*/
+            /*background: #ddd;*/
+            /*font-size: 17px;*/
+            /*border: none;*/
+            /*cursor: pointer;*/
+        /*}*/
+        nav input[type=text] {
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 15px;
+            height: 30px;
+            border-width: 1px;
+            border-radius: 15px;
+            border-color: black;
+        }
+
+        .search-container button:hover {
+            background: #ccc;
+        }
+
+        nav .search-container {
+            float: right;
+        }
+
 
     </style>
 
@@ -142,7 +170,6 @@
 <%--<jsp:include page="/showMain" flush="true">--%>
 
 <body>
-
 
 
 <div class="sticky">
@@ -218,7 +245,9 @@
                             <li>
                                     <%--servlet for retrieving your posts needed--%>
                                 <form action="showMain" method="get">
-                                    <button type="submit" class="btn btn-sm btn-info btn-lg" name="userPost" value="true">Browse Your Posts</button>
+                                    <button type="submit" class="btn btn-sm btn-info btn-lg" name="userPost"
+                                            value="true">Browse Your Posts
+                                    </button>
                                 </form>
                             </li>
                         </c:otherwise>
@@ -226,6 +255,14 @@
 
                     </ul>
                 </div>
+                <%--advanced feature nav-bar search--%>
+                <div class="search-container">
+                    <form action="search" method="GET">
+                        <input type="text" placeholder="Search.." name="keyWord">
+                        <button type="submit" class="btn-sm btn-primary" style="border-radius: 5px;">Go!</button>
+                    </form>
+                </div>
+
             </nav>
         </div>
 
@@ -245,17 +282,18 @@
 <%---------------------------------forum-------------------------------------------------------%>
 
 <div class="container" style="z-index: -1">
-<div style="height:60px"><h3 style="color:dodgerblue">Here are the latest 10 posts for you!</h3></div>
-
+    <%--<div style="height:60px"><h3 style="color:dodgerblue">Here are the latest 10 posts for you!</h3></div>--%>
     <%--<div class="col-6">--%>
     <c:forEach items="${posts}" var="post">
         <div class="card">
             <div class="row">
                 <div class="col-lg-3">
                     <img src="${post.iconPath}" alt="" style="width:50px;height: auto">
+                    <p>${post.date}</p>
                 </div>
                 <div class="col-lg-6">
-                    <p id="pcontent" style="color: lightseagreen;font-size:20px"><b>${post.title}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;by ;&nbsp;&nbsp;&nbsp;&nbsp;${post.userName}</p>
+                    <p id="pcontent" style="color: lightseagreen;font-size:20px"><b>${post.title}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; by
+                        &nbsp;&nbsp;&nbsp;&nbsp;${post.userName}</p>
                 </div>
                 <div class="col-lg-3">
                     <form action="showPost" method="POST">
@@ -263,7 +301,7 @@
                             <input type="hidden" value="${post.postId}" name="postId">
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="loadPost" class="btn login_btn"
+                            <input type="submit" value="loadPost" class="btn"
                                    style="color:lightseagreen;border-radius: 15px">
                         </div>
                     </form>

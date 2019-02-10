@@ -1,13 +1,19 @@
 package ictgradschool.project.servlets;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+
+import javax.swing.text.DateFormatter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class LoginDataDAO {
     private Connection connection;
@@ -143,6 +149,7 @@ public class LoginDataDAO {
                         post.setPostId(resultSet.getInt(1));
                         post.setTitle(resultSet.getString(3));
                         post.setPost(resultSet.getString(4));
+                        post.setDate(resultSet.getString(5));
                         post.setComments(getComments(postId));
                         return post;
                     }
@@ -154,7 +161,7 @@ public class LoginDataDAO {
         return null;
     }
 
-    public List<PostJavaBean> getUserPost(String userName) throws SQLException {
+    public List<PostJavaBean> getUserPosts(String userName) throws SQLException {
 //        PostJavaBean mainPost = new PostJavaBean();
         List<PostJavaBean> posts = new ArrayList<>();
 
@@ -169,11 +176,11 @@ public class LoginDataDAO {
                         int postId = resultSet.getInt(1);
                         String title = resultSet.getString(3);
                         String post = resultSet.getString(4);
-                        PostJavaBean userPost = new PostJavaBean(userName, title, post, postId);
+                        String date = resultSet.getString(5);
+//                        System.out.println(date);
+                        PostJavaBean userPost = new PostJavaBean(userName, title, post, postId, date);
                         posts.add(userPost);
                     }
-
-                    //                }
                 }
 
                 System.out.println("user posts are returned here");
@@ -251,13 +258,18 @@ public class LoginDataDAO {
         }
     }
 
-    public void editPost(int postId, String postTitle, String post) throws SQLException {
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE blog_post SET postTitle=?, post=? WHERE postId=? ")) {
+    public void editPost(int postId, String postTitle, String post, String date) throws SQLException {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE blog_post SET postTitle=?, post=?, date=? WHERE postId=? ")) {
 
             preparedStatement.setString(1, postTitle);
             preparedStatement.setString(2, post);
-            preparedStatement.setInt(3, postId);
 
+            preparedStatement.setInt(4, postId);
+            preparedStatement.setInt(4, postId);
+
+            LocalDate localDate = LocalDate.parse(date);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+            preparedStatement.setString(3, formatter.format(localDate));
             int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " post updated");
 
@@ -322,13 +334,13 @@ public class LoginDataDAO {
 
     public void deletePost(int postId) throws SQLException {
 
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userReply WHERE postId = ?;")){
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userReply WHERE postId = ?;")) {
             preparedStatement.setInt(1, postId);
             System.out.println("replies deleted!");
             preparedStatement.executeUpdate();
         }
 
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userComment WHERE postId = ?;")){
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userComment WHERE postId = ?;")) {
             preparedStatement.setInt(1, postId);
             System.out.println("comments deleted!");
             preparedStatement.executeUpdate();
@@ -345,10 +357,11 @@ public class LoginDataDAO {
 
     public int savePosts(PostJavaBean post) throws SQLException {
 
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_post(userName, postTitle, post) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_post(userName, postTitle, post,date) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, post.getUserName());
             preparedStatement.setString(2, post.getTitle());
             preparedStatement.setString(3, post.getPost());
+            preparedStatement.setString(4, post.getDate());
 
             //Just indicating how many rows are added
             int numRows = preparedStatement.executeUpdate();
@@ -396,46 +409,40 @@ public class LoginDataDAO {
     }
 
 
-    public List<PostJavaBean> getLatestPost() throws SQLException {
+    public List<PostJavaBean> getLatestPosts() throws SQLException {
 //        PostJavaBean mainPost = new PostJavaBean();
         List<PostJavaBean> posts = new ArrayList<>();
 
         try (Statement statement = this.connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_post")) {
-                resultSet.last();
-                System.out.println(resultSet.getRow());
+                while (resultSet.next()) {
 
-//                int randomRow = (int) (Math.floor(Math.random() * 3) + 1);
-//                resultSet.absolute(resultSet.getRow());
-                int postId = resultSet.getInt(1);
-                String userName = resultSet.getString(2);
-                String title = resultSet.getString(3);
-                String post = resultSet.getString(4);
-                PostJavaBean mainPost1 = new PostJavaBean(userName, title, post, postId);
-                mainPost1.setPostId(postId);
-                posts.add(mainPost1);
-
-                while (resultSet.previous()) {
-//                    System.out.println(resultSet.getRow());
-//                int randomRow = (int) (Math.floor(Math.random() * 3) + 1);
-//                resultSet.absolute(resultSet.getRow());
-                    postId = resultSet.getInt(1);
-                    userName = resultSet.getString(2);
-                    title = resultSet.getString(3);
-                    post = resultSet.getString(4);
-                    PostJavaBean mainPost2 = new PostJavaBean(userName, title, post, postId);
-                    mainPost2.setPostId(postId);
-                    posts.add(mainPost2);
-
-
-                    if (posts.size() > 11) {
-                        break;
+                    DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//                    DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//                    String dateLocalStr = LocalDate.parse(resultSet.getString(5), inputFormat).format(outputFormat);
+                    String dateLocalStr = resultSet.getString(5);
+                    System.out.println(dateLocalStr);
+                    LocalDate dateLocal = LocalDate.parse(dateLocalStr, inputFormat);
+                    LocalDate today = LocalDate.now();
+                    System.out.println("today date" + today);
+                    if (dateLocal.compareTo(today) > 0) {
+                        continue;
                     }
-//                    System.out.println(mainPost2.getPost());
-//                }
+                    ;
+
+                    int postId = resultSet.getInt(1);
+                    String userName = resultSet.getString(2);
+                    String title = resultSet.getString(3);
+                    String post = resultSet.getString(4);
+                    String date = resultSet.getString(5);
+                    PostJavaBean mainPost = new PostJavaBean(userName, title, post, postId, date);
+//                mainPost1.setPostId(postId);
+                    posts.add(mainPost);
                 }
 
                 System.out.println("posts are returned here");
+
+                Collections.sort(posts);
 
                 return posts;
 
@@ -479,7 +486,50 @@ public class LoginDataDAO {
         //may need to think about if can delete comments under one username and check how the tables are joined.
 
     }
+
+    public List<PostJavaBean> search(String keyWord) throws SQLException {
+        List<PostJavaBean> posts = new ArrayList<>();
+
+        try (Statement statement = this.connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_post")) {
+                while (resultSet.next()) {
+                    DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//                    DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//                    String dateLocalStr = LocalDate.parse(resultSet.getString(5), inputFormat).format(outputFormat);
+                    String dateLocalStr = resultSet.getString(5);
+                    System.out.println(dateLocalStr);
+                    LocalDate dateLocal = LocalDate.parse(dateLocalStr, inputFormat);
+                    LocalDate today = LocalDate.now();
+                    System.out.println("today date" + today);
+                    if (dateLocal.compareTo(today) > 0) {
+                        continue;
+                    }
+
+                    System.out.println("hahaha"+resultSet.getString(2));
+
+                    if (resultSet.getString(2).contains(keyWord) || resultSet.getString(3).contains(keyWord) || resultSet.getString(5).contains(keyWord)) {
+
+                        int postId = resultSet.getInt(1);
+                        String userName = resultSet.getString(2);
+                        String title = resultSet.getString(3);
+                        String post = resultSet.getString(4);
+                        String date = resultSet.getString(5);
+                        PostJavaBean searchPost = new PostJavaBean(userName, title, post, postId, date);
+//                mainPost1.setPostId(postId);
+                        posts.add(searchPost);
+                    }
+
+                    System.out.println("posts are returned here");
+
+                    Collections.sort(posts);
+
+                }
+                return posts;
+            }
+        }
+    }
 }
+
 
 
 //    public List<Post> getMyPost(String userName) throws SQLException {

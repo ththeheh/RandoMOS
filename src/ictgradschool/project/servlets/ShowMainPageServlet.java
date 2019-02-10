@@ -28,10 +28,12 @@ public class ShowMainPageServlet extends HttpServlet {
             List<PostJavaBean> posts = new ArrayList<>();
             String userName = (String) req.getSession().getAttribute("username");
             String userPost = req.getParameter("userPost");
+
+
             if(userPost==null){
                 //make another method in dao
                 //getRandomPost()- not completed yet
-                posts = dao.getLatestPost();
+                posts = dao.getLatestPosts();
 
                 for(PostJavaBean postJavaBean:posts){
                     postJavaBean.setIconPath(dao.getUserInfo(postJavaBean.getUserName()).getIconPath());
@@ -49,7 +51,7 @@ public class ShowMainPageServlet extends HttpServlet {
 
             } else {
 
-                posts = dao.getUserPost(userName);
+                posts = dao.getUserPosts(userName);
 
                 for(PostJavaBean postJavaBean:posts){
                     postJavaBean.setIconPath(dao.getUserInfo(postJavaBean.getUserName()).getIconPath());

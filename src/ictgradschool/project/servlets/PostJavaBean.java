@@ -1,7 +1,13 @@
 package ictgradschool.project.servlets;
 
+import javafx.scene.input.DataFormat;
+
+import javax.xml.crypto.Data;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PostJavaBean implements Serializable, Comparable<PostJavaBean> {
@@ -11,20 +17,23 @@ public class PostJavaBean implements Serializable, Comparable<PostJavaBean> {
     private String post;
     private int postId;
     private List<Comment> comments = new ArrayList<>();
+    private String date;
 
     public PostJavaBean(){}
 
-    public PostJavaBean(String userName, String title, String post,int postId) {
+    public PostJavaBean(String userName, String title, String post, int postId, String date) {
         this.userName = userName;
         this.title = title;
         this.post = post;
         this.postId = postId;
+        this.date = date;
     }
 
-    public PostJavaBean(String userName, String title, String post) {
+    public PostJavaBean(String userName, String title, String post, String date) {
         this.userName = userName;
         this.title = title;
         this.post = post;
+        this.date = date;
     }
 
     public String getUserName() {
@@ -45,6 +54,10 @@ public class PostJavaBean implements Serializable, Comparable<PostJavaBean> {
 
     public int getPostId() {
         return this.postId;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public List<Comment> getComments() {
@@ -76,8 +89,16 @@ public class PostJavaBean implements Serializable, Comparable<PostJavaBean> {
         this.comments = comments;
     }
 
+    public void setDate(String date){
+        this.date = date;
+    }
+
     @Override
     public int compareTo(PostJavaBean o) {
         return   this.postId - o.postId;
     }
+
+
+    //compare date, title
+
 }
