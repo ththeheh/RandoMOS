@@ -5,6 +5,7 @@ import javafx.scene.input.DataFormat;
 import javax.xml.crypto.Data;
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -95,7 +96,13 @@ public class PostJavaBean implements Serializable, Comparable<PostJavaBean> {
 
     @Override
     public int compareTo(PostJavaBean o) {
-        return   this.postId - o.postId;
+        DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String thisDateStr = this.date;
+        LocalDate thisdateLocal = LocalDate.parse(thisDateStr, inputFormat);
+        String otherDateStr = o.date;
+        LocalDate otherdateLocal = LocalDate.parse(otherDateStr, inputFormat);
+
+          return otherdateLocal.compareTo(thisdateLocal);
     }
 
 

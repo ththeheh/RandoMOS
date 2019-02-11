@@ -794,7 +794,6 @@
                         <label for="postdate"></label>
                         <input type="date" class="form-control" id="postdate" name="date" value="" required>
 
-
                     </div>
                     <%--wyswyg   sooo-------------------%>
                     <textarea id="editor" name="post"><div style="height: 400px;" aria-placeholder="The characters are limited to 1000."></div></textarea>

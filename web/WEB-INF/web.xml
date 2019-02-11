@@ -210,4 +210,18 @@
         <url-pattern>/search</url-pattern>
     </servlet-mapping>
 
+
+
+    <servlet>
+        <servlet-name>SortPostsServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.SortPostsServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SortPostsServlet</servlet-name>
+        <url-pattern>/sort</url-pattern>
+    </servlet-mapping>
+
+
+
 </web-app>

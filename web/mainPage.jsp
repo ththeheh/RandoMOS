@@ -21,11 +21,13 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+            integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+            crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 
@@ -121,14 +123,14 @@
         }
 
         /*.search-container button {*/
-            /*float: right;*/
-            /*padding: 6px 10px;*/
-            /*margin-top: 8px;*/
-            /*margin-right: 16px;*/
-            /*background: #ddd;*/
-            /*font-size: 17px;*/
-            /*border: none;*/
-            /*cursor: pointer;*/
+        /*float: right;*/
+        /*padding: 6px 10px;*/
+        /*margin-top: 8px;*/
+        /*margin-right: 16px;*/
+        /*background: #ddd;*/
+        /*font-size: 17px;*/
+        /*border: none;*/
+        /*cursor: pointer;*/
         /*}*/
         nav input[type=text] {
             padding: 10px;
@@ -156,6 +158,26 @@
 
 
 <script>
+
+    $(document).ready(function () {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+        today = yyyy + '-' + mm + '-' + dd;
+        $("#postdate").attr("value", today);
+        console.log(today);
+    });
+
+
     <c:if test="${delete=='deleted'}" >
     alert("Your account is deleted! You are always welcomed to be back to RandoMOS!")
     </c:if>
@@ -243,6 +265,7 @@
                             </li>
 
                             <li>
+
                                     <%--servlet for retrieving your posts needed--%>
                                 <form action="showMain" method="get">
                                     <button type="submit" class="btn btn-sm btn-info btn-lg" name="userPost"
@@ -259,7 +282,8 @@
                 <div class="search-container">
                     <form action="search" method="GET">
                         <input type="text" placeholder="Search.." name="keyWord">
-                        <button type="submit" class="btn-sm btn-primary" style="border-radius: 5px;">Go!</button>
+                        <button type="submit" class="btn-sm btn-primary float-right" style="border-radius: 5px;">Go!
+                        </button>
                     </form>
                 </div>
 
@@ -281,6 +305,20 @@
 
 <%---------------------------------forum-------------------------------------------------------%>
 
+
+<div class="dropdown m-5">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+        Sort By:
+    </button>
+    <div class="dropdown-menu">
+        <a  class="dropdown-item" href="sort?sort=title&order=${order}">Title</a>
+        <a class="dropdown-item" href="sort?sort=username&order=${order}">Username</a>
+        <a class="dropdown-item" href="sort?sort=date&order=${order}">Date</a>
+    </div>
+</div>
+
+
 <div class="container" style="z-index: -1">
     <%--<div style="height:60px"><h3 style="color:dodgerblue">Here are the latest 10 posts for you!</h3></div>--%>
     <%--<div class="col-6">--%>
@@ -292,7 +330,8 @@
                     <p>${post.date}</p>
                 </div>
                 <div class="col-lg-6">
-                    <p id="pcontent" style="color: lightseagreen;font-size:20px"><b>${post.title}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; by
+                    <p id="pcontent" style="color: lightseagreen;font-size:20px"><b>${post.title}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        by
                         &nbsp;&nbsp;&nbsp;&nbsp;${post.userName}</p>
                 </div>
                 <div class="col-lg-3">
@@ -337,6 +376,9 @@
                         <label for="title"><strong> Your Title:</strong></label>
                         <input type="text" class="form-control" id="title" name="title"
                                placeholder="Put your title here..." required>
+                        <label for="postdate"></label>
+                        <input type="date" class="form-control" id="postdate" name="date" value="" required>
+
                     </div>
 
                     <%--wyswyg   sooo-------------------%>
