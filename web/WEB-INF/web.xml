@@ -266,5 +266,16 @@
 
 
 
+    <servlet>
+        <servlet-name>PostVisServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.PostVisServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PostVisServlet</servlet-name>
+        <url-pattern>/postVis</url-pattern>
+    </servlet-mapping>
+
+
 
 </web-app>

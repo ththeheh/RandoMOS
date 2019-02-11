@@ -19,8 +19,19 @@ public class PostJavaBean implements Serializable, Comparable<PostJavaBean> {
     private int postId;
     private List<Comment> comments = new ArrayList<>();
     private String date;
+    private String vis;
 
     public PostJavaBean(){}
+
+
+    public PostJavaBean(String userName, String title, String post, int postId, String date, String vis) {
+        this.userName = userName;
+        this.title = title;
+        this.post = post;
+        this.postId = postId;
+        this.date = date;
+        this.vis=vis;
+    }
 
     public PostJavaBean(String userName, String title, String post, int postId, String date) {
         this.userName = userName;
@@ -65,6 +76,8 @@ public class PostJavaBean implements Serializable, Comparable<PostJavaBean> {
         return this.comments;
     }
 
+    public String getVis(){return this.vis;}
+
 
     public void setUserName(String userName) {
         this.userName = userName;
@@ -93,6 +106,8 @@ public class PostJavaBean implements Serializable, Comparable<PostJavaBean> {
     public void setDate(String date){
         this.date = date;
     }
+
+    public void setVis(String vis) {this.vis=vis;};
 
     @Override
     public int compareTo(PostJavaBean o) {

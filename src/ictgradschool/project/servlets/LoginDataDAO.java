@@ -400,11 +400,12 @@ public class LoginDataDAO {
 
     public int savePosts(PostJavaBean post) throws SQLException {
 
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_post(userName, postTitle, post,date) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_post(userName, postTitle, post,date,visible) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, post.getUserName());
             preparedStatement.setString(2, post.getTitle());
             preparedStatement.setString(3, post.getPost());
             preparedStatement.setString(4, post.getDate());
+            preparedStatement.setString(5, "yes"); //default
 
             //Just indicating how many rows are added
             int numRows = preparedStatement.executeUpdate();
@@ -459,7 +460,6 @@ public class LoginDataDAO {
         try (Statement statement = this.connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_post")) {
                 while (resultSet.next()) {
-
                     DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 //                    DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //                    String dateLocalStr = LocalDate.parse(resultSet.getString(5), inputFormat).format(outputFormat);
@@ -471,14 +471,14 @@ public class LoginDataDAO {
                     if (dateLocal.compareTo(today) > 0) {
                         continue;
                     }
-                    ;
 
                     int postId = resultSet.getInt(1);
                     String userName = resultSet.getString(2);
                     String title = resultSet.getString(3);
                     String post = resultSet.getString(4);
                     String date = resultSet.getString(5);
-                    PostJavaBean mainPost = new PostJavaBean(userName, title, post, postId, date);
+                    String vis = resultSet.getString(6);
+                    PostJavaBean mainPost = new PostJavaBean(userName, title, post, postId, date,vis);
 //                mainPost1.setPostId(postId);
                     posts.add(mainPost);
                 }
@@ -595,6 +595,20 @@ public class LoginDataDAO {
             }
         }
     }
+
+    public void editPostVis(int postId, String vis) throws SQLException {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE blog_post SET visible=? WHERE postId=?")) {
+
+            preparedStatement.setString(1, vis);
+            preparedStatement.setInt(2, postId);
+
+            int numRows = preparedStatement.executeUpdate();
+            System.out.println(numRows + " post visibility updated");
+
+        }
+
+    }
+
 }
 
 

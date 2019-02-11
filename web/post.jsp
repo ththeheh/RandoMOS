@@ -467,134 +467,7 @@
 
 <%--something for future--%>
 <script>
-    $(document).ready(function () {
 
-        /*number of post to display*/
-        const load_post_count = 3;
-        var load_post_next = 0;
-
-
-        /* Replace the partial content of an post with the full post text */
-        function load_full_post() {
-            // Retrieve the post id from the element attribute
-            var post_id = $(this).attr('post_id');
-
-            // Grab a reference to the paragraph of text that should be replaced
-            // This needs to be done here as you cannot use $(this) in the 'success' method of an ajax call
-            var post_content = $(this).prev();
-
-            // Disable and hide the 'show full content' button as it is no longer needed
-            $(this).off('click');
-            $(this).hide();
-
-            $.ajax({
-                url: 'https://sporadic.nz/ajax/posts',
-                type: 'GET',
-                data: {id: post_id},
-                success: function (post) {
-                    post_content.text(post.content);
-                }
-            });
-        }
-
-
-        function clear_and_register_post_handlers() {
-
-            $('.post-read-more').off('click');
-            $('.post-read-more').click(load_full_post);
-        }
-
-        /* Insert a new post into the page. This creates the appropriate elements with classes, attributes
-        * and text, then inserts the content into the page */
-        function insert_post_into_page(post) {
-            // Main post div container
-            var post_div = $('<div>');
-            post_div.addClass('post');
-
-            // post title line
-            var post_title = $('<h5>').text(post.title);
-            post_title.addClass('post-title');
-
-            // Author line
-            var post_author = $('<h6>');
-            post_author.addClass('post-author');
-            post_author.attr('author_id', post.author_id); // Store the author id for later use
-
-            /*// post body
-            var post_body = $('<p>').text(post.content);
-            post_body.addClass('post-body');*/
-
-            // 'Show full content' button
-            var post_read_more = $('<div>').text('Show full content');
-            post_read_more.addClass('post-read-more');
-            post_read_more.addClass('button');
-            post_read_more.attr('post_id', post.id); // Store the post id for later use
-
-            // Nest all the elements inside the main post div
-            post_div.append(post_title);
-            post_div.append(post_author);
-            // post_div.append(post_body);
-            post_div.append(post_read_more);
-
-            // Need to retrieve the authors name, get this then update the page
-            $.ajax({
-                url: 'https://sporadic.nz/ajax/users',
-                type: 'GET',
-                data: {id: post.author_id},
-                success: function (user) {
-                    // Set the authors name
-                    post_author.text(user.first_name + ' ' + user.last_name);
-
-                    // Insert the post at the bottom of the page, above the 'load more posts' button
-                    $('#post-load-button').before(post_div);
-
-                    // Ensure that the author name and 'show full content' buttons will work
-                    clear_and_register_post_handlers();
-                }
-            });
-        }
-
-        /* Load the next batch of posts into the page */
-        function load_more_posts() {
-            // Remove the click handler to avoid double click duplicate loads
-            $('#post-load-button').off('click');
-
-            $.ajax({
-                url: 'https://sporadic.nz/ajax/posts',
-                type: 'GET',
-                data: {
-                    from: load_post_next,
-                    count: load_post_count
-                },
-                success: function (msg) {
-                    if (msg.length < load_post_count) {
-                        // Disable the button if there are no more posts
-                        $('#post-load-button').off('click');
-                        $('#post-load-button').css("background-color", "red");
-                    }
-
-                    if (msg.length !== 0) {
-                        // Grab the id of the last post and mark the next post as the first to be fetched next
-                        load_post_next = msg[msg.length - 1].id + 1;
-
-                        // Load each post into the page
-                        for (var i = 0; i < msg.length; i++) {
-                            insert_post_into_page(msg[i]);
-                        }
-                    }
-
-                    // Reattach the click handler
-                    $('#post-load-button').click(load_more_posts);
-                }
-            });
-        }
-
-        // Register click event on the post load button
-        $('#post-load-button').click(load_more_posts);
-
-        // Do an initial load
-        load_more_posts();
-    });
 </script>
 
 
@@ -694,7 +567,7 @@
         <div class="post1">
 
             <%--post information start----------------------%>
-            <div class="postInfo">
+            <div class="postInfo" style="visibility: visible">
 
                 <%--user icon--%>
                 <div class="row">

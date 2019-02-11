@@ -29,6 +29,7 @@
     <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <%--popper.js--%>
 
     <link href='https://fonts.googleapis.com/css?family=Euphoria+Script' rel='stylesheet' type='text/css'>
 
@@ -84,17 +85,6 @@
             z-index: 1;
         }
 
-        /*.column {*/
-        /*float : left;*/
-        /*padding: 10px;*/
-        /*height: 300px;*/
-        /*}*/
-
-        /*.jumbotron{*/
-        /*margin:0;*/
-        /*width:100%;*/
-        /*height:50px;*/
-        /*}*/
 
         div.sticky {
             position: -webkit-sticky;
@@ -121,16 +111,6 @@
             border-radius: 15px;
         }
 
-        /*.search-container button {*/
-        /*float: right;*/
-        /*padding: 6px 10px;*/
-        /*margin-top: 8px;*/
-        /*margin-right: 16px;*/
-        /*background: #ddd;*/
-        /*font-size: 17px;*/
-        /*border: none;*/
-        /*cursor: pointer;*/
-        /*}*/
         nav input[type=text] {
             padding: 10px;
             margin-top: 10px;
@@ -210,7 +190,6 @@
                                 Home
                             </button>
                         </li>
-
                         <div>
                             <c:choose>
                                 <c:when test="${sessionScope.username!= null}">
@@ -253,7 +232,6 @@
                             </li>
 
                         </div>
-
                         </c:when>
                         <c:otherwise>
                             <li>
@@ -305,15 +283,6 @@
     </header>
 </div>
 
-
-<%------------------------------------%>
-
-<%--<div class="jumbotron text-center" style="margin-bottom:0; background-color: #eff5f5; ">--%>
-<%--<h1 style="color:dimgray;">Welcome to RandoMOS! </h1>--%>
-<%--</div>--%>
-<%--</div>--%>
-
-
 <%---------------------------------forum-------------------------------------------------------%>
 
 
@@ -353,6 +322,19 @@
                         <div class="form-group">
                             <input type="submit" value="loadPost" class="btn"
                                    style="color:lightseagreen;border-radius: 15px">
+                            <c:if test="${sessionScope.admin!=null}">
+                                <h4 style="color: blue;">${post.vis}</h4>
+                                <div class="dropdown m-5">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                    Show or Hide:
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a  class="dropdown-item" href="postVis?vis=yes&postId=${post.postId}">Show</a>
+                                    <a class="dropdown-item" href="postVis?vis=no&postId=${post.postId}">Hide</a>
+                                </div>
+                            </div>
+                            </c:if>
                         </div>
                     </form>
                 </div>
@@ -360,12 +342,9 @@
 
         </div>
         <br/>
-
-
     </c:forEach>
 
 </div>
-
 
 <%-------------------------------------------------modal-----------------------------%>
 
@@ -402,13 +381,6 @@
                         });
                     </script>
 
-                    <%--wyswyg   sooo-------------------%>
-
-                    <%--<div class="form-group">--%>
-                    <%--<label for="post"></label>--%>
-                    <%--<textarea class="form-control" rows="20" id="post" name="post"--%>
-                    <%--placeholder="Put your post content here..."></textarea>--%>
-                    <%--</div>--%>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-lg" onclick="">
                             Publish!
@@ -417,7 +389,6 @@
                 </form>
 
             </div>
-
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close

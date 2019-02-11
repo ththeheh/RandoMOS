@@ -109,7 +109,7 @@ public class ResetPasswordServlet extends HttpServlet {
 
             msg.setSubject(mailTitle);
 
-            msg.setContent(mailContents, "text/html; charset=euc-kr");
+            msg.setContent(mailContents, "text/html; charset=euc-en");
 
             Transport t = msgSession.getTransport(mailProtocol);
 

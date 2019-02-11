@@ -44,12 +44,13 @@ CREATE TABLE IF NOT EXISTS blog_post (
   postTitle VARCHAR(50)   NOT NULL,
   post      VARCHAR(1000) NOT NULL,
   date      VARCHAR(30) NOT NULL,
+  visible   VARCHAR(10) NOT NULL,
   PRIMARY KEY (postId),
   FOREIGN KEY (userName) REFERENCES blog_userInfo (userName)
 );
 
-INSERT INTO blog_post (postId, userName, postTitle, post, date) VALUES
-  (1, 'ykim706', 'Lorem Ipsum', 'How to cook the best homemade hotpot','11/02/2019');
+INSERT INTO blog_post (postId, userName, postTitle, post, date, visible) VALUES
+  (1, 'ykim706', 'Lorem Ipsum', 'How to cook the best homemade hotpot','11/02/2019','yes');
 
 CREATE TABLE IF NOT EXISTS blog_writeArt (
   postId   INT AUTO_INCREMENT,
