@@ -38,6 +38,7 @@ public class LoginDataServlet extends HttpServlet {
                 if (!usernameinfo.equals("Not match") && !usernameinfo.equals("Not exist")) {
 
                     session.setAttribute("username", userName);
+                    session.setAttribute("admin",dao.checkAdmin(userName));
 
                     System.out.println("this session username should be "+ req.getSession().getAttribute("username"));
 

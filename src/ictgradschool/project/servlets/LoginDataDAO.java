@@ -26,7 +26,7 @@ public class LoginDataDAO {
 
     //Use this method to add new data entries- used in LoginDataServletNew
     public void addLoginData(UserInfoJavabean loginData) throws SQLException {
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_userInfo(userName, firstName,lastName, birthday, country, email, description,iconPath) VALUES (?,?,?,?,?,?,?,?)")) {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_userInfo(userName, firstName,lastName, birthday, country, email, description,iconPath,type) VALUES (?,?,?,?,?,?,?,?,?)")) {
             preparedStatement.setString(1, loginData.getUserName());
             preparedStatement.setString(2, loginData.getFirstName());
             preparedStatement.setString(3, loginData.getLastName());
@@ -35,6 +35,8 @@ public class LoginDataDAO {
             preparedStatement.setString(6, loginData.getEmail());
             preparedStatement.setString(7, loginData.getDescription());
             preparedStatement.setString(8, loginData.getIconPath());
+            preparedStatement.setString(9, "user");
+
             //set default icon
             //            System.out.println("Row added");
             //Just indicating how many rows are added
@@ -92,6 +94,20 @@ public class LoginDataDAO {
 
         }
 
+    }
+
+
+    public boolean checkAdmin(String userName) throws SQLException {
+        try (Statement statement = this.connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_userInfo")) {
+                while (resultSet.next()) {
+                    if (resultSet.getString(1).equals(userName)) {
+                        return resultSet.getString(9).equals("admin");
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 
@@ -505,7 +521,7 @@ public class LoginDataDAO {
                         continue;
                     }
 
-                    System.out.println("hahaha"+resultSet.getString(2));
+                    System.out.println("hahaha" + resultSet.getString(2));
 
                     if (resultSet.getString(2).contains(keyWord) || resultSet.getString(3).contains(keyWord) || resultSet.getString(5).contains(keyWord)) {
 
@@ -528,8 +544,31 @@ public class LoginDataDAO {
             }
         }
     }
-}
 
+    public List<UserInfoJavabean> getAccounts() throws SQLException {
+
+        List<UserInfoJavabean> accs = new ArrayList<>();
+        try (Statement statement = this.connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_userInfo")) {
+                while (resultSet.next()) {
+                    String userName = resultSet.getString(1);
+                    String fName = resultSet.getString(2);
+                    String lName = resultSet.getString(3);
+                    String bday = resultSet.getString(4);
+                    String country = resultSet.getString(5);
+                    String email = resultSet.getString(6);
+                    String description = resultSet.getString(7);
+
+                    String iconPath = "../images/icons/" + (resultSet.getString(8));
+
+                    accs.add(new UserInfoJavabean(userName, fName, lName, bday, country, email, description, iconPath));
+
+                }
+                return accs;
+            }
+        }
+    }
+}
 
 
 //    public List<Post> getMyPost(String userName) throws SQLException {

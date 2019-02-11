@@ -223,5 +223,29 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.AdminServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>BatchAccsServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.BatchAccsServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>BatchAccsServlet</servlet-name>
+        <url-pattern>/batchAccs</url-pattern>
+    </servlet-mapping>
+
+
+
+
 
 </web-app>

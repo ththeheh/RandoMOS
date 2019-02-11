@@ -274,7 +274,19 @@
                                 </form>
                             </li>
                         </c:otherwise>
+
                         </c:choose>
+                        <c:if test="${sessionScope.admin==true}">
+                            <li>
+                                    <%--servlet for retrieving your posts needed--%>
+                                <form action="admin" method="get">
+                                    <button type="submit" class="btn btn-sm btn-primary" name="Admin"
+                                            value="true">Admin Page
+                                    </button>
+                                </form>
+                            </li>
+                        </c:if>
+
 
                     </ul>
                 </div>
@@ -282,7 +294,7 @@
                 <div class="search-container">
                     <form action="search" method="GET">
                         <input type="text" placeholder="Search.." name="keyWord">
-                        <button type="submit" class="btn-sm btn-primary float-right" style="border-radius: 5px;">Go!
+                        <button type="submit" class="btn-sm btn-primary float-right m-1" style="border-radius: 15px;">Go!
                         </button>
                     </form>
                 </div>

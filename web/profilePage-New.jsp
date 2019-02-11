@@ -123,7 +123,7 @@
             saveIconLib(iconName);
         }
 
-        var uploadImage = function (event) {
+         function uploadImage(event) {
             var formData = new FormData();
             var image = document.getElementById('featuredImage');
             image.src = URL.createObjectURL(event.target.files[0]);
@@ -173,6 +173,17 @@
 
 
 <div class="container">
+    <div class="admindirect">
+    <c:if test="${sessionScope.admin==true}">
+        <li>
+                <%--servlet for retrieving your posts needed--%>
+            <form action="admin" method="get">
+                <button type="submit" class="btn btn-sm btn-primary" name="Admin"
+                        value="true">Admin Page
+                </button>
+            </form>
+    </c:if>
+    </div>
     <div class="col-lg-8 col-md-8 col-sm-8 my-5" style="margin: auto">
         <div class="card">
 
@@ -305,5 +316,7 @@
                 </button>
             </div>
         </div>
+    </div>
+</div>
 </body>
 </html>
