@@ -234,6 +234,25 @@
 </head>
 <script>
 
+    $(document).ready(function()
+    {   var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+        today = yyyy+'-'+mm+'-'+dd;
+        $("#postdate").attr("value", today);
+        $("#postdateedit").attr("value", today);
+        console.log(today);
+         });
+
     $("#postModal").on('shown', function () {
         $("#postModal").val("");
     });
@@ -693,7 +712,7 @@
                     <%--date start--%>
                     <div class="col-lg-9 mx-5 ">
                         <h4 style="font-size: small; color: dimgray">${post.title}</h4>
-                        <h4 style="font-size: small; color: dimgray">Date: 6/02/2019</h4>
+                        <h4 style="font-size: small; color: dimgray">Date: ${post.date}</h4>
                     </div>
                 </div>
             </div>
@@ -772,9 +791,12 @@
                         <label for="title"><strong> Your Title:</strong></label>
                         <input type="text" class="form-control" id="title" name="title"
                                placeholder="Put your title here..." required>
+                        <label for="postdate"></label>
+                        <input type="date" class="form-control" id="postdate" name="date" value="" required>
+
                     </div>
                     <%--wyswyg   sooo-------------------%>
-                    <textarea id="editor" name="post"><div style="height: 400px;"></div></textarea>
+                    <textarea id="editor" name="post"><div style="height: 400px;" aria-placeholder="The characters are limited to 1000."></div></textarea>
                     <script type="text/javascript">
                         $(document).ready(function () {
                             $("#editor").editor({
@@ -823,6 +845,9 @@
                         <label for="title"><strong> Your Title:</strong></label>
                         <input type="text" class="form-control" id="edittitle" name="title"
                                placeholder="Put your title here..." required>
+                        <label for="postdateedit"></label>
+                        <input type="date" class="form-control" id="postdateedit" name="date" value="" required>
+
                     </div>
 
                     <textarea id="editpost" name="post"><div id="editpostContent"

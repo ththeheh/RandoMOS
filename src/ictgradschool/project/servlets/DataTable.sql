@@ -16,13 +16,14 @@ CREATE TABLE IF NOT EXISTS blog_userInfo (
   email       VARCHAR(50),
   description VARCHAR(500),
   iconPath    VARCHAR(100) NOT NULL,
+  type       VARCHAR(10),
   PRIMARY KEY (userName)
 );
 
 
-INSERT INTO blog_userInfo (userName, firstName, lastName, birthday, country, email, description, iconPath) VALUES
-  ('ykim706', 'Mary', 'Kim', '04/29/1995', 'South Korea', 'ykim706@aucklanduni.ac.nz',
-   'I embrace all kinds of people.', 'boy1.png');
+INSERT INTO blog_userInfo (userName, firstName, lastName, birthday, country, email, description, iconPath, type) VALUES
+  ('ykim706', 'Mary', 'Kim', '1995-04-25', 'South Korea', 'ykim706@aucklanduni.ac.nz',
+   'I embrace all kinds of people.', 'boy1.png','admin');
 
 CREATE TABLE IF NOT EXISTS blog_password (
   userName   VARCHAR(50)  NOT NULL,
@@ -34,7 +35,7 @@ CREATE TABLE IF NOT EXISTS blog_password (
 );
 
 INSERT INTO blog_password (userName, hashedCode, salt, iteration) VALUES
-  ('ykim706', 'H5bHYphCYU+DSWU3jR7WVrSNeRTwD76fUIL5+pel3rlBtqg27BrHId2LibN8smMGbW+LLAyHQMHBInNDh46Wlw==', 'ADBE1', 10);
+  ('ykim706', 'Pp21M0PH52EkTu+TI+8z2flyIoy2svf3S+zQlYVE6JBFr0p/6exiNa6S6wIJqCLMN/oOwL9aZNbwvEr6+g9AvQ==', 'š ', 10);
 
 # There would be many comments for one post and there would also be many comments that one user makes
 CREATE TABLE IF NOT EXISTS blog_post (
@@ -42,12 +43,13 @@ CREATE TABLE IF NOT EXISTS blog_post (
   userName  VARCHAR(50)   NOT NULL,
   postTitle VARCHAR(50)   NOT NULL,
   post      VARCHAR(1000) NOT NULL,
+  date      VARCHAR(30) NOT NULL,
   PRIMARY KEY (postId),
   FOREIGN KEY (userName) REFERENCES blog_userInfo (userName)
 );
 
-INSERT INTO blog_post (postId, userName, postTitle, post) VALUES
-  (1, 'ykim706', 'Lorem Ipsum', 'How to cook the best homemade hotpot');
+INSERT INTO blog_post (postId, userName, postTitle, post, date) VALUES
+  (1, 'ykim706', 'Lorem Ipsum', 'How to cook the best homemade hotpot','11/02/2019');
 
 CREATE TABLE IF NOT EXISTS blog_writeArt (
   postId   INT AUTO_INCREMENT,

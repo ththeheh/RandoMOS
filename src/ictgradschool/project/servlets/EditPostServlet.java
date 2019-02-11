@@ -8,6 +8,8 @@ import javax.xml.ws.http.HTTPException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class EditPostServlet extends HttpServlet {
 
@@ -20,14 +22,20 @@ public class EditPostServlet extends HttpServlet {
 
         try (Connection connection = DBConnection.createConnection()) {
             LoginDataDAO dao = new LoginDataDAO(connection);
-//            String userName = (String) req.getSession().getAttribute("username");
+            String userName = (String) req.getSession().getAttribute("username");
             int postId = Integer.parseInt(req.getParameter("postId"));
             String title = req.getParameter("title");
             String post = req.getParameter("post");
             //update the user info
             post = post.substring(post.indexOf(">")+1,post.lastIndexOf("<"));
 
-            dao.editPost(postId, title, post);
+            LocalDate date = LocalDate.parse(req.getParameter("date"));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+            System.out.println(formatter.format(date));
+            String dateStr = formatter.format(date);
+            PostJavaBean newPost = new PostJavaBean(userName, title, post,dateStr);
+
+            dao.editPost(postId, title, post,dateStr);
             PostJavaBean showPost = dao.getPost(postId);
 
             showPost.setIconPath(dao.getUserInfo(showPost.getUserName()).getIconPath());

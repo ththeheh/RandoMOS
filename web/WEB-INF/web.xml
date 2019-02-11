@@ -199,4 +199,72 @@
     </servlet-mapping>
 
 
+
+    <servlet>
+        <servlet-name>SearchServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.SearchServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SearchServlet</servlet-name>
+        <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+
+
+
+    <servlet>
+        <servlet-name>SortPostsServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.SortPostsServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SortPostsServlet</servlet-name>
+        <url-pattern>/sort</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.AdminServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>BatchAccsServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.BatchAccsServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>BatchAccsServlet</servlet-name>
+        <url-pattern>/batchAccs</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.ResetPasswordServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <url-pattern>/resetPassword</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NewPasswordServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.NewPasswordServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>NewPasswordServlet</servlet-name>
+        <url-pattern>/newPassword</url-pattern>
+    </servlet-mapping>
+
+
+
+
 </web-app>

@@ -8,6 +8,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class AddPostServlet extends HttpServlet {
     //Retrieve parameters and store new entries in the database
@@ -25,8 +27,10 @@ public class AddPostServlet extends HttpServlet {
             post = post.substring(post.indexOf(">")+1,post.lastIndexOf("<"));
             System.out.println("addpost :"+post);
 
-            PostJavaBean newPost = new PostJavaBean(userName, title, post);
-
+            LocalDate date = LocalDate.parse(req.getParameter("date"));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+            System.out.println(formatter.format(date));
+            PostJavaBean newPost = new PostJavaBean(userName, title, post,formatter.format(date));
             int postId = dao.savePosts(newPost);
 
             UserInfoJavabean userInfo = dao.getUserInfo(userName);
@@ -35,6 +39,7 @@ public class AddPostServlet extends HttpServlet {
             newPost.setIconPath(userInfo.getIconPath());
 //            System.out.println("this is running");
 
+            System.out.println("post date"+newPost.getDate());
             req.setAttribute("post", newPost);
 
             req.getRequestDispatcher("post.jsp").forward(req, resp);
@@ -45,11 +50,8 @@ public class AddPostServlet extends HttpServlet {
             e1.printStackTrace();
         }
 
-
         //sendRedirect to LoginDataServlet
         //refer to web.xml file for url-pattern
-
-
     }
 
     @Override
