@@ -244,6 +244,25 @@
         <url-pattern>/batchAccs</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.ResetPasswordServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <url-pattern>/resetPassword</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NewPasswordServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.NewPasswordServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>NewPasswordServlet</servlet-name>
+        <url-pattern>/newPassword</url-pattern>
+    </servlet-mapping>
 
 
 

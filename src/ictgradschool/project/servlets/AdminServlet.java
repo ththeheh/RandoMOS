@@ -27,7 +27,7 @@ public class AdminServlet extends HttpServlet {
             LoginDataDAO dao = new LoginDataDAO(connection);
             List<UserInfoJavabean> accs = new ArrayList<>();
 
-             accs = dao.getAccounts();
+            accs = dao.getAccounts();
 
             req.setAttribute("accounts", accs);
 

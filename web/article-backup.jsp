@@ -100,19 +100,6 @@
             grid-area: posts;
         }
 
-        /*textarea {*/
-
-        /*background-color: white;*/
-        /*color: #adddcf;*/
-        /*border: 1px solid #adddcf;*/
-        /*border-radius: 15px;*/
-
-        /*width: 100%;*/
-        /*height: 150px;*/
-        /*padding: 12px 20px;*/
-        /*box-sizing: border-box;*/
-        /*resize: none;*/
-        /*}*/
 
         .column {
 

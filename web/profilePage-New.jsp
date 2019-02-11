@@ -175,8 +175,7 @@
 <div class="container">
     <div class="admindirect">
     <c:if test="${sessionScope.admin==true}">
-        <li>
-                <%--servlet for retrieving your posts needed--%>
+            <%--servlet for retrieving your posts needed--%>
             <form action="admin" method="get">
                 <button type="submit" class="btn btn-sm btn-primary" name="Admin"
                         value="true">Admin Page

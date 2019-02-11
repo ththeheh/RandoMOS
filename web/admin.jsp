@@ -53,22 +53,6 @@
             width: 100px;
         }
 
-        .custom-file-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-        }
-
-        .custom-file-wrapper input[type=file] {
-
-            font-size: 100px;
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-
-        }
-
         .btn {
             background-color: #e6ffe6;
             border: none;
@@ -98,39 +82,6 @@
 
     </style>
     <script>
-        // "use strict";
-        function batchLoad(event) {
-            // if (event.target.error) {
-            //     alert('Error while reading file');
-            //     return;
-            // }
-            var files = event.target.files; // FileList object
-
-            // use the 1st file from the list
-            var f = files[0];
-
-            // ajax issue.
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var batchAccs = reader.result;    //this gets the string of the file.
-
-                //     $.ajax({
-                //         type: 'POST',
-                //         url: 'batchAccs',
-                //         data: {'batchData': batchAccs},
-                //         processData: false,
-                //         success: function (msg) {
-                //             alert(msg);
-                //         },
-                //         error: function (request, status, error) {
-                //             alert(request.responseText);
-                //         }
-                //     });
-                //
-                // }
-            }
-        }
-            // console.log("this is the accs info: " + info);
 
     </script>
 
@@ -141,48 +92,59 @@
 <div class="container">
     <div class="col-lg-8 col-md-8 col-sm-8 my-5" style="margin: auto">
         <div class="card">
-
+            <div class="col-lg-6">
+                <button type="button" class="btn btn-sm btn-gray btn-lg"
+                        onclick="location.href='mainPage.jsp'">
+                    Home
+                </button>
+            </div>
             <%--card header--%>
             <div class="card-header">
 
                 <h3 style="color:dimgray;"> Administrator Page </h3>
-
             </div>
             <br>
             <div class="card-body">
                 <br>
-                <label for="batchAccs">Upload file to batch load user accounts for registration:</label>
-                    <input type="file"
-                           id="batchAccs" name="batchAccs"
-                           accept="txt" onchange="batchLoad(event)">
+                <form action="batchAccs" method="post">
+                    <p>Put batch registration info in the format: <em>username;password;first name;last
+                        name;birthday(year-month-day);country;email;description; (no space between)</em></p>
+                    <div class="form-group">
+                        <textarea name="batchAccs" id="batchAccs" cols="60" rows="10"
+                                  placeholder=""></textarea>"
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn" name="batchSubmit" value="Add Accounts"
+                               style="color:green;border-radius: 15px">
+                    </div>
+                </form>
+                <hr size="2">
+                <h5> &nbsp; All the existing users:</h5>
+                <ul>
 
-                    <hr size="2">
-                    <h5> &nbsp; All the existing users:</h5>
-                    <ul>
+                    <c:forEach items="${accounts}" var="acc">
+                        <li>
+                            <div class="col-lg-3">
+                                <img src="${acc.iconPath}" alt="" style="width:50px;height: auto">
+                            </div>
+                            <div class="col-lg-6">
+                                <h5>${acc.userName}</h5>
+                                <p>${acc.firstName} ${acc.lastName}</p>
+                            </div>
+                        </li>
 
-                        <c:forEach items="${accounts}" var="acc">
-                            <li>
-                                <div class="col-lg-3">
-                                    <img src="${acc.iconPath}" alt="" style="width:50px;height: auto">
-                                </div>
-                                <div class="col-lg-6">
-                                    <h5>${acc.userName}</h5>
-                                    <p>${acc.firstName} ${acc.lastName}</p>
-                                </div>
-                            </li>
+                        <form action="deleteAccount" method="post">
+                            <div class="form-group">
+                                <input type="hidden" value="${acc.userName}" name="userName">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Delete This Account" class="btn" name="admin"
+                                       style="color:red;border-radius: 15px">
+                            </div>
+                        </form>
 
-                            <form action="deleteAccount" method="post">
-                                <div class="form-group">
-                                    <input type="hidden" value="${acc.userName}" name="userName">
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="Delete This Account" class="btn" name="admin"
-                                           style="color:red;border-radius: 15px">
-                                </div>
-                            </form>
-
-                        </c:forEach>
-                    </ul>
+                    </c:forEach>
+                </ul>
             </div>
 
 

@@ -75,6 +75,7 @@
             <div class="card-footer" style="background-color: #eff5f5;">
                 <div class="justify-content-center links" style="color:dimgray;">
                     Don't have an account?<a href="reg.jsp"> &nbsp; Create account</a>
+                    <a href="email4NewPassword.jsp"> &nbsp;  &nbsp; Reset password</a>
                 </div>
             </div>
         </div>

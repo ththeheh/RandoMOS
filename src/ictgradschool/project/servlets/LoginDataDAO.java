@@ -70,6 +70,33 @@ public class LoginDataDAO {
         }
     }
 
+    public void updatePassword(String userName, String newPassword) throws SQLException {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE blog_password SET hashedCode=?,salt=?,iteration=? WHERE userName=? ")) {
+
+            System.out.println("Servlet passed username" + userName);
+            System.out.println("Servlet passed password" + newPassword);
+
+            int iteration = 10;
+            int saltLength = 2;
+            byte[] saltByte = Passwords.getNextSalt(saltLength);
+            String hashedCode = Passwords.base64Encode(Passwords.hash(newPassword.toCharArray(), saltByte, iteration));
+
+            String salt = new String(saltByte);
+
+            preparedStatement.setString(1, hashedCode);
+            preparedStatement.setString(2, salt);
+            preparedStatement.setInt(3, iteration);
+            preparedStatement.setString(4, userName);
+
+            int numRows = preparedStatement.executeUpdate();
+            System.out.println(numRows + " user password updated");
+
+        }
+
+    }
+
+
+
     public String validation(String userName, String password) throws SQLException {
         try (Statement statement = this.connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_password")) {
