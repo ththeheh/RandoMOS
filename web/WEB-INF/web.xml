@@ -264,8 +264,6 @@
         <url-pattern>/newPassword</url-pattern>
     </servlet-mapping>
 
-
-
     <servlet>
         <servlet-name>PostVisServlet</servlet-name>
         <servlet-class>ictgradschool.project.servlets.PostVisServlet</servlet-class>
@@ -276,6 +274,17 @@
         <url-pattern>/postVis</url-pattern>
     </servlet-mapping>
 
+
+
+    <servlet>
+        <servlet-name>RedirectResetPasswordPageServlet</servlet-name>
+        <servlet-class>ictgradschool.project.servlets.RedirectResetPasswordPageServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RedirectResetPasswordPageServlet</servlet-name>
+        <url-pattern>/redirectPassword</url-pattern>
+    </servlet-mapping>
 
 
 </web-app>

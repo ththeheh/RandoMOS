@@ -95,6 +95,35 @@ public class LoginDataDAO {
 
     }
 
+    public int randomCode(String userName) throws SQLException {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_randomcode(userName, randomCode) VALUES (?,?)")) {
+            preparedStatement.setString(1, userName);
+//            preparedStatement.setInt(2, resetPasswordJavaBean.getRandomPassword());
+            int randomNum = (int) (Math.floor(Math.random() * 900000) + 100000);
+            System.out.println(randomNum);
+
+            preparedStatement.setInt(2, randomNum);
+
+
+            int numRows = preparedStatement.executeUpdate();
+            System.out.println(numRows + " user randomcode generated");
+
+            return randomNum;
+        }
+    }
+
+    public String getUserByRandomCode(int randomcode) throws SQLException {
+        try (Statement statement = this.connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_randomcode")) {
+                while (resultSet.next()) {
+                    if (resultSet.getInt(2) == randomcode) {
+                        return resultSet.getString(1);
+                    }
+                }
+            }
+        }
+        return null;
+    }
 
 
     public String validation(String userName, String password) throws SQLException {
@@ -172,7 +201,7 @@ public class LoginDataDAO {
                         loginBean.setEmail(resultSet.getString(6));
                         loginBean.setDescription(resultSet.getString(7));
 
-                        loginBean.setIconPath("../images/icons/" + (resultSet.getString(8)));
+                        loginBean.setIconPath("../icons/" + (resultSet.getString(8)));
 
                         return loginBean;
                     }
@@ -310,9 +339,7 @@ public class LoginDataDAO {
             preparedStatement.setInt(4, postId);
             preparedStatement.setInt(4, postId);
 
-            LocalDate localDate = LocalDate.parse(date);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
-            preparedStatement.setString(3, formatter.format(localDate));
+            preparedStatement.setString(3, date);
             int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " post updated");
 
@@ -478,7 +505,7 @@ public class LoginDataDAO {
                     String post = resultSet.getString(4);
                     String date = resultSet.getString(5);
                     String vis = resultSet.getString(6);
-                    PostJavaBean mainPost = new PostJavaBean(userName, title, post, postId, date,vis);
+                    PostJavaBean mainPost = new PostJavaBean(userName, title, post, postId, date, vis);
 //                mainPost1.setPostId(postId);
                     posts.add(mainPost);
                 }
@@ -586,7 +613,7 @@ public class LoginDataDAO {
                     String email = resultSet.getString(6);
                     String description = resultSet.getString(7);
 
-                    String iconPath = "../images/icons/" + (resultSet.getString(8));
+                    String iconPath = "../icons/" + (resultSet.getString(8));
 
                     accs.add(new UserInfoJavabean(userName, fName, lName, bday, country, email, description, iconPath));
 

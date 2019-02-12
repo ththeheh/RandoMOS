@@ -34,7 +34,7 @@ public class EditProfServlet extends HttpServlet {
             //get the user info and redirect to the profile page.
             UserInfoJavabean updatedBean = dao.getUserInfo(userName);
             req.setAttribute("userInfo", updatedBean);
-            req.getRequestDispatcher("profilePage-New.jsp").forward(req,resp);
+            req.getRequestDispatcher("profilePage.jsp").forward(req,resp);
 
             System.out.println("the line before redirect"+email);
 

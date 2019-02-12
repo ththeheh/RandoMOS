@@ -122,19 +122,6 @@
             grid-area: posts;
         }
 
-        /*textarea {*/
-
-        /*background-color: white;*/
-        /*color: #adddcf;*/
-        /*border: 1px solid #adddcf;*/
-        /*border-radius: 15px;*/
-
-        /*width: 100%;*/
-        /*height: 150px;*/
-        /*padding: 12px 20px;*/
-        /*box-sizing: border-box;*/
-        /*resize: none;*/
-        /*}*/
 
         .column {
 
@@ -324,7 +311,7 @@
         var replyuser = "replyuser" + (i) + "_" + (j);
 
         if ($("#" + replyuser).text() === '${sessionScope.username}') {
-            // console.log("why is this runnin?");
+            console.log("why is this runnin?");
             var deleteRep = "delete" + j;
             $("#" + deleteRep).css("visibility", "visible");
 
@@ -333,21 +320,21 @@
 
     function showCMReply(i) {
         var cmuser = "cmuser" + i;
-        <%--if ($("#" + cmuser).text() === '${sessionScope.username}') {--%>
+        if ($("#" + cmuser).text() === '${sessionScope.username}') {
         var replyCm = "submit" + (i);
         $("#" + replyCm).css("visibility", "visible");
-        // }
+        }
     }
 
     function showRPReply(i, j) {
 
         var replyuser = "replyuser" + (i) + "_" + (j);
 
-        <%--if ($("#" + replyuser).text() === '${sessionScope.username}') {--%>
+        if ($("#" + replyuser).text() === '${sessionScope.username}') {
         var replyRep = "submit" + j;
         $("#" + replyRep).css("visibility", "visible");
 
-        // }
+        }
     }
 
     function deleteCM(i) {
@@ -595,7 +582,7 @@
 
                 <div id="postList" class="panel" style="color:dimgray;">
                     <%--load posts here--%>
-                    <p style="color: dimgray;">${post.post}.</p>
+                    <p style="color: dimgray;">${post.post}</p>
                 </div>
 
             </div>

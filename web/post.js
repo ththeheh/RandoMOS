@@ -14,7 +14,7 @@ function addcomment(postId,show) {
     // console.log(postId);
 
     var cm = document.getElementById("comment").value;
-    var a1 = "<div class='card dark-grey' id='commentdiv" + i + "' ><img class='card-img-top img-thumbnail rounded-circle boarder-primary' id='image" + i + "' src='' alt='Card image cap' style='width: 50px;height: 50px;visibility: visible'>" +
+    var a1 = "<div class='card dark-grey' id='commentdiv" + i + "' ><img class='card-img-top img-thumbnail rounded-circle boarder-primary' id='image" + i + "' src='' alt='Card image cap' style='width: 50px;height: 50px;visibility: hidden'>" +
         "<div class='card-body'><p class='card-title' id='cmuser" + i + "'></p><p class='card-text' id='CMContent"+i+"'>";
     var a2 = cm + "</p></div><br/><div>" +
         "<button type='submit' id='delete" + i + "' class='btn btn-danger btn-md float-right'  onclick='deleteCM(" + i + ")'  style='visibility:hidden'><strong>Delete</strong></button>" +
@@ -80,7 +80,7 @@ function addcomment(postId,show) {
         var reply;
         reply = document.getElementById("reply" + replyId).value;
 
-        var a1 = "<div class='card dark-grey'  id='replydiv" + (j - 1) + "' style='visibility:visible'>";
+        var a1 = "<div class='card dark-grey'  id='replydiv" + (j - 1) + "' style='visibility:hidden'>";
         var a2 = "<img id='image" + (j - 1) + "' class='card-img-top img-thumbnail rounded-circle boarder-primary' src='' alt='Card image cap' style='width: 50px;height: 50px;'>"; //icon image
         var a3 = "<div class='card-body'> ";
         var a4 = "<p class='card-title' id='replyuser" +list+"_"+ (j - 1) + "'></p>";

@@ -6,12 +6,12 @@
 <html>
 
 
-
 <head>
 
 
     <title>Login Page</title>
-    <link href="${pageContext.request.contextPath}//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"
+    <link href="${pageContext.request.contextPath}//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          rel="stylesheet" id="bootstrap-css"
           xmlns:font-size="http://www.w3.org/1999/xhtml">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -27,10 +27,10 @@
         }
 
         .fas {
-            color:#ffa64d;
+            color: #ffa64d;
         }
 
-        image{
+        image {
             -webkit-filter: hue-rotate(90deg); /* Safari */
             filter: hue-rotate(90deg);
         }
@@ -57,46 +57,48 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                <div class="col-lg-3 col-md-8 col-sm-12 my-5">
+                    <div class="col-lg-3 col-md-8 col-sm-12 my-5">
 
                         <img class="img-circle mx-5" style="width:150px; height:150px;" id="featuredImage"
                              src="../images/Mail-Password-icon.png" alt="profile icon"/>
 
-                </div>
-                <div class="col-lg-4 col-md-8 col-sm-12 my-5">
+                    </div>
+                    <div class="col-lg-4 col-md-8 col-sm-12 my-5">
 
                         <p> Enter your email or username. </p>
                         <p> We'll email instructions on how </p>
                         <p> to reset your password. </p>
 
-                </div>
-                <div class="col-lg-5 col-md-8 col-sm-12 my-5">
-                    <!--use form for user input-->
-                    <form action="resetPassword" method="GET">
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
+                    </div>
+                    <div class="col-lg-5 col-md-8 col-sm-12 my-5">
+                        <!--use form for user input-->
+                        <form action="resetPassword" method="GET">
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
                                 <span class="input-group-text" style="background-color: #eff5f5;"><i
                                         class="fa fa-envelope-o"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="username" name="username">
                             </div>
-                            <input type="text" class="form-control" placeholder="email" name="email">
-                        </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="email" name="email">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Submit"
+                                       class="btn float-right login_btn btn-grey btn-outline-secondary"
+                                       style="color:#024a26;" onclick="alert('A password reset link will be sent to your email, please have a check!')">
+                            </div>
 
 
-                        <div class="form-group">
-                            <input type="submit" value="submit" class="btn float-right login_btn btn-grey"
-                                   style="color:dimgray;">
-                        </div>
-
-
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card-footer" style="background-color: #eff5f5;">
+            <div class="card-footer" style="background-color: #eff5f5;">
 
+            </div>
         </div>
     </div>
-</div>
 </div>
 </body>
 </html>

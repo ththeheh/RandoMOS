@@ -56,17 +56,7 @@ public class SortPostsServlet extends HttpServlet {
 //                            sort = cookie.getValue();
 //                        }
                     }
-//                    System.out.println("final cookie: " + order);
-//                    if (order.length() == 0) {
-//                        System.out.println("no cookie found");
-//                        Cookie sortCookie = new Cookie("sort", sort);
-//                        sortCookie.setMaxAge(COOKIE_EXPIRATION_TIME);
-//                        resp.addCookie(sortCookie);
-//
-//                        Cookie sortOrderCookie = new Cookie("order", "ascending");
-//                        order = "ascending";
-//                        sortOrderCookie.setMaxAge(COOKIE_EXPIRATION_TIME);
-//                        resp.addCookie(sortOrderCookie);
+
 //                    }
 
                 }

@@ -3,10 +3,10 @@ package ictgradschool.project.servlets;
 import javax.mail.internet.InternetHeaders;
 import javax.mail.internet.MimeBodyPart;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -45,95 +45,122 @@ public class ResetPasswordServlet extends HttpServlet {
 
         String mailTitle = "Reset your password";
 
+        int randomcode;
 
+        try (Connection connection = DBConnection.createConnection()) {
+            LoginDataDAO dao = new LoginDataDAO(connection);
 
+            String userName = req.getParameter("username");
 
-//        String link = "db.sporadic.nz/web/newPassword.jsp";
-        String link = "http://localhost:8083/resetNewPassword.jsp";
+            if(!(dao.usernameConflict(userName,"@").equals("username"))){
+                Cookie cookie = new Cookie("nousername", "true");
+                cookie.setMaxAge(5);
 
-        String mailContents = "Click this link to reset your password \n" + link;
+                System.out.println("this is the cookie name"+cookie.getValue());
 
-        String debugMode = "false";
-
-        String authMode = "true";
-
-
-        try {
-
-
-            boolean debug = Boolean.valueOf(debugMode).booleanValue();
-
-
-            Properties mailProps = new Properties();
-
-            mailProps.put("mail.smtp.starttls.enable", "true");
-
-            mailProps.setProperty("mail.transport.protocol", mailProtocol);
-
-            mailProps.put("mail.debug", debugMode);
-
-            mailProps.put("mail.smtp.host", mailHost);
-
-            mailProps.put("mail.smtp.port", mailPort);
-
-            mailProps.put("mail.smtp.connectiontimeout", "5000");
-
-            mailProps.put("mail.smtp.timeout", "5000");
-
-            mailProps.put("mail.smtp.auth", authMode);
-
-
-            Session msgSession = null;
-
-            if (authMode.equals("true")) {
-
-                Authenticator auth = new MyAuthentication(mailId, mailPassword);
-
-                msgSession = Session.getInstance(mailProps, auth);
-
-            } else {
-
-                msgSession = Session.getInstance(mailProps, null);
-
+                resp.addCookie(cookie);
+                req.getRequestDispatcher("loginPage.jsp").forward(req,resp);
             }
 
+            HttpSession session = req.getSession();
 
-            msgSession.setDebug(debug);
+            session.setAttribute("username",userName);
 
+            System.out.println("This is username: " + userName);
+            randomcode = dao.randomCode(userName);
 
-            MimeMessage msg = new MimeMessage(msgSession);
+            String link = "http://localhost:8083/redirectPassword?randomcode=";
 
-            msg.setFrom(new InternetAddress(fromEmail, fromName));
+            String mailContents = "Click this link to reset your password \n" + link + randomcode;
 
-            msg.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail, toName));
+            String debugMode = "false";
 
-            msg.setSubject(mailTitle);
-
-            msg.setContent(mailContents, "text/html; charset=euc-en");
-
-            Transport t = msgSession.getTransport(mailProtocol);
+            String authMode = "true";
 
             try {
 
-                t.connect();
+                boolean debug = Boolean.valueOf(debugMode).booleanValue();
 
-                t.sendMessage(msg, msg.getAllRecipients());
 
-            } finally {
+                Properties mailProps = new Properties();
 
-                t.close();
+                mailProps.put("mail.smtp.starttls.enable", "true");
+
+                mailProps.setProperty("mail.transport.protocol", mailProtocol);
+
+                mailProps.put("mail.debug", debugMode);
+
+                mailProps.put("mail.smtp.host", mailHost);
+
+                mailProps.put("mail.smtp.port", mailPort);
+
+                mailProps.put("mail.smtp.connectiontimeout", "5000");
+
+                mailProps.put("mail.smtp.timeout", "5000");
+
+                mailProps.put("mail.smtp.auth", authMode);
+
+
+                Session msgSession = null;
+
+                if (authMode.equals("true")) {
+
+                    Authenticator auth = new MyAuthentication(mailId, mailPassword);
+
+                    msgSession = Session.getInstance(mailProps, auth);
+
+                } else {
+
+                    msgSession = Session.getInstance(mailProps, null);
+
+                }
+
+
+                msgSession.setDebug(debug);
+
+
+                MimeMessage msg = new MimeMessage(msgSession);
+
+                msg.setFrom(new InternetAddress(fromEmail, fromName));
+
+                msg.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail, toName));
+
+                msg.setSubject(mailTitle);
+
+                msg.setContent(mailContents, "text/html");
+
+                Transport t = msgSession.getTransport(mailProtocol);
+
+                try {
+
+                    t.connect();
+
+                    t.sendMessage(msg, msg.getAllRecipients());
+
+                } finally {
+
+                    t.close();
+
+                }
+
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
 
             }
 
+            resp.sendRedirect("loginPage.jsp");
 
-        } catch (Exception e) {
-
+        } catch (SQLException e) {
             e.printStackTrace();
-
         }
-
-        resp.sendRedirect("loginPage.jsp");
     }
+
+//        String link = "db.sporadic.nz/web/newPassword.jsp";
+
+
+
 
 
 

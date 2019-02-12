@@ -30,6 +30,11 @@
 
         .card-footer {
             display: inline-block;
+            background: #eff5f5;
+        }
+
+        .card-header {
+            background: #eff5f5;
         }
 
         .grid-container {
@@ -231,13 +236,13 @@
                     <div class="col-lg-7 col-md-6 col-sm-6 m-auto">
                         <div id="userInfo">
                             <br>
-                            <h6>User Name: ${userInfo.userName} </h6>
-                            <h6>First Name: ${userInfo.firstName}</h6>
-                            <h6>Last Name: ${userInfo.lastName}</h6>
-                            <h6>Birthday: ${userInfo.birthday}</h6>
-                            <h6>Country: ${userInfo.country}</h6>
-                            <h6>Email: ${userInfo.email}</h6>
-                            <h6>Description: ${userInfo.description}</h6>
+                            <h6>User Name: &nbsp;&nbsp;&nbsp; ${userInfo.userName} </h6>
+                            <h6>First Name: &nbsp;&nbsp;&nbsp;${userInfo.firstName}</h6>
+                            <h6>Last Name: &nbsp;&nbsp;&nbsp;${userInfo.lastName}</h6>
+                            <h6>Birthday:&nbsp;&nbsp;&nbsp; ${userInfo.birthday}</h6>
+                            <h6>Country: &nbsp;&nbsp;&nbsp;${userInfo.country}</h6>
+                            <h6>Email: &nbsp;&nbsp;&nbsp;${userInfo.email}</h6>
+                            <h6>Description: &nbsp;&nbsp;&nbsp;${userInfo.description}</h6>
                         </div>
                     </div>
                 </div>
@@ -278,34 +283,34 @@
             <div class="modal-body centered">
                 <div onclick="changeImage(0)" id="0" class="thumb-holder m-5 padding-auto"
                 ><img
-                        src="images/icons/boy1.png" alt="thumb"></div>
+                        src="icons/boy1.png" alt="thumb"></div>
                 <div onclick="changeImage(1)" id="1" class="thumb-holder m-5 padding-auto"
                 ><img
-                        src="images/icons/boy2.png" alt="thumb"></div>
+                        src="icons/boy2.png" alt="thumb"></div>
                 <div onclick="changeImage(2)" id="2" class="thumb-holder m-5 padding-auto"
                 ><img
-                        src="images/icons/girl1.png" alt="thumb"></div>
+                        src="icons/girl1.png" alt="thumb"></div>
                 <div onclick="changeImage(3)" id="3" class="thumb-holder m-5 padding-auto"
                 ><img
-                        src="images/icons/girl2.png" alt="thumb"></div>
+                        src="icons/girl2.png" alt="thumb"></div>
                 <div onclick="changeImage(4)" id="4" class="thumb-holder m-5 padding-auto"
                 ><img
-                        src="images/icons/girl3.png" alt="thumb"></div>
+                        src="icons/girl3.png" alt="thumb"></div>
                 <div onclick="changeImage(5)" id="5" class="thumb-holder m-5 padding-auto"
                 ><img
-                        src="images/icons/girl4.png" alt="thumb"></div>
+                        src="icons/girl4.png" alt="thumb"></div>
                 <div onclick="changeImage(6)" id="6" class="thumb-holder m-5 padding-auto"
                 ><img
-                        src="images/icons/girl5.png" alt="thumb"></div>
+                        src="icons/girl5.png" alt="thumb"></div>
                 <div onclick="changeImage(7)" id="7" class="thumb-holder m-5 padding-auto"
                 ><img
-                        src="images/icons/girl6.png" alt="thumb"></div>
+                        src="icons/girl6.png" alt="thumb"></div>
                 <div onclick="changeImage(8)" id="8" class="thumb-holder m-5 padding-auto"
                 ><img
-                        src="images/icons/man1.png" alt="thumb"></div>
+                        src="icons/man1.png" alt="thumb"></div>
                 <div onclick="changeImage(9)" id="9" class="thumb-holder m-5 padding-auto"
                 ><img
-                        src="images/icons/man2.png" alt="thumb"></div>
+                        src="icons/man2.png" alt="thumb"></div>
             </div>
 
 

@@ -60,6 +60,54 @@
             float: right;
         }
 
+       /* button {
+
+            background-color: #e6ffe6;
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+
+            font-size: 16px;
+            margin: 2px 2px;
+
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            cursor: pointer;
+
+
+        }*/
+       /* button {
+            background-color: #e6ffe6;
+            width: 100%;
+            text-align: center;
+            border: none;
+            color: white;
+            padding: auto;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+*/
+
+        button {
+            background-color: white;
+            color: #adddcf;
+            border: 1px solid #adddcf;
+            border-radius: 15px;
+        }
+
+        button:hover {
+            background-color: #eff5f5;
+            color: #024a26;
+        }
+
+
         .btn:hover {
             background-color: #eff5f5;
             color: #024a26;
@@ -119,10 +167,6 @@
             border-width: 1px;
             border-radius: 15px;
             border-color: black;
-        }
-
-        .search-container button:hover {
-            background: #ccc;
         }
 
         nav .search-container {
@@ -271,7 +315,7 @@
                 <div class="search-container">
                     <form action="search" method="GET">
                         <input type="text" placeholder="Search.." name="keyWord">
-                        <button type="submit" class="btn-sm btn-primary float-right m-1" style="border-radius: 15px;">Go!
+                        <button type="submit" class="btn-sm float-right m-1" style="border-radius: 15px;">Go!
                         </button>
                     </form>
                 </div>
@@ -322,7 +366,7 @@
                         <div class="form-group">
                             <input type="submit" value="loadPost" class="btn"
                                    style="color:lightseagreen;border-radius: 15px">
-                            <c:if test="${sessionScope.admin!=null}">
+                            <c:if test="${sessionScope.admin==true}">
                                 <h4 style="color: blue;">${post.vis}</h4>
                                 <div class="dropdown m-5">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"

@@ -40,27 +40,23 @@ public class ShowMainPageServlet extends HttpServlet {
                 if ((req.getSession().getAttribute("admin") == null)) {
 
                     posts.removeIf(value -> value.getVis().equals("no"));
+                    for (PostJavaBean postJavaBean : posts) {
+                        postJavaBean.setIconPath(dao.getUserInfo(postJavaBean.getUserName()).getIconPath());
+                    }
+                }else {
 
-//                     for(PostJavaBean postJavaBean:posts){
-//                         System.out.println("the visibility of this post is: "+postJavaBean.getVis());
-//                         if(postJavaBean.getVis().equals("no")){
-//                             posts.remove(postJavaBean);
-//                         }
-                }
-
-                for (PostJavaBean postJavaBean : posts) {
-                    postJavaBean.setIconPath(dao.getUserInfo(postJavaBean.getUserName()).getIconPath());
-                    if(postJavaBean.getVis().equals("yes")){
-                        postJavaBean.setVis("Visible");
-                    }else{
-                        postJavaBean.setVis("Not Visible");
+                    for (PostJavaBean postJavaBean : posts) {
+                        postJavaBean.setIconPath(dao.getUserInfo(postJavaBean.getUserName()).getIconPath());
+                        if (postJavaBean.getVis().equals("yes")) {
+                            postJavaBean.setVis("Visible");
+                        } else {
+                            postJavaBean.setVis("Not Visible");
+                        }
                     }
                 }
 
                 req.setAttribute("stop", true);
                 req.setAttribute("posts", posts);
-
-
 
                 System.out.println("latest posts will be dispatched");
 

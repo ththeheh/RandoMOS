@@ -435,7 +435,9 @@
                         <input type="text" class="form-control" id="description" name="description">
                     </div>
 
-
+                    <button type="submit" class="btn btn-primary float-left btn-lg" )>
+                        Update
+                    </button>
                     <button type="submit" class="btn btn-primary btn-lg" onclick="alert('Profile updated!')">
                         Update
                     </button>
