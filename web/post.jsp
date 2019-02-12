@@ -277,12 +277,18 @@
         var cmuser = "cmuser" + i;
         console.log("this is the cmuser from show function" + cmuser);
         console.log("this is the session" + '${sessionScope.username}');
+        console.log("this is the cmuser" + $("#" + cmuser).text());
+
+        console.log("delete is not supposed to be shown");
+
         if ($("#" + cmuser).text() === '${sessionScope.username}') {
-            var deleteCm = "delete" + (i);
+            var deleteCm = "delete" + i;
             console.log("delete comment id " + deleteCm);
             $("#" + deleteCm).css("visibility", "visible");
         }
     }
+
+
 
     function showRPDelete(j) {
 
@@ -302,14 +308,14 @@
         console.log("this is the session username"+'${sessionScope.username}');
         console.log('${sessionScope.username}'.length!==0);
         if ('${sessionScope.username}'.length!==0) {
-            var replyCm = "submit" + (i);
+            var replyCm = "submit" + i;
             $("#" + replyCm).css("visibility", "visible");
         }
     }
 
     function showRPReply(j) {
 
-        var replyuser = "replyuser" + (j);
+        var replyuser = "replyuser" + j;
 
         if ('${sessionScope.username}'.length!==0) {
             var replyRep = "submit" + j;
@@ -393,11 +399,11 @@
             <c:forEach items="${comment.replies}" var="reply">
             addReply(i, j, ${post.postId}, true);
             $("#" + "image" + j).attr("src", '${reply.iconPath}');
-            $("#" + "replyuser" + i + "_" + j).text('${reply.userName}');
+            $("#" + "replyuser" + j).text('${reply.userName}');
             $("#" + "RPContent" + j).text('${reply.comment}');
             <%--}--%>
             <%--}--%>
-            showRPDelete(i, j);
+            showRPDelete(j);
             showRPReply(j);
             j++;
 

@@ -79,7 +79,7 @@ function addcomment(postId,show) {
 
 //js for adding reply
 
-    function addReply(list, replyId, postId, show) {
+    function addReply(cmId, replyId, postId, show) {
 
         //assign new id to reply.
         var reply;
@@ -96,7 +96,7 @@ function addcomment(postId,show) {
             " <strong>Reply Here</strong></button><br/><br/></div></div>" +
             " <div class='modal' id='replymodal" + j + "'><div class='modal-dialog modal-lg'><div class='modal-content'><div class='modal-body'><form action='#'><div class='form-group'><label for='article'></label>" +
             " <textarea class='form-control' rows='5' id='reply" + j + "'" + " placeholder='Reply here...'></textarea>" +
-            " </div></form><div class='form-group'><button type='submit' class='btn btn-primary btn-lg' data-dismiss='modal'  onclick='addReply(" + list + "," + j++ + "," + postId +",false)'>" +
+            " </div></form><div class='form-group'><button type='submit' class='btn btn-primary btn-lg' data-dismiss='modal'  onclick='addReply(" + cmId + "," + j++ + "," + postId +",false)'>" +
             " Submit!</button></div></div><div class='modal-footer'><button type='button' class='btn btn-danger' data-dismiss='modal'>Close" +
             " </button></div></div></div></div>";
 
@@ -108,9 +108,9 @@ function addcomment(postId,show) {
         var div = document.createElement('div');
         div.innerHTML = a1 + a2 + a3 + a4 + a5 + a6;
         // var id = testlist+i;
-        // console.log("list" + list);
+        // console.log("list" + cmId);
 
-        document.getElementById("list" + list).appendChild(div);
+        document.getElementById("list" + cmId).appendChild(div);
 
         // console.log("this is the postId" + postId);
         //
@@ -118,19 +118,19 @@ function addcomment(postId,show) {
             $.ajax({
                 type: 'POST',
                 url: 'addReply',
-                data: {'postId': postId, 'commentId': list, 'replyId': (j - 2), 'reply': reply},
+                data: {'postId': postId, 'commentId': cmId, 'replyId': (j - 2), 'reply': reply},
                 async: true,
                 dataType: 'text',
                 success: function (userJsonStr) {
                     // console.log(userJson);
                     var jsonS = JSON.parse(userJsonStr);
-                    var replyuser = "replyuser" + list + "_" + (j - 2);
+                    var replyuser = "replyuser" + (j - 2);
                     var imageuser = "image" + (j - 2);
                     $("#" + replyuser).text(jsonS["userName"]);
                     $("#" + imageuser).attr("src", jsonS["iconPath"]);
                     // console.log(cmuser);
                     // console.log(imageuser);
-                    // console.log("reply id "+list+""+"j-2");
+                    // console.log("reply id "+cmId+""+"j-2");
 
                     showRPDelete(j - 2);
                     showRPReply(j - 2);

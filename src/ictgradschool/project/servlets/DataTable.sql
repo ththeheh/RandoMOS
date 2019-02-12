@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS blog_userReply (
 );
 
 INSERT INTO blog_userReply (postId, commentId, replyId, userName, reply) VALUES
-  (1, 1, 4, 'ykim706', 'This is awesome!!!');
+  (1, 1, 1, 'ykim706', 'This is awesome!!!');
 
 CREATE TABLE IF NOT EXISTS blog_randomcode (
   userName   VARCHAR(50) NOT NULL,
