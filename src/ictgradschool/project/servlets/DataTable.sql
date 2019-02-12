@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS blog_randomcode;
 DROP TABLE IF EXISTS blog_userReply;
 DROP TABLE IF EXISTS blog_userComment;
 DROP TABLE IF EXISTS blog_writeArt;
@@ -16,14 +17,14 @@ CREATE TABLE IF NOT EXISTS blog_userInfo (
   email       VARCHAR(50),
   description VARCHAR(500),
   iconPath    VARCHAR(100) NOT NULL,
-  type       VARCHAR(10),
+  type        VARCHAR(10),
   PRIMARY KEY (userName)
 );
 
 
 INSERT INTO blog_userInfo (userName, firstName, lastName, birthday, country, email, description, iconPath, type) VALUES
   ('ykim706', 'Mary', 'Kim', '1995-04-25', 'South Korea', 'ykim706@aucklanduni.ac.nz',
-   'I embrace all kinds of people.', 'boy1.png','admin');
+   'I embrace all kinds of people.', 'boy1.png', 'admin');
 
 CREATE TABLE IF NOT EXISTS blog_password (
   userName   VARCHAR(50)  NOT NULL,
@@ -43,13 +44,14 @@ CREATE TABLE IF NOT EXISTS blog_post (
   userName  VARCHAR(50)   NOT NULL,
   postTitle VARCHAR(50)   NOT NULL,
   post      VARCHAR(1000) NOT NULL,
-  date      VARCHAR(30) NOT NULL,
+  date      VARCHAR(30)   NOT NULL,
+  visible   VARCHAR(10)   NOT NULL,
   PRIMARY KEY (postId),
   FOREIGN KEY (userName) REFERENCES blog_userInfo (userName)
 );
 
-INSERT INTO blog_post (postId, userName, postTitle, post, date) VALUES
-  (1, 'ykim706', 'Lorem Ipsum', 'How to cook the best homemade hotpot','11/02/2019');
+INSERT INTO blog_post (postId, userName, postTitle, post, date, visible) VALUES
+  (1, 'ykim706', 'Lorem Ipsum', 'How to cook the best homemade hotpot', '11/02/2019', 'yes');
 
 CREATE TABLE IF NOT EXISTS blog_writeArt (
   postId   INT AUTO_INCREMENT,
@@ -87,11 +89,19 @@ CREATE TABLE IF NOT EXISTS blog_userReply (
   reply     VARCHAR(100),
   PRIMARY KEY (postId, commentId, replyId),
   FOREIGN KEY (userName) REFERENCES blog_userInfo (userName),
-  FOREIGN KEY (postId,commentId) REFERENCES blog_userComment (postId,commentId)
-#   FOREIGN KEY (commentId) REFERENCES blog_userComment (commentId)
+  FOREIGN KEY (postId, commentId) REFERENCES blog_userComment (postId, commentId)
+  #   FOREIGN KEY (commentId) REFERENCES blog_userComment (commentId)
 );
 
-INSERT INTO blog_userReply (postId, commentId, replyId, userName,reply) VALUES
-  (1, 1,4, 'ykim706', 'This is awesome!!!');
+INSERT INTO blog_userReply (postId, commentId, replyId, userName, reply) VALUES
+  (1, 1, 4, 'ykim706', 'This is awesome!!!');
+
+CREATE TABLE IF NOT EXISTS blog_randomcode (
+  userName   VARCHAR(50) NOT NULL,
+  randomcode INT         NOT NULL,
+  PRIMARY KEY (randomcode),
+  FOREIGN KEY (userName) REFERENCES blog_userInfo (userName)
+);
+
 
 

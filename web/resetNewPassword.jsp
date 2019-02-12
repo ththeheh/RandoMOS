@@ -72,9 +72,9 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" style="background-color: #eff5f5;"><i
                                         class="fas fa-user"></i></span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="username" name="username">
-                        </div>
+                            <%--</div>--%>
+                            <%--<input type="text" class="form-control" placeholder="username" name="username">--%>
+                        <%--</div>--%>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" style="background-color: #eff5f5;"><i

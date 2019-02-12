@@ -122,20 +122,6 @@
             grid-area: posts;
         }
 
-        /*textarea {*/
-
-        /*background-color: white;*/
-        /*color: #adddcf;*/
-        /*border: 1px solid #adddcf;*/
-        /*border-radius: 15px;*/
-
-        /*width: 100%;*/
-        /*height: 150px;*/
-        /*padding: 12px 20px;*/
-        /*box-sizing: border-box;*/
-        /*resize: none;*/
-        /*}*/
-
         .column {
 
             margin: 0px;
@@ -168,12 +154,6 @@
             justify-content: center;
         }
 
-        .c-header {
-            margin-top: 30px;
-            margin-bottom: 10px;
-            margin-right: 20px;
-        }
-
         .c-header ul {
             display: inline-block;
             height: 40px;
@@ -185,10 +165,12 @@
             position: -webkit-sticky;
             position: sticky;
             top: 0;
-            background-color: #eff5f5;
-            opacity: 0.8;
+            opacity: 0.9;
             padding: 0px;
             font-size: 20px;
+            background: #eff5f5 url("images/randomos.jpg");
+            background-size: 600px;
+            height: 100px;
         }
 
         div .column-left image {
@@ -196,34 +178,11 @@
             height: auto;
         }
 
-        .grid-container {
-            margin: auto;
-            display: grid;
-            grid-template-columns: auto auto auto auto;
-            grid-gap: 10px;
-            border: 1px;
-            padding: 10px;
-        }
-
         .grid-container > .post_thumb {
 
             text-align: center;
             padding: 20px 0px 0px 20px;
             font-size: 30px;
-        }
-
-        /*for WYSIWYG*/
-        #post {
-            resize: vertical;
-            overflow: auto;
-            border: 1px solid silver;
-            border-radius: 5px;
-            min-height: 100px;
-            box-shadow: inset 0 0 10px silver;
-            padding: 1em;
-            background: white;
-            margin: 0 auto;
-            width: 90%;
         }
 
         .navbar-nav li {
@@ -234,8 +193,8 @@
 </head>
 <script>
 
-    $(document).ready(function()
-    {   var today = new Date();
+    $(document).ready(function () {
+        var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth() + 1; //January is 0!
         var yyyy = today.getFullYear();
@@ -247,15 +206,21 @@
         if (mm < 10) {
             mm = '0' + mm
         }
-        today = yyyy+'-'+mm+'-'+dd;
+        today = yyyy + '-' + mm + '-' + dd;
         $("#postdate").attr("value", today);
         $("#postdateedit").attr("value", today);
         console.log(today);
-         });
+    });
 
     $("#postModal").on('shown', function () {
         $("#postModal").val("");
     });
+
+    $("#postModal").on('shown', function () {
+        $("#postModal").val("");
+    });
+
+
 
     $(document).ready(function () {
         var postUserName = $('#usernamepost').text();
@@ -311,20 +276,21 @@
     function showCMDelete(i) {
         var cmuser = "cmuser" + i;
         console.log("this is the cmuser from show function" + cmuser);
-        console.log("this is the session" + '${sessionScope.username}')
-        if ($("#" + cmuser).text() == '${sessionScope.username}') {
+        console.log("this is the session" + '${sessionScope.username}');
+        if ($("#" + cmuser).text() === '${sessionScope.username}') {
             var deleteCm = "delete" + (i);
             console.log("delete comment id " + deleteCm);
             $("#" + deleteCm).css("visibility", "visible");
         }
     }
 
-    function showRPDelete(i, j) {
+    function showRPDelete(j) {
 
-        var replyuser = "replyuser" + (i) + "_" + (j);
-
-        if ($("#" + replyuser).text() === '${sessionScope.username}') {
-            // console.log("why is this runnin?");
+        var replyuser = "replyuser" +(j);
+        console.log("session"+'${sessionScope.username}');
+        console.log($("#"+replyuser).text() === '${sessionScope.username}');
+        if ($("#"+replyuser).text() === '${sessionScope.username}') {
+            console.log("why is this runnin?");
             var deleteRep = "delete" + j;
             $("#" + deleteRep).css("visibility", "visible");
 
@@ -333,21 +299,22 @@
 
     function showCMReply(i) {
         var cmuser = "cmuser" + i;
-        <%--if ($("#" + cmuser).text() === '${sessionScope.username}') {--%>
-        var replyCm = "submit" + (i);
-        $("#" + replyCm).css("visibility", "visible");
-        // }
+        console.log("this is the session username"+'${sessionScope.username}');
+        console.log('${sessionScope.username}'.length!==0);
+        if ('${sessionScope.username}'.length!==0) {
+            var replyCm = "submit" + (i);
+            $("#" + replyCm).css("visibility", "visible");
+        }
     }
 
-    function showRPReply(i, j) {
+    function showRPReply(j) {
 
-        var replyuser = "replyuser" + (i) + "_" + (j);
+        var replyuser = "replyuser" + (j);
 
-        <%--if ($("#" + replyuser).text() === '${sessionScope.username}') {--%>
-        var replyRep = "submit" + j;
-        $("#" + replyRep).css("visibility", "visible");
-
-        // }
+        if ('${sessionScope.username}'.length!==0) {
+            var replyRep = "submit" + j;
+            $("#" + replyRep).css("visibility", "visible");
+        }
     }
 
     function deleteCM(i) {
@@ -394,16 +361,15 @@
     $(document).ready(function () {
         //show comment button
 
-        if ('${sessionScope.username}'.length) {
+        if ('${sessionScope.username}'.length!==0) {
             $('#commentdiv').css("visibility", "visible");
         }
 
         <%--console.log('${show}');--%>
         var i = 1;
-        var j = 100000;
+        var j = 1000000;
 
-        if ('${show}' === 'true') { //this is good, dont change.
-
+        if ('${show}' === 'true') { //this is going to show all the comments and replies
             console.log("the comments size is " + '${post.comments.size()}'); //this is working
 //el show number with '' is number.
             <%--if ('${post.comments.size()}'.length) {--%>
@@ -432,7 +398,7 @@
             <%--}--%>
             <%--}--%>
             showRPDelete(i, j);
-            showRPReply(i, j);
+            showRPReply(j);
             j++;
 
             </c:forEach>
@@ -465,144 +431,10 @@
 
 <script type="text/javascript" src="../lib/jquery-3.3.1.js"></script>
 
-<%--something for future--%>
-<script>
-    $(document).ready(function () {
-
-        /*number of post to display*/
-        const load_post_count = 3;
-        var load_post_next = 0;
-
-
-        /* Replace the partial content of an post with the full post text */
-        function load_full_post() {
-            // Retrieve the post id from the element attribute
-            var post_id = $(this).attr('post_id');
-
-            // Grab a reference to the paragraph of text that should be replaced
-            // This needs to be done here as you cannot use $(this) in the 'success' method of an ajax call
-            var post_content = $(this).prev();
-
-            // Disable and hide the 'show full content' button as it is no longer needed
-            $(this).off('click');
-            $(this).hide();
-
-            $.ajax({
-                url: 'https://sporadic.nz/ajax/posts',
-                type: 'GET',
-                data: {id: post_id},
-                success: function (post) {
-                    post_content.text(post.content);
-                }
-            });
-        }
-
-
-        function clear_and_register_post_handlers() {
-
-            $('.post-read-more').off('click');
-            $('.post-read-more').click(load_full_post);
-        }
-
-        /* Insert a new post into the page. This creates the appropriate elements with classes, attributes
-        * and text, then inserts the content into the page */
-        function insert_post_into_page(post) {
-            // Main post div container
-            var post_div = $('<div>');
-            post_div.addClass('post');
-
-            // post title line
-            var post_title = $('<h5>').text(post.title);
-            post_title.addClass('post-title');
-
-            // Author line
-            var post_author = $('<h6>');
-            post_author.addClass('post-author');
-            post_author.attr('author_id', post.author_id); // Store the author id for later use
-
-            /*// post body
-            var post_body = $('<p>').text(post.content);
-            post_body.addClass('post-body');*/
-
-            // 'Show full content' button
-            var post_read_more = $('<div>').text('Show full content');
-            post_read_more.addClass('post-read-more');
-            post_read_more.addClass('button');
-            post_read_more.attr('post_id', post.id); // Store the post id for later use
-
-            // Nest all the elements inside the main post div
-            post_div.append(post_title);
-            post_div.append(post_author);
-            // post_div.append(post_body);
-            post_div.append(post_read_more);
-
-            // Need to retrieve the authors name, get this then update the page
-            $.ajax({
-                url: 'https://sporadic.nz/ajax/users',
-                type: 'GET',
-                data: {id: post.author_id},
-                success: function (user) {
-                    // Set the authors name
-                    post_author.text(user.first_name + ' ' + user.last_name);
-
-                    // Insert the post at the bottom of the page, above the 'load more posts' button
-                    $('#post-load-button').before(post_div);
-
-                    // Ensure that the author name and 'show full content' buttons will work
-                    clear_and_register_post_handlers();
-                }
-            });
-        }
-
-        /* Load the next batch of posts into the page */
-        function load_more_posts() {
-            // Remove the click handler to avoid double click duplicate loads
-            $('#post-load-button').off('click');
-
-            $.ajax({
-                url: 'https://sporadic.nz/ajax/posts',
-                type: 'GET',
-                data: {
-                    from: load_post_next,
-                    count: load_post_count
-                },
-                success: function (msg) {
-                    if (msg.length < load_post_count) {
-                        // Disable the button if there are no more posts
-                        $('#post-load-button').off('click');
-                        $('#post-load-button').css("background-color", "red");
-                    }
-
-                    if (msg.length !== 0) {
-                        // Grab the id of the last post and mark the next post as the first to be fetched next
-                        load_post_next = msg[msg.length - 1].id + 1;
-
-                        // Load each post into the page
-                        for (var i = 0; i < msg.length; i++) {
-                            insert_post_into_page(msg[i]);
-                        }
-                    }
-
-                    // Reattach the click handler
-                    $('#post-load-button').click(load_more_posts);
-                }
-            });
-        }
-
-        // Register click event on the post load button
-        $('#post-load-button').click(load_more_posts);
-
-        // Do an initial load
-        load_more_posts();
-    });
-</script>
-
-
 <body>
 
 
 <div class="sticky">
-    <%--<header class="c-header">--%>
 
     <div class="row">
         <nav class="navbar navbar-expand-sm bg-muted">
@@ -611,7 +443,6 @@
 
                 <ul class="navbar-nav ">
 
-                    <%--<li><h1 style="color:dimgray; text-align: center;">Your posts</h1></li>--%>
 
                     <li>
                         <button type="button" class="btn btn-sm btn-gray btn-lg"
@@ -649,10 +480,7 @@
                                         </button>
                                     </form>
                                 </li>
-
-
                             </c:when>
-                            <%--<a class="nav-link text-muted" href="mainPage.jsp" onclick="destroySess()"> Logout </a>--%>
                             <c:otherwise>
                                 <li>
                                     <button type="button" class="btn btn-sm btn-gray btn-lg"
@@ -680,7 +508,6 @@
             </div>
         </nav>
     </div>
-    <%--</header>--%>
 </div>
 
 
@@ -694,7 +521,7 @@
         <div class="post1">
 
             <%--post information start----------------------%>
-            <div class="postInfo">
+            <div class="postInfo" style="visibility: visible">
 
                 <%--user icon--%>
                 <div class="row">
@@ -722,7 +549,7 @@
 
                 <div id="postList" class="panel" style="color:dimgray;">
                     <%--load posts here--%>
-                    <p style="color: dimgray;">${post.post}.</p>
+                    ${post.post}
                 </div>
 
             </div>
@@ -796,7 +623,8 @@
 
                     </div>
                     <%--wyswyg   sooo-------------------%>
-                    <textarea id="editor" name="post"><div style="height: 400px;" aria-placeholder="The characters are limited to 1000."></div></textarea>
+                    <textarea id="editor" name="post"><div style="height: 400px;"
+                                                           aria-placeholder="The characters are limited to 1000."></div></textarea>
                     <script type="text/javascript">
                         $(document).ready(function () {
                             $("#editor").editor({

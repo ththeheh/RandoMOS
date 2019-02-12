@@ -9,12 +9,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeletePostServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -22,23 +25,36 @@ public class DeletePostServlet extends HttpServlet {
         //create a new session.
 
         try (Connection connection = DBConnection.createConnection()) {
+            List<PostJavaBean> posts = new ArrayList<>();
             LoginDataDAO dao = new LoginDataDAO(connection);
             System.out.println("servlet is running");
-            String userName = (String)req.getSession().getAttribute("username");
+            String userName = (String) req.getSession().getAttribute("username");
             int postId = Integer.parseInt(req.getParameter("deletepostid"));
             dao.deletePost(postId);
 
-            req.setAttribute("postdelete","deleted");
-            req.setAttribute("stop",true);
 
             System.out.println(postId);
+            posts = dao.getLatestPosts();
+            System.out.println(posts);
 
-            //add postdelted to mainpage for alert("Your post is deleted").
+            posts.removeIf(value -> value.getVis().equals("no"));
+
+            for (PostJavaBean postJavaBean : posts) {
+                postJavaBean.setIconPath(dao.getUserInfo(postJavaBean.getUserName()).getIconPath());
+                if (postJavaBean.getVis().equals("yes")) {
+                    postJavaBean.setVis("Visible");
+                } else {
+                    postJavaBean.setVis("Not Visible");
+                }
+            }
+
+            req.setAttribute("postdelete", "deleted");
+            req.setAttribute("stop", true);
+            req.setAttribute("posts", posts);
+
+            System.out.println("latest posts will be dispatched");
 
             req.getRequestDispatcher("mainPage.jsp").forward(req, resp);
-//            resp.sendRedirect("mainPage.jsp");
-
-
 
         } catch (SQLException e) {
             throw new ServletException(e);

@@ -92,7 +92,7 @@
 <div class="container">
     <div class="col-lg-8 col-md-8 col-sm-8 my-5" style="margin: auto">
         <div class="card">
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-md-8 col-sm-8 ">
                 <button type="button" class="btn btn-sm btn-gray btn-lg"
                         onclick="location.href='mainPage.jsp'">
                     Home
@@ -124,10 +124,10 @@
 
                     <c:forEach items="${accounts}" var="acc">
                         <li>
-                            <div class="col-lg-3">
+                            <div class="col-lg-3 col-md-4 col-md-5">
                                 <img src="${acc.iconPath}" alt="" style="width:50px;height: auto">
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-md-8 col-lg-10">
                                 <h5>${acc.userName}</h5>
                                 <p>${acc.firstName} ${acc.lastName}</p>
                             </div>

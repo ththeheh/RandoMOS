@@ -1,10 +1,7 @@
 package ictgradschool.project.servlets;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -54,8 +51,10 @@ public class LoginDataServlet extends HttpServlet {
 
                 } else {
                     //ask for register or reenter.
-                    req.setAttribute("usernameinfo", usernameinfo);
+                    Cookie cookie = new Cookie("usernameinfo",usernameinfo);
                     //I need to know the filename for jsp file to dispatch the data
+                    cookie.setMaxAge(5);
+                    resp.addCookie(cookie);
                     req.getRequestDispatcher("loginPage.jsp").forward(req, resp);
                 }
             } catch (SQLException e) {

@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ShowMainPageServlet extends HttpServlet {
@@ -30,16 +31,31 @@ public class ShowMainPageServlet extends HttpServlet {
             String userPost = req.getParameter("userPost");
 
 
-            if(userPost==null){
+            if (userPost == null) {
+
                 //make another method in dao
                 //getRandomPost()- not completed yet
                 posts = dao.getLatestPosts();
+                System.out.println(posts);
+                if ((req.getSession().getAttribute("admin") == null)) {
 
-                for(PostJavaBean postJavaBean:posts){
-                    postJavaBean.setIconPath(dao.getUserInfo(postJavaBean.getUserName()).getIconPath());
+                    posts.removeIf(value -> value.getVis().equals("no"));
+                    for (PostJavaBean postJavaBean : posts) {
+                        postJavaBean.setIconPath(dao.getUserInfo(postJavaBean.getUserName()).getIconPath());
+                    }
+                }else {
+
+                    for (PostJavaBean postJavaBean : posts) {
+                        postJavaBean.setIconPath(dao.getUserInfo(postJavaBean.getUserName()).getIconPath());
+                        if (postJavaBean.getVis().equals("yes")) {
+                            postJavaBean.setVis("Visible");
+                        } else {
+                            postJavaBean.setVis("Not Visible");
+                        }
+                    }
                 }
 
-                req.setAttribute("stop",true);
+                req.setAttribute("stop", true);
                 req.setAttribute("posts", posts);
 
                 System.out.println("latest posts will be dispatched");
@@ -53,11 +69,11 @@ public class ShowMainPageServlet extends HttpServlet {
 
                 posts = dao.getUserPosts(userName);
 
-                for(PostJavaBean postJavaBean:posts){
+                for (PostJavaBean postJavaBean : posts) {
                     postJavaBean.setIconPath(dao.getUserInfo(postJavaBean.getUserName()).getIconPath());
                 }
 
-                req.setAttribute("stop",true);
+                req.setAttribute("stop", true);
                 req.setAttribute("posts", posts);
 
                 System.out.println("your posts will be dispatched");

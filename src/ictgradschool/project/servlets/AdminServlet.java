@@ -31,7 +31,7 @@ public class AdminServlet extends HttpServlet {
 
             req.setAttribute("accounts", accs);
 
-            System.out.println("all accounts will be dispatched");
+//            System.out.println("all accounts will be dispatched");
 
             req.getRequestDispatcher("admin.jsp").forward(req, resp);
 

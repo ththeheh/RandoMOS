@@ -4,11 +4,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.http.HTTPException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-public class EditProfServlet extends HttpServlet {
+public class PostVisServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
@@ -20,24 +23,14 @@ public class EditProfServlet extends HttpServlet {
         try (Connection connection = DBConnection.createConnection()) {
             LoginDataDAO dao = new LoginDataDAO(connection);
             String userName = (String) req.getSession().getAttribute("username");
+            String vis = req.getParameter("vis");
+            int postId= Integer.parseInt(req.getParameter("postId"));
 
-            String firstName = req.getParameter("firstName");
-            String lastName = req.getParameter("lastName");
-            String birthday = req.getParameter("birthday");
-            String country = req.getParameter("country");
-            String description = req.getParameter("description");
+            dao.editPostVis(postId,vis);
 
-            //update the user info
-            dao.editInfo(userName,firstName,lastName,birthday,country,description);
-
-            //get the user info and redirect to the profile page.
-            UserInfoJavabean updatedBean = dao.getUserInfo(userName);
-            req.setAttribute("userInfo", updatedBean);
-            req.getRequestDispatcher("profilePage.jsp").forward(req,resp);
-
-
-         //                    req.setAttribute("login", userName); //do later
-
+//            System.out.println("this is running");
+//            req.getRequestDispatcher("mainPage.jsp").forward(req,resp);
+            resp.sendRedirect("mainPage.jsp");
 
         } catch (SQLException e) {
             e.printStackTrace();

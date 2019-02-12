@@ -44,20 +44,26 @@ public class ChangeIconUploadServlet extends HttpServlet {
             String userName = (String) request.getSession().getAttribute("username");
 
             DiskFileItemFactory factory = new DiskFileItemFactory();
-            factory.setSizeThreshold(4 * 1024);
+            factory.setSizeThreshold(10 * 1024);
             factory.setRepository(tempFolder);
             ServletFileUpload upload = new ServletFileUpload(factory);
 
             response.setContentType("text/html");
 
             PrintWriter out = response.getWriter();
+
             try {
                 List<FileItem> fileItems = upload.parseRequest(request);
                 File fullsizeImageFile = null;
 
                 for (FileItem fi : fileItems) {
                     if (!fi.isFormField() && (fi.getContentType().equals("image/png")) || fi.getContentType().equals("image/jpg")) {
-                        fullsizeImageFile = new File(uploadsFolder, userName+".png");
+                        fullsizeImageFile = new File(uploadsFolder, userName + ".png");
+                        if (fullsizeImageFile.exists()) {
+                            if (fullsizeImageFile.delete()) {
+                                System.out.println("File deleted successfully");
+                            }
+                        }
                         fi.write(fullsizeImageFile);
                     }
                 }
@@ -68,7 +74,7 @@ public class ChangeIconUploadServlet extends HttpServlet {
                 e.printStackTrace();
             }
 
-            dao.changeIcon(userName,userName+".png");
+            dao.changeIcon(userName, userName + ".png");
 
         } catch (SQLException e) {
             e.printStackTrace();
