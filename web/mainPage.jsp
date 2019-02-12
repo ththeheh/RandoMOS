@@ -6,7 +6,7 @@
 <html lang="en">
 
 <head>
-    <title>UOAMOS_Our First Project </title>
+    <title>RandoMOS </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -35,6 +35,12 @@
 
 
     <style>
+
+        body {
+            background-image: url("/images/sea.jpg");
+        }
+
+
         .btn {
             background-color: #e6ffe6;
             border: none;
@@ -57,43 +63,9 @@
             background-color: white;
             color: #adddcf;
             border: 1.5px solid #adddcf;
+            border-radius: 15px;
             float: right;
         }
-
-       /* button {
-
-            background-color: #e6ffe6;
-            border: none;
-            color: white;
-            padding: 8px 15px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-
-            font-size: 16px;
-            margin: 2px 2px;
-
-            -webkit-transition-duration: 0.4s;
-            transition-duration: 0.4s;
-            cursor: pointer;
-
-
-        }*/
-       /* button {
-            background-color: #e6ffe6;
-            width: 100%;
-            text-align: center;
-            border: none;
-            color: white;
-            padding: auto;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            -webkit-transition-duration: 0.4s;
-            transition-duration: 0.4s;
-            cursor: pointer;
-        }
-*/
 
         button {
             background-color: white;
@@ -106,7 +78,6 @@
             background-color: #eff5f5;
             color: #024a26;
         }
-
 
         .btn:hover {
             background-color: #eff5f5;
@@ -131,8 +102,8 @@
 
         .navbar {
             z-index: 1;
+            background-color: white;
         }
-
 
         div.sticky {
             position: -webkit-sticky;
@@ -148,10 +119,6 @@
         div .column-left image {
             width: 100%;
             height: auto;
-        }
-
-        .c-header {
-            margin-bottom: 10px;
         }
 
         .card {
@@ -171,6 +138,10 @@
 
         nav .search-container {
             float: right;
+        }
+
+        header{
+            background-color: white;
         }
 
 
@@ -207,27 +178,22 @@
 
     <c:if test="${stop!=true}">
     <jsp:include page="/showMain"/>;
-    <%--<c:set var="${stop1}" value="true" />--%>
     </c:if>
 
 </script>
 
-<%--<jsp:include page="/showMain" flush="true">--%>
 
 <body>
 
-
 <div class="sticky">
-    <header class="c-header">
-
+    <header class="header">
         <div class="row">
+            <img src="images/randomos.jpg" style="height: 150px;border:1px;" class="mx-3">
             <nav class="navbar navbar-expand-sm bg-muted">
 
                 <div class="c-header_menu col-lg-12 col-md-12 col-sm-12">
 
                     <ul class="navbar-nav">
-                        <li><h1 style="color:#527a67; text-align: center;">Welcome to RandoMOS! </h1></li>
-
                         <li>
                             <button type="button" class="btn btn-sm btn-gray btn-lg"
                                     onclick="location.href='mainPage.jsp'">
@@ -240,7 +206,8 @@
 
                                     <li>
                                         <form action="logout" method="get">
-                                            <button type="submit" class="btn btn-sm btn-info btn-lg">Log out</button>
+                                            <button type="submit" class="btn btn-sm btn-info btn-lg">Log out
+                                            </button>
                                         </form>
                                     </li>
 
@@ -307,90 +274,93 @@
                                 </form>
                             </li>
                         </c:if>
-
-
                     </ul>
                 </div>
                 <%--advanced feature nav-bar search--%>
-                <div class="search-container">
+                <div class="search-container col-lg-2 col-md-4 col-sm-6">
+
                     <form action="search" method="GET">
-                        <input type="text" placeholder="Search.." name="keyWord">
-                        <button type="submit" class="btn-sm float-right m-1" style="border-radius: 15px;">Go!
-                        </button>
+                        <div class="row">
+                            <input type="text" placeholder="Search.." name="keyWord" style="color: #adddcf ">
+                            <button type="submit" class="btn-sm float-right m-1" style="border-radius: 15px;">Go!
+                            </button>
+                        </div>
                     </form>
+
                 </div>
 
             </nav>
         </div>
-
-
     </header>
 </div>
 
 <%---------------------------------forum-------------------------------------------------------%>
+<div class="content">
+    <div class="row">
+    <div class="dropdown m-5">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            Sort By:
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="sort?sort=title&order=${order}">Title</a>
+            <a class="dropdown-item" href="sort?sort=username&order=${order}">Username</a>
+            <a class="dropdown-item" href="sort?sort=date&order=${order}">Date</a>
+        </div>
+    </div>
+    </div>
 
 
-<div class="dropdown m-5">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-        Sort By:
-    </button>
-    <div class="dropdown-menu">
-        <a  class="dropdown-item" href="sort?sort=title&order=${order}">Title</a>
-        <a class="dropdown-item" href="sort?sort=username&order=${order}">Username</a>
-        <a class="dropdown-item" href="sort?sort=date&order=${order}">Date</a>
+    <div class="container" style="z-index: -1">
+        <c:forEach items="${posts}" var="post">
+            <div class="card">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-5 mx-2 mt-2">
+                        <img src="${post.iconPath}" alt="" style="width:50px;height: auto">
+                        <p>${post.date}</p>
+                    </div>
+                    <div class="col-lg-5 col-md-8 col-sm-10  mt-4">
+                        <p id="pcontent" style="color: lightseagreen;font-size:20px"><b>${post.title}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            by
+                            &nbsp;&nbsp;&nbsp;&nbsp;${post.userName}</p>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-5  mt-4">
+                        <form action="showPost" method="POST">
+                            <div class="form-group">
+                                <input type="hidden" value="${post.postId}" name="postId">
+                            </div>
+                            <div class="form-group mx-4">
+                                <input type="submit" value="loadPost" class="btn"
+                                       style="color:lightseagreen;border-radius: 15px">
+                                <c:if test="${sessionScope.admin==true}">
+                                    <h4 style="color: plum;">${post.vis}</h4>
+                                    <div class="dropdown m-5">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                            Show or Hide:
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                               href="postVis?vis=yes&postId=${post.postId}">Show</a>
+                                            <a class="dropdown-item"
+                                               href="postVis?vis=no&postId=${post.postId}">Hide</a>
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <br/>
+        </c:forEach>
     </div>
 </div>
 
-
-<div class="container" style="z-index: -1">
-    <%--<div style="height:60px"><h3 style="color:dodgerblue">Here are the latest 10 posts for you!</h3></div>--%>
-    <%--<div class="col-6">--%>
-    <c:forEach items="${posts}" var="post">
-        <div class="card">
-            <div class="row">
-                <div class="col-lg-3">
-                    <img src="${post.iconPath}" alt="" style="width:50px;height: auto">
-                    <p>${post.date}</p>
-                </div>
-                <div class="col-lg-6">
-                    <p id="pcontent" style="color: lightseagreen;font-size:20px"><b>${post.title}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        by
-                        &nbsp;&nbsp;&nbsp;&nbsp;${post.userName}</p>
-                </div>
-                <div class="col-lg-3">
-                    <form action="showPost" method="POST">
-                        <div class="form-group">
-                            <input type="hidden" value="${post.postId}" name="postId">
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="loadPost" class="btn"
-                                   style="color:lightseagreen;border-radius: 15px">
-                            <c:if test="${sessionScope.admin==true}">
-                                <h4 style="color: blue;">${post.vis}</h4>
-                                <div class="dropdown m-5">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                    Show or Hide:
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a  class="dropdown-item" href="postVis?vis=yes&postId=${post.postId}">Show</a>
-                                    <a class="dropdown-item" href="postVis?vis=no&postId=${post.postId}">Hide</a>
-                                </div>
-                            </div>
-                            </c:if>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-        <br/>
-    </c:forEach>
-
-</div>
-
-<%-------------------------------------------------modal-----------------------------%>
+<%------------------------------------------------- post modal-----------------------------%>
 
 <div class="modal" id="postModal">
     <div class="modal-dialog modal-lg">
@@ -415,7 +385,7 @@
 
                     </div>
 
-                    <%--wyswyg   sooo-------------------%>
+                    <%--wyswyg   soo-------------------%>
                     <textarea id="editor" name="post"><div style="height:800px;width:auto"></div></textarea>
                     <script type="text/javascript">
                         $(document).ready(function () {

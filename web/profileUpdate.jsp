@@ -435,10 +435,8 @@
                         <input type="text" class="form-control" id="description" name="description">
                     </div>
 
-                    <button type="submit" class="btn btn-primary float-left btn-lg" )>
-                        Update
-                    </button>
-                    <button type="submit" class="btn btn-primary btn-lg" onclick="alert('Profile updated!')">
+                    <a href="userinfo" class="btn btn-lg float-left">Go back</a>
+                    <button type="submit" class="btn btn-lg" onclick="alert('Profile updated!')">
                         Update
                     </button>
 

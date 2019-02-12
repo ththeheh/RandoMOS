@@ -314,16 +314,15 @@ public class LoginDataDAO {
 
 
     public void editInfo(String userName, String firstName, String lastName, String birthday, String
-            country, String email, String description) throws SQLException {
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE blog_userInfo SET firstName=?, lastName=?,birthday=?,country=?,email=?,description=? WHERE userName=? ")) {
+            country, String description) throws SQLException {
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE blog_userInfo SET firstName=?, lastName=?,birthday=?,country=?,description=? WHERE userName=? ")) {
 
             preparedStatement.setString(1, firstName);
             preparedStatement.setString(2, lastName);
             preparedStatement.setString(3, birthday);
             preparedStatement.setString(4, country);
-            preparedStatement.setString(5, email);
-            preparedStatement.setString(6, description);
-            preparedStatement.setString(7, userName);
+            preparedStatement.setString(5, description);
+            preparedStatement.setString(6, userName);
             int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " user profile updated");
 

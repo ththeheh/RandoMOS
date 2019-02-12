@@ -25,18 +25,16 @@ public class EditProfServlet extends HttpServlet {
             String lastName = req.getParameter("lastName");
             String birthday = req.getParameter("birthday");
             String country = req.getParameter("country");
-            String email = req.getParameter("email");
             String description = req.getParameter("description");
 
             //update the user info
-            dao.editInfo(userName,firstName,lastName,birthday,country,email,description);
+            dao.editInfo(userName,firstName,lastName,birthday,country,description);
 
             //get the user info and redirect to the profile page.
             UserInfoJavabean updatedBean = dao.getUserInfo(userName);
             req.setAttribute("userInfo", updatedBean);
             req.getRequestDispatcher("profilePage.jsp").forward(req,resp);
 
-            System.out.println("the line before redirect"+email);
 
          //                    req.setAttribute("login", userName); //do later
 
