@@ -25,12 +25,7 @@ public class LoginDataServletNew extends HttpServlet {
             String description = req.getParameter("description");
             String password = req.getParameter("password");
 
-
-
-
 //            Do hashedCode here and store; and when comparing password, we need to get the hashedcode out from database and then crack it to password and compare.
-//            String hashedSaltedCode = req.getParameter("hashedSaltedCode");
-//            System.out.println(password);
 
             UserInfoJavabean loginData = new UserInfoJavabean(userName, firstName, lastName, birthday, country, email, description, password);
             // need to call encoding class to create hashedcode to store
@@ -40,14 +35,12 @@ public class LoginDataServletNew extends HttpServlet {
                 dao.setPassword(loginData);
             } else{
                 req.setAttribute("regMsg",regMsg );
-                req.getRequestDispatcher("reg.jsp").forward(req,resp);
+                req.getRequestDispatcher("./reg.jsp").forward(req,resp);
                 return;
             }
 
-
             //sendRedirect to LoginDataServlet
-            //refer to web.xml file for url-pattern
-            resp.sendRedirect("loginPage.jsp");
+            resp.sendRedirect("./loginPage.jsp");
 
         } catch (SQLException e) {
             e.printStackTrace();

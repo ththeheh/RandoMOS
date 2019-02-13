@@ -1,3 +1,6 @@
+<%--This is the page for user to register.--%>
+
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -7,22 +10,13 @@
     <title>Register to RandoMOS</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-          crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-    <script type="text/javascript" src="post.js"></script>
+    <script type="text/javascript" src="./js/reg.js"></script>
 
 
     <style type="text/css">
@@ -48,14 +42,11 @@
 
         .countrylist {
             position: relative;
-            /*Don't really need this just for demo styling*/
-
             float: left;
             min-width: 200px;
             margin-bottom: 20px;
         }
 
-        /* IE11 hide native button (thanks Matt!) */
         select::-ms-expand {
             display: none;
         }
@@ -131,12 +122,11 @@
         }
 
     </style>
-    <script type="text/javascript" src="regjs.js"></script>
+    <script type="text/javascript" src="../../js/reg.js"></script>
     <script>
-        // $("#userName").on('input change paste', function(){  not working, also tried change, not detecting.
+
+        //this is the ajax to dynamically check the user name.
         function userNameCheck() {
-            console.log("this guy is running!");
-            console.log($('#userName').val());
             $.ajax({
                 type: 'get',
                 url: 'userNameCheck',
@@ -144,7 +134,6 @@
                 async: true,
                 dataType: 'text',
                 success: function (succ) {
-// console.log(userJson);
                     if (succ !== 'Okay') {
                         $('#userNameMsg').css("visibility", "visible");
                     } else {
@@ -158,10 +147,7 @@
             })
 
         }
-
-
     </script>
-
 </head>
 <body>
 
@@ -180,8 +166,6 @@
             <div class="card-header">
                 <h2 class="text center">Register to be a member</h2></div>
             <div class="card-body">
-
-
                 <form action="loginDataNew" method="post">
                     <%--input-group removed for username, firstname, lastname--%>
                     <div class="form-group">
@@ -190,7 +174,6 @@
                         <input type="text" class="form-control" id="userName" name="userName" oninput="userNameCheck()"
                                required>
                     </div>
-
                     <div class="form-group">
                         <label for="firstName">First Name: &nbsp</label>
                         <input type="text" class="form-control" id="firstName" name="firstName" required>
@@ -199,7 +182,6 @@
                         <label for="lastName">Last Name: &nbsp</label>
                         <input type="text" class="form-control" id="lastName" name="lastName" required>
                     </div>
-
                     <div class="countrylist" onload="countrylist()">
                         <label>Country: </label>
                         <select name="country">
@@ -467,8 +449,6 @@
                             <option value="Zimbabwe">Zimbabwe</option>
                         </select>
                     </div>
-
-
                     <!--add name to match the parameter names. -->
                     <div class="form-group">
                         <label for="email">Email Address:</label>
@@ -479,7 +459,6 @@
                         <label for="password">Password:</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-
 
                     <div class="form-group">
                         <label for="cpass">Confirm Password:</label>
@@ -495,14 +474,10 @@
                         <label for="description">Short Intro: </label>
                         <input type="text" class="form-control" id="description" name="description">
                     </div>
-
-
                     <button type="submit" class="btn btn-gray btn-lg" onclick="cpassword()">Register</button>
-                    <!--<button type="submit" class=" pull-right btn-link"><a href="www.google.com">Forget password</a></button>-->
-
                 </form>
                 <button type="button" class="btn float-left btn-info btn-lg"
-                        onclick="location.href='mainPage.jsp'">
+                        onclick="location.href='./mainPage.jsp'">
                     Home
                 </button>
             </div>

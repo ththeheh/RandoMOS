@@ -21,22 +21,13 @@ public class DeletePostServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        //check if username that user enters matches what we have in our database
-        //create a new session.
-
         try (Connection connection = DBConnection.createConnection()) {
             List<PostJavaBean> posts = new ArrayList<>();
             LoginDataDAO dao = new LoginDataDAO(connection);
-            System.out.println("servlet is running");
             String userName = (String) req.getSession().getAttribute("username");
             int postId = Integer.parseInt(req.getParameter("deletepostid"));
             dao.deletePost(postId);
-
-
-            System.out.println(postId);
             posts = dao.getLatestPosts();
-            System.out.println(posts);
-
             posts.removeIf(value -> value.getVis().equals("no"));
 
             for (PostJavaBean postJavaBean : posts) {
@@ -54,7 +45,7 @@ public class DeletePostServlet extends HttpServlet {
 
             System.out.println("latest posts will be dispatched");
 
-            req.getRequestDispatcher("mainPage.jsp").forward(req, resp);
+            req.getRequestDispatcher("./mainPage.jsp").forward(req, resp);
 
         } catch (SQLException e) {
             throw new ServletException(e);

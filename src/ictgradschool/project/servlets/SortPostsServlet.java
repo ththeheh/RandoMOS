@@ -17,48 +17,30 @@ import java.util.List;
 public class SortPostsServlet extends HttpServlet {
     private final static int COOKIE_EXPIRATION_TIME = 20 * 60;
 
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        doGet(request, response);
-//    }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
         try (Connection connection = DBConnection.createConnection()) {
             PrintWriter out = resp.getWriter();
             LoginDataDAO dao = new LoginDataDAO(connection);
             List<PostJavaBean> posts = new ArrayList<>();
             String sort = req.getParameter("sort");
             String order = req.getParameter("order");
-//            System.out.println("order value: " + order);
-//            System.out.println("sort value: " + sort);
-
-            System.out.println("sorting is running:");
             posts = dao.getLatestPosts();
             for (PostJavaBean postJavaBean : posts) {
                 postJavaBean.setIconPath(dao.getUserInfo(postJavaBean.getUserName()).getIconPath());
             }
-            System.out.println("order empty?" + order.length());
+
             // Check cookies first for any stored sorting constraints
             if (order.length() != 0) {
                 Cookie[] cookies = req.getCookies();
                 if (cookies != null) {
-//                    System.out.println("cookies existing: "+cookies.length);
                     Cookie cookie;
                     for (int i = 0; i < cookies.length; i++) {
-                        // let's find the cookie
                         cookie = cookies[i];
                         if (cookie.getName().equals("order")) {
                             order = cookie.getValue();
                         }
-//                        if (cookie.getName().equals("sort")) {
-//                            sort = cookie.getValue();
-//                        }
                     }
-
-//                    }
-
                 }
 
             } else {
@@ -77,8 +59,6 @@ public class SortPostsServlet extends HttpServlet {
                         (order.equals("ascending") || order.equals("descending"))) {
                     // we've been given meaningful sort constraints, so try sorting by them
 
-                    System.out.println("running comparator!!"+"sort: "+sort+"order: "+order);
-
                     Comparator<PostJavaBean> comparator = new PostJavaBeanComparator(sort, order);
 
 
@@ -89,7 +69,7 @@ public class SortPostsServlet extends HttpServlet {
 
                 }
 
-                // having sorted, toggle the sortOrder for future use
+                // having sorted, toggle the order for future use
                 if (order.equals("ascending")) {
                     req.setAttribute("order", "descending");
                     Cookie sortColumnCookie = new Cookie("order", "descending");
@@ -105,35 +85,17 @@ public class SortPostsServlet extends HttpServlet {
                 }
             }
 
-            out.println("Found sort column: " + sort + " by " + order);
-
-            // Finally, since sortColumn and order were defined,
-            // we remember these sorting constraints for next time by setting them as cookies and as attributes of the Session
-
-            // Create cookie, set their expiration time and then add them to the response (they go into the response header)
-            // so that the browser can then store them on its end
-//            sortCookie = new Cookie("sort", sort);
-//            sortCookie.setMaxAge(COOKIE_EXPIRATION_TIME);
-//            resp.addCookie(sortCookie);
-//
-//            sortOrderCookie = new Cookie("sortOrder", order);
-//            sortOrderCookie.setMaxAge(COOKIE_EXPIRATION_TIME);
-//            resp.addCookie(sortOrderCookie);
-
-
-            req.setAttribute("stop", true);             //a cookie
+            // Finally, since sort and order were defined,
+            req.setAttribute("stop", true);
             req.setAttribute("posts", posts);
 
             System.out.println("Sorted posts will be displayed!");
 
-            req.getRequestDispatcher("mainPage.jsp").forward(req, resp);
+            req.getRequestDispatcher("./mainPage.jsp").forward(req, resp);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-//                req.getRequestDispatcher("mainPage.jsp").forward(req, resp);
 
 
     }

@@ -1,3 +1,6 @@
+<%--This is the page for user to update their profile.--%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,16 +10,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Profile Display</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-          crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
@@ -129,21 +125,12 @@
 
 </head>
 <body>
--------------
-
-
-
-
 <div class="container" style="margin-top: 5%;">
     <div class="col-lg-6 col-md-8 col-sm-8 my-5" style="margin: auto ">
         <div class="card" style="background:#eff5f5">
             <div class="card-header">
                 <h2 class="text center">Update Profile</h2></div>
             <div class="card-body">
-
-
-
-
                 <form action="editProf" method="post">
                     <div class="form-group">
                         <label for="firstName">First Name: &nbsp</label>
@@ -421,10 +408,7 @@
                             <option value="Zimbabwe">Zimbabwe</option>
                         </select>
                     </div>
-
-
                     <!--add name to match the parameter names. -->
-
                     <div class="form-group">
                         <label for="birthday">Birthday: </label>
                         <input type="date" class="form-control" id="birthday" name="birthday" required>

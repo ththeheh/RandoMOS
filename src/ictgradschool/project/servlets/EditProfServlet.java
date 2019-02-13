@@ -27,16 +27,11 @@ public class EditProfServlet extends HttpServlet {
             String country = req.getParameter("country");
             String description = req.getParameter("description");
 
-            //update the user info
             dao.editInfo(userName,firstName,lastName,birthday,country,description);
-
             //get the user info and redirect to the profile page.
             UserInfoJavabean updatedBean = dao.getUserInfo(userName);
             req.setAttribute("userInfo", updatedBean);
-            req.getRequestDispatcher("profilePage.jsp").forward(req,resp);
-
-
-         //                    req.setAttribute("login", userName); //do later
+            req.getRequestDispatcher("./profilePage.jsp").forward(req,resp);
 
 
         } catch (SQLException e) {

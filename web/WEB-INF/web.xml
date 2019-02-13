@@ -287,4 +287,81 @@
     </servlet-mapping>
 
 
+
+    <!--mapping for jsp files-->
+
+    <servlet>
+        <servlet-name>admin</servlet-name>
+        <jsp-file>/WEB-INF/jsp/admin.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/admin.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>newPsw</servlet-name>
+        <jsp-file>/WEB-INF/jsp/email4NewPassword.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>newPsw</servlet-name>
+        <url-pattern>/email4NewPassword.jsp</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>login</servlet-name>
+        <jsp-file>/WEB-INF/jsp/loginPage.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>login</servlet-name>
+        <url-pattern>/loginPage.jsp</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>post</servlet-name>
+        <jsp-file>/WEB-INF/jsp/post.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>post</servlet-name>
+        <url-pattern>/post.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>profile</servlet-name>
+        <jsp-file>/WEB-INF/jsp/profilePage.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>profile</servlet-name>
+        <url-pattern>/profilePage.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>profileUpdate</servlet-name>
+        <jsp-file>/WEB-INF/jsp/profileUpdate.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>profileUpdate</servlet-name>
+        <url-pattern>/profileUpdate.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>reg</servlet-name>
+        <jsp-file>/WEB-INF/jsp/reg.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>reg</servlet-name>
+        <url-pattern>/reg.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>resetNewPsw</servlet-name>
+        <jsp-file>/WEB-INF/jsp/resetNewPassword.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>resetNewPsw</servlet-name>
+        <url-pattern>/resetNewPassword.jsp</url-pattern>
+    </servlet-mapping>
+
 </web-app>

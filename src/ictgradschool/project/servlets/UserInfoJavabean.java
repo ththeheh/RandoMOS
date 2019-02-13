@@ -1,6 +1,5 @@
 package ictgradschool.project.servlets;
 
-import java.io.File;
 import java.io.Serializable;
 
 public class UserInfoJavabean implements Serializable {
@@ -13,7 +12,6 @@ public class UserInfoJavabean implements Serializable {
     private String description;
     private String password;
     private String iconPath="boy1.png";
-//    private String hashedSaltedCode;
     public boolean valid;
 
     public UserInfoJavabean(){}

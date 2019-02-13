@@ -24,38 +24,24 @@ public class LoginDataServlet extends HttpServlet {
             LoginDataDAO dao = new LoginDataDAO(connection);
             String userName = req.getParameter("username");
             String password = req.getParameter("password");
-
-//            System.out.println(userName);
-//            System.out.println(password);
-
             try {
-                System.out.println("log in password "+password);
 
                 String usernameinfo = dao.validation(userName, password);
-                if (!usernameinfo.equals("Not match") && !usernameinfo.equals("Not exist")) {
+                if (!usernameinfo.equals("Notmatch") && !usernameinfo.equals("Notexist")) {
 
                     session.setAttribute("username", userName);
-                    session.setAttribute("admin",dao.checkAdmin(userName));
+                    session.setAttribute("admin", dao.checkAdmin(userName));
 
-                    System.out.println("this session username should be "+ req.getSession().getAttribute("username"));
 
-//                   System.out.println(session.getAttribute("username"));
-
-                    resp.sendRedirect("mainPage.jsp");            //if the username is a username, send to mainpage
-//                    req.setAttribute("login", userName); //do later
-
-////to get postlist from DAO.
-//                    req.setAttribute("otherPosts",otherPostList);
-//                    req.setAttribute("myPosts",myPostList);
-
+                    resp.sendRedirect("./mainPage.jsp");            //if the username is a username, send to mainpage
+//to get postlist from DAO.
 
                 } else {
                     //ask for register or reenter.
-                    Cookie cookie = new Cookie("usernameinfo",usernameinfo);
-                    //I need to know the filename for jsp file to dispatch the data
+                    Cookie cookie = new Cookie("usernameinfo", usernameinfo);
                     cookie.setMaxAge(5);
                     resp.addCookie(cookie);
-                    req.getRequestDispatcher("loginPage.jsp").forward(req, resp);
+                    req.getRequestDispatcher("./loginPage.jsp").forward(req, resp);
                 }
             } catch (SQLException e) {
                 throw new ServletException(e);

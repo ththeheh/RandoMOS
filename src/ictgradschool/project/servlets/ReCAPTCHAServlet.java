@@ -16,7 +16,7 @@ public class ReCAPTCHAServlet extends HttpServlet {
         System.out.println(recaptcha_response);
 
         HttpURLConnection conn = (HttpURLConnection) new URL("https://www.google.com/recaptcha/api/siteverify").openConnection();
-        String para = "secret=6LcKQpAUAAAAAJfwbei3P7e0_j-u4PGemndrvhXK" + "&response=" + recaptcha_response;
+        String para = "secret=6LfUG5EUAAAAAF6cl_dxnsnfAtNXGOFJwjxAOl8w" + "&response=" + recaptcha_response;
         conn.setRequestMethod("POST");
         conn.setDoOutput(true);
         DataOutputStream writer = new DataOutputStream(conn.getOutputStream());

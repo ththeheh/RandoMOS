@@ -1,5 +1,7 @@
 'use strict';
 
+//Just to alert when confirmation password does not match the password.
+
 var password = document.getElementById("password")
     , confirm_password = document.getElementById("cpass");
 

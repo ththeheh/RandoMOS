@@ -16,18 +16,17 @@ public class BatchAccsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String failUserName = "The following userNames can not be registered because they already exist!: ";
-        String failEmail = "The following emails can not be registered because they already exist!: ";
-//        PrintWriter out = response.getWriter();
+        //sorry not enough time to finish reporting conflict usernames for batch registration.
+//        String failUserName = "The following userNames can not be registered because they already exist!: ";
+//        String failEmail = "The following emails can not be registered because they already exist!: ";
 
         try (Connection connection = DBConnection.createConnection()) {
             LoginDataDAO dao = new LoginDataDAO(connection);
             String batchAccsInfo = request.getParameter("batchAccs");
-//            String batchAccsInfo = "hihihi  hi hi hi";
             System.out.println(batchAccsInfo);
             try (Scanner scanner = new Scanner(batchAccsInfo)) {
                 scanner.useDelimiter(";|\\r\\n\"");
-                while(scanner.hasNext()){
+                while (scanner.hasNext()) {
                     String userName = scanner.next();
                     String password = scanner.next();
                     String firstName = scanner.next();
@@ -36,24 +35,20 @@ public class BatchAccsServlet extends HttpServlet {
                     String country = scanner.next();
                     String email = scanner.next();
                     String description = scanner.next();
-                    System.out.println("one line is read!!"+userName+password+firstName+lastName+birthday+country+email+"descrip"+description);
+                    System.out.println("one line is read!!" + userName + password + firstName + lastName + birthday + country + email + "descrip" + description);
 
 
                     UserInfoJavabean loginData = new UserInfoJavabean(userName, firstName, lastName, birthday, country, email, description, password);
-                    // need to call encoding class to create hashedcode to store
                     String regMsg = dao.usernameConflict(userName, email);
                     if (regMsg.equals("Okay")) {
                         dao.addLoginData(loginData);
                         dao.setPassword(loginData);
                     } else if (regMsg.equals("username")) {
-                        failUserName += userName + ", ";
-
+//                        failUserName += userName + ", ";
                     } else {
-                        failEmail += email + ", ";
-                    }}
-
-                    //sendRedirect to LoginDataServlet
-                    //refer to web.xml file for url-pattern
+//                        failEmail += email + ", ";
+                    }
+                }
 
                 List<UserInfoJavabean> accs = new ArrayList<>();
 
@@ -63,11 +58,8 @@ public class BatchAccsServlet extends HttpServlet {
 
                 System.out.println("all accounts will be dispatched");
 
-                request.getRequestDispatcher("admin.jsp").forward(request, response);
+                request.getRequestDispatcher("./admin.jsp").forward(request, response);
 
-//                response.setContentType("text");
-//                out.print(failUserName + "\n" + failEmail);
-//                out.flush();
             }
         } catch (SQLException e) {
             e.printStackTrace();
