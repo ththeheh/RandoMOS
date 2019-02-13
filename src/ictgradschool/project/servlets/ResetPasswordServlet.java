@@ -34,7 +34,6 @@ public class ResetPasswordServlet extends HttpServlet {
 
         String mailPassword = "Park1234";
 
-
         String fromName = "From RandoMOS";
 
         String fromEmail = "ththeheh@gmail.com";
@@ -69,7 +68,7 @@ public class ResetPasswordServlet extends HttpServlet {
             System.out.println("This is username: " + userName);
             randomcode = dao.randomCode(userName);
 
-            String link = "http://localhost:8083/redirectPassword?randomcode=";
+            String link = "http://sporadic.nz/redirectPassword?randomcode=";
 
             String mailContents = "Click this link to reset your password \n" + link + randomcode;
 
@@ -150,7 +149,7 @@ public class ResetPasswordServlet extends HttpServlet {
 
             }
 
-            resp.sendRedirect("loginPage.jsp");
+            resp.sendRedirect("./loginPage.jsp");
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -40,7 +40,7 @@ public class LogOutServlet extends HttpServlet {
 
             System.out.println("latest posts will be dispatched");
 
-            req.getRequestDispatcher("mainPage.jsp").forward(req, resp);
+            req.getRequestDispatcher("./mainPage.jsp").forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
         }

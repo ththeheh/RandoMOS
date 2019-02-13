@@ -25,8 +25,6 @@ public class ChangeIconLibServlet extends HttpServlet {
 
         String iconName = req.getParameter("iconName");
 
-        System.out.println(iconName);
-
         dao.changeIcon(userName,iconName);
 
         PrintWriter out = resp.getWriter();

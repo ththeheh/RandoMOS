@@ -18,7 +18,6 @@ public class DeleteCommentServlet extends HttpServlet {
 
         try (Connection connection = DBConnection.createConnection()) {
             LoginDataDAO dao = new LoginDataDAO(connection);
-//                System.out.println("servlet is running");
             String userName = (String)req.getSession().getAttribute("username");
             int postId = Integer.parseInt(req.getParameter("postId"));
             int commentId =  Integer.parseInt(req.getParameter("commentId"));
@@ -30,7 +29,6 @@ public class DeleteCommentServlet extends HttpServlet {
             PrintWriter out = resp.getWriter();
 
             resp.setContentType("text");
-//            resp.setCharacterEncoding("UTF-8");
             out.print("success");
             out.flush();
 

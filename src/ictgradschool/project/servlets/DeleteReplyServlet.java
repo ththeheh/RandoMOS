@@ -19,26 +19,16 @@ import java.sql.SQLException;
 
             try (Connection connection = DBConnection.createConnection()) {
                 LoginDataDAO dao = new LoginDataDAO(connection);
-//                System.out.println("servlet is running");
                 String userName = (String)req.getSession().getAttribute("username");
                 int postId = Integer.parseInt(req.getParameter("postId"));
                 int replyId =  Integer.parseInt(req.getParameter("replyId"));
                 dao.deleteReply(postId,replyId);
-                System.out.println(postId);
-
                 PrintWriter out = resp.getWriter();
-
                 resp.setContentType("text");
-//            resp.setCharacterEncoding("UTF-8");
                 out.print("success");
                 out.flush();
-
             } catch (SQLException e) {
                 throw new ServletException(e);
-            }
-
-
+           }
         }
-
-
     }

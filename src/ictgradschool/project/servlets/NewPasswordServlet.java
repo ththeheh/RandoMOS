@@ -19,13 +19,9 @@ public class NewPasswordServlet extends HttpServlet {
             System.out.println("This is username: " + userName);
             String password = req.getParameter("password");
             System.out.println("This is password" + password);
-
-            //update the user info
             dao.updatePassword(userName, password);
-
             req.getSession().invalidate();
-
-            resp.sendRedirect("loginPage.jsp");
+            resp.sendRedirect("./loginPage.jsp");
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -16,13 +16,11 @@ public class RedirectResetPasswordPageServlet extends HttpServlet {
             int randomcode = Integer.parseInt(req.getParameter("randomcode"));
             System.out.println("This is randomcode: "+randomcode);
 
-            //update the user info
             if(dao.getUserByRandomCode(randomcode)!=null){
-                resp.sendRedirect("resetNewPassword.jsp");
+                resp.sendRedirect("./resetNewPassword.jsp");
             }else{
-                resp.sendRedirect("reg.jsp");  //somebody try to hack.
+                resp.sendRedirect("./reg.jsp");  //somebody try to hack.
             }
-
 
         } catch (SQLException e) {
             e.printStackTrace();

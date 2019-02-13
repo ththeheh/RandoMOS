@@ -23,8 +23,9 @@ public class LoginDataDAO {
         this.connection = connection;
     }
 
+//    This is our DAO for methods, they are self-explanatory
 
-    //Use this method to add new data entries- used in LoginDataServletNew
+
     public void addLoginData(UserInfoJavabean loginData) throws SQLException {
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_userInfo(userName, firstName,lastName, birthday, country, email, description,iconPath,type) VALUES (?,?,?,?,?,?,?,?,?)")) {
             preparedStatement.setString(1, loginData.getUserName());
@@ -37,9 +38,6 @@ public class LoginDataDAO {
             preparedStatement.setString(8, loginData.getIconPath());
             preparedStatement.setString(9, "user");
 
-            //set default icon
-            //            System.out.println("Row added");
-            //Just indicating how many rows are added
             int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " user account added");
         }
@@ -49,21 +47,14 @@ public class LoginDataDAO {
 
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_password(userName,hashedCode,salt,iteration) VALUES (?,?,?,?)")) {
             preparedStatement.setString(1, loginData.getUserName());
-
-            //5 length salt
             int iteration = 10;
             int saltLength = 2;
             byte[] saltByte = Passwords.getNextSalt(saltLength);
             String hashedCode = Passwords.base64Encode(Passwords.hash(loginData.getPassword().toCharArray(), saltByte, iteration));
-//            System.out.println(hashedCode);
-
-
             String salt = new String(saltByte);
-
             preparedStatement.setString(2, hashedCode);
             preparedStatement.setString(3, salt);
             preparedStatement.setInt(4, iteration);
-
             int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " hashed password table added");
 
@@ -73,16 +64,11 @@ public class LoginDataDAO {
     public void updatePassword(String userName, String newPassword) throws SQLException {
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE blog_password SET hashedCode=?,salt=?,iteration=? WHERE userName=? ")) {
 
-            System.out.println("Servlet passed username" + userName);
-            System.out.println("Servlet passed password" + newPassword);
-
             int iteration = 10;
             int saltLength = 2;
             byte[] saltByte = Passwords.getNextSalt(saltLength);
             String hashedCode = Passwords.base64Encode(Passwords.hash(newPassword.toCharArray(), saltByte, iteration));
-
             String salt = new String(saltByte);
-
             preparedStatement.setString(1, hashedCode);
             preparedStatement.setString(2, salt);
             preparedStatement.setInt(3, iteration);
@@ -98,13 +84,8 @@ public class LoginDataDAO {
     public int randomCode(String userName) throws SQLException {
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO blog_randomcode(userName, randomCode) VALUES (?,?)")) {
             preparedStatement.setString(1, userName);
-//            preparedStatement.setInt(2, resetPasswordJavaBean.getRandomPassword());
             int randomNum = (int) (Math.floor(Math.random() * 900000) + 100000);
-            System.out.println(randomNum);
-
             preparedStatement.setInt(2, randomNum);
-
-
             int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " user randomcode generated");
 
@@ -131,22 +112,19 @@ public class LoginDataDAO {
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_password")) {
                 while (resultSet.next()) {
                     if (resultSet.getString(1).equals(userName)) {
-
-                        System.out.println("find the username: " + userName);
-                        //convert password to hashedcode and then compare.
                         String salt = resultSet.getString(3);
                         int iteration = resultSet.getInt(4);
-                        System.out.println("ths salt got is " + salt);
+
                         byte[] saltByte = salt.getBytes();
                         if (Passwords.isExpectedPassword(password.toCharArray(), saltByte, iteration, Passwords.base64Decode(resultSet.getString(2)))) {
                             return userName;
                         } else {
-                            return "Not match";
+                            return "Notmatch";
                         }
                     }
                 }
             }
-            return "Not exist";
+            return "Notexist";
 
         }
 
@@ -200,8 +178,7 @@ public class LoginDataDAO {
                         loginBean.setCountry(resultSet.getString(5));
                         loginBean.setEmail(resultSet.getString(6));
                         loginBean.setDescription(resultSet.getString(7));
-
-                        loginBean.setIconPath("../icons/" + (resultSet.getString(8)));
+                        loginBean.setIconPath("./icons/" + (resultSet.getString(8)));
 
                         return loginBean;
                     }
@@ -234,22 +211,20 @@ public class LoginDataDAO {
     }
 
     public List<PostJavaBean> getUserPosts(String userName) throws SQLException {
-//        PostJavaBean mainPost = new PostJavaBean();
+
         List<PostJavaBean> posts = new ArrayList<>();
 
         try (Statement statement = this.connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_post")) {
 
                 while (resultSet.next()) {
-//                    System.out.println(resultSet.getRow());
-//                int randomRow = (int) (Math.floor(Math.random() * 3) + 1);
-//                resultSet.absolute(resultSet.getRow());
+
                     if (userName.equals(resultSet.getString(2))) {
                         int postId = resultSet.getInt(1);
                         String title = resultSet.getString(3);
                         String post = resultSet.getString(4);
                         String date = resultSet.getString(5);
-//                        System.out.println(date);
+
                         PostJavaBean userPost = new PostJavaBean(userName, title, post, postId, date);
                         posts.add(userPost);
                     }
@@ -362,7 +337,6 @@ public class LoginDataDAO {
 
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userReply WHERE userName = ?;")) {
             preparedStatement.setString(1, userName);
-            //may need to think about if can delete comments under one username and check how the tables are joined.
             preparedStatement.executeUpdate();
 
         }
@@ -418,7 +392,7 @@ public class LoginDataDAO {
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_post WHERE postId = ?;")) {
             preparedStatement.setInt(1, postId);
 
-            //may need to think about if can delete comments under one username and check how the tables are joined.
+
             int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " post deleted");
         }
@@ -433,11 +407,11 @@ public class LoginDataDAO {
             preparedStatement.setString(4, post.getDate());
             preparedStatement.setString(5, "yes"); //default
 
-            //Just indicating how many rows are added
+
             int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " post added");
 
-            //get automatic key
+
             ResultSet rs = preparedStatement.getGeneratedKeys();
             rs.next();
             return rs.getInt(1);
@@ -454,10 +428,10 @@ public class LoginDataDAO {
 
             System.out.println(comment.getUserName());
 
-            preparedStatement.setString(3, comment.getUserName()); //can not be null
+            preparedStatement.setString(3, comment.getUserName());
             preparedStatement.setString(4, comment.getComment());
 
-            //Just indicating how many rows are added
+
             int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " comment added");
         }
@@ -472,7 +446,6 @@ public class LoginDataDAO {
             preparedStatement.setString(4, reply.getUserName());
             preparedStatement.setString(5, reply.getComment());
 
-            //Just indicating how many rows are added
             int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " reply added");
         }
@@ -480,15 +453,14 @@ public class LoginDataDAO {
 
 
     public List<PostJavaBean> getLatestPosts() throws SQLException {
-//        PostJavaBean mainPost = new PostJavaBean();
+
         List<PostJavaBean> posts = new ArrayList<>();
 
         try (Statement statement = this.connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_post")) {
                 while (resultSet.next()) {
                     DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-//                    DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//                    String dateLocalStr = LocalDate.parse(resultSet.getString(5), inputFormat).format(outputFormat);
+
                     String dateLocalStr = resultSet.getString(5);
                     System.out.println(dateLocalStr);
                     LocalDate dateLocal = LocalDate.parse(dateLocalStr, inputFormat);
@@ -505,7 +477,7 @@ public class LoginDataDAO {
                     String date = resultSet.getString(5);
                     String vis = resultSet.getString(6);
                     PostJavaBean mainPost = new PostJavaBean(userName, title, post, postId, date, vis);
-//                mainPost1.setPostId(postId);
+
                     posts.add(mainPost);
                 }
 
@@ -527,7 +499,6 @@ public class LoginDataDAO {
             preparedStatement.setInt(1, postId);
             preparedStatement.setInt(2, replyId);
 
-            //may need to think about if can delete comments under one username and check how the tables are joined.
             int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " reply deleted");
         }
@@ -535,7 +506,6 @@ public class LoginDataDAO {
 
 
     public void deleteComment(int postId, int commentId) throws SQLException {
-//        System.out.printf(postId+"   "+commentId);
 
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userReply WHERE postId = ? AND commentId = ? ")) {
             preparedStatement.setInt(1, postId);
@@ -543,16 +513,12 @@ public class LoginDataDAO {
             preparedStatement.executeUpdate();
 
         }
-
         try (PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM blog_userComment WHERE postId = ? AND commentId = ?")) {
             preparedStatement.setInt(1, postId);
             preparedStatement.setInt(2, commentId);
             int numRows = preparedStatement.executeUpdate();
             System.out.println(numRows + " comment and all replies deleted");
         }
-
-
-        //may need to think about if can delete comments under one username and check how the tables are joined.
 
     }
 
@@ -563,8 +529,6 @@ public class LoginDataDAO {
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM blog_post")) {
                 while (resultSet.next()) {
                     DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-//                    DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//                    String dateLocalStr = LocalDate.parse(resultSet.getString(5), inputFormat).format(outputFormat);
                     String dateLocalStr = resultSet.getString(5);
                     System.out.println(dateLocalStr);
                     LocalDate dateLocal = LocalDate.parse(dateLocalStr, inputFormat);
@@ -574,8 +538,6 @@ public class LoginDataDAO {
                         continue;
                     }
 
-                    System.out.println("hahaha" + resultSet.getString(2));
-
                     if (resultSet.getString(2).contains(keyWord) || resultSet.getString(3).contains(keyWord) || resultSet.getString(5).contains(keyWord)) {
 
                         int postId = resultSet.getInt(1);
@@ -584,7 +546,6 @@ public class LoginDataDAO {
                         String post = resultSet.getString(4);
                         String date = resultSet.getString(5);
                         PostJavaBean searchPost = new PostJavaBean(userName, title, post, postId, date);
-//                mainPost1.setPostId(postId);
                         posts.add(searchPost);
                     }
 
@@ -611,11 +572,8 @@ public class LoginDataDAO {
                     String country = resultSet.getString(5);
                     String email = resultSet.getString(6);
                     String description = resultSet.getString(7);
-
-                    String iconPath = "../icons/" + (resultSet.getString(8));
-
+                    String iconPath = "./icons/" + (resultSet.getString(8));
                     accs.add(new UserInfoJavabean(userName, fName, lName, bday, country, email, description, iconPath));
-
                 }
                 return accs;
             }
@@ -638,26 +596,7 @@ public class LoginDataDAO {
 }
 
 
-//    public List<Post> getMyPost(String userName) throws SQLException {
-//        UserInfoJavabean loginBean = new UserInfoJavabean();
-//        try (Statement statement = this.connection.createStatement()) {
-//            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM loginDataTable")) {
-//                while (resultSet.next()) {
-//                    if (resultSet.getString(1).equals(userName)) {
-//                        loginBean.setUserName(resultSet.getString(1));
-//                        loginBean.setFirstName(resultSet.getString(2));
-//                        loginBean.setLastName(resultSet.getString(3));
-//                        loginBean.setBirthday(resultSet.getString(4));
-//                        loginBean.setCountry(resultSet.getString(5));
-//                        loginBean.setEmail(resultSet.getString(6));
-//                        loginBean.setDescription(resultSet.getString(7));
-//                        return loginBean;
-//                    }
-//                }
-//            }
-//        }
-//        return null;
-//    }
+
 
 
 
